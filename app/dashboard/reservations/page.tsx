@@ -1,155 +1,152 @@
-"use client"
-
-import { useState } from "react"
-import { Search, Filter, Plus, Calendar as CalendarIcon, List, Clock, MoreHorizontal } from "lucide-react"
-
 import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
-import { Badge } from "@/components/ui/Badge"
 import { Card, CardContent } from "@/components/ui/Card"
 
-const reservations = [
-  { id: "RES-4091", guest: "Alice Smith", property: "Grand Plaza Hotel", room: "Deluxe Suite (402)", checkIn: "Oct 12, 14:00", checkOut: "Oct 15, 11:00", guests: 2, amount: "$840.00", source: "Direct", status: "Confirmed", avatar: "AS" },
-  { id: "RES-4092", guest: "Bob Jones", property: "Grand Plaza Hotel", room: "Standard Room (204)", checkIn: "Oct 12, 15:00", checkOut: "Oct 18, 11:00", guests: 1, amount: "$520.00", source: "Booking.com", status: "Checked In", avatar: "BJ" },
-  { id: "RES-4093", guest: "Charlie Brown", property: "V Resort & Spa", room: "Penthouse", checkIn: "Oct 10, 14:00", checkOut: "Oct 12, 11:00", guests: 4, amount: "$1,200.00", source: "Expedia", status: "Checked Out", avatar: "CB" },
-  { id: "RES-4094", guest: "Diana Prince", property: "V Beach Resort", room: "Villa 3", checkIn: "Nov 01, 14:00", checkOut: "Nov 07, 11:00", guests: 2, amount: "$3,450.00", source: "Direct", status: "Pending", avatar: "DP" },
-  { id: "RES-4095", guest: "Evan Wright", property: "Grand Plaza Hotel", room: "Ocean View (305)", checkIn: "Oct 12, 16:00", checkOut: "Oct 20, 11:00", guests: 2, amount: "$900.00", source: "Direct", status: "Confirmed", avatar: "EW" },
-]
-
-function getStatusBadge(status: string) {
-  switch(status) {
-    case 'Confirmed': return <Badge variant="softSuccess">Confirmed</Badge>
-    case 'Checked In': return <Badge variant="softAccent">Checked In</Badge>
-    case 'Checked Out': return <Badge variant="softDefault">Checked Out</Badge>
-    case 'Pending': return <Badge variant="softWarning">Pending</Badge>
-    default: return <Badge variant="outline">{status}</Badge>
-  }
-}
-
 export default function ReservationsPage() {
-  const [view, setView] = useState<'list' | 'timeline'>('list')
-
   return (
-    <div className="flex flex-col gap-6 h-full">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="font-heading text-2xl font-bold tracking-tight text-foreground">Reservations</h1>
-          <p className="text-muted-foreground mt-1 text-sm">Manage bookings, arrivals, and departures across your properties.</p>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <Button variant="outline" className="h-9 bg-background">Grand Plaza Hotel ▼</Button>
-          <Button variant="outline" className="h-9 bg-background"><CalendarIcon className="h-4 w-4 mr-2" /> Oct 12 - Oct 19 ▼</Button>
-          <Button variant="outline" className="h-9 bg-background"><Filter className="h-4 w-4 mr-2" /> Filter</Button>
-          <Button className="h-9"><Plus className="h-4 w-4 mr-2" /> New Reservation</Button>
-        </div>
+    <div className="flex flex-col gap-6 h-full pb-8">
+      {/* Structural Match: Screenshot 2 Bottom Left (Reservations Calendar Gantt) */}
+      
+      <div className="flex items-center justify-between">
+        <h1 className="font-heading text-xl font-bold text-foreground">Reservations Calendar</h1>
       </div>
 
-      {/* KPI Strip */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {[
-          { label: "Today's Arrivals", value: "24", sub: "8 pending" },
-          { label: "Today's Departures", value: "18", sub: "12 checked out" },
-          { label: "In-House Guests", value: "142", sub: "85% occupancy" },
-          { label: "Pending Reservations", value: "6", sub: "Action required" },
-        ].map((kpi, i) => (
-          <div key={i} className="p-4 bg-card rounded-xl border border-border flex flex-col justify-center shadow-sm">
-            <span className="text-sm font-medium text-muted-foreground">{kpi.label}</span>
-            <div className="flex items-baseline gap-2 mt-1">
-              <span className="text-2xl font-bold text-foreground">{kpi.value}</span>
-              <span className="text-xs text-muted-foreground font-medium">{kpi.sub}</span>
+      {/* Gantt Calendar View */}
+      <Card className="border-border shadow-sm bg-card overflow-hidden">
+        
+        {/* Calendar Header */}
+        <div className="flex justify-between items-center p-4 border-b border-border bg-muted/10">
+          <div className="flex items-center gap-4">
+            <span className="font-bold text-sm">Room Type</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button className="h-8 text-xs bg-primary text-primary-foreground">Add Booking</Button>
+            <Button variant="outline" className="h-8 text-xs">View All</Button>
+          </div>
+        </div>
+
+        {/* Gantt Grid Structure */}
+        <div className="flex flex-col w-full overflow-x-auto">
+          {/* Dates Header Row */}
+          <div className="flex border-b border-border min-w-[800px]">
+            <div className="w-48 shrink-0 p-3 bg-background border-r border-border"></div>
+            <div className="flex-1 grid grid-cols-5 bg-background">
+              {[19, 20, 21, 22, 23].map(date => (
+                <div key={date} className="p-2 border-r border-border flex flex-col items-center justify-center">
+                  <span className="text-xs text-muted-foreground font-semibold uppercase">Oct</span>
+                  <span className="text-sm font-bold text-foreground">{date}</span>
+                </div>
+              ))}
             </div>
           </div>
-        ))}
-      </div>
 
-      {/* Main Content Workspace */}
-      <div className="flex-1 flex flex-col bg-card rounded-xl border border-border shadow-sm overflow-hidden">
-        {/* Workspace Toolbar */}
-        <div className="flex flex-col sm:flex-row justify-between items-center p-4 border-b border-border bg-muted/20 gap-4">
-          <div className="relative w-full sm:w-96">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input 
-              type="search" 
-              placeholder="Search by guest name, reservation ID..." 
-              className="pl-9 h-9 bg-background border-border"
-            />
+          {/* Deluxe Row */}
+          <div className="flex border-b border-border min-w-[800px] bg-background">
+            <div className="w-48 shrink-0 p-4 border-r border-border">
+              <span className="font-bold text-sm block mb-2">Deluxe</span>
+              <div className="flex items-center gap-2 mb-2">
+                <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center text-[10px] font-bold text-primary">GB</div>
+                <div>
+                  <p className="text-xs font-semibold leading-none">Gim Baxter</p>
+                  <p className="text-[10px] text-muted-foreground">Confirmed</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex-1 relative border-r border-border bg-[linear-gradient(90deg,var(--border)_1px,transparent_1px)] bg-[size:20%]">
+              {/* Gantt Bar spanning day 19, 20, 21 */}
+              <div className="absolute top-4 left-4 right-[42%] h-8 bg-success-muted border border-success/30 rounded flex items-center px-3 shadow-sm">
+                <span className="text-xs font-semibold text-success">Confirmed</span>
+                <span className="text-[10px] text-success/70 ml-auto">Checked in 11:15m</span>
+              </div>
+            </div>
           </div>
-          <div className="flex bg-muted rounded-lg p-1 border border-border">
-            <button 
-              onClick={() => setView('list')}
-              className={`flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${view === 'list' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
-            >
-              <List className="h-4 w-4" /> List
-            </button>
-            <button 
-              onClick={() => setView('timeline')}
-              className={`flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${view === 'timeline' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
-            >
-              <Clock className="h-4 w-4" /> Timeline
-            </button>
+
+          {/* Suite Row */}
+          <div className="flex border-b border-border min-w-[800px] bg-background">
+            <div className="w-48 shrink-0 p-4 border-r border-border">
+              <span className="font-bold text-sm block mb-2">Suite</span>
+              <div className="flex items-center gap-2 mb-2">
+                <div className="h-6 w-6 rounded-full bg-warning/20 flex items-center justify-center text-[10px] font-bold text-warning">EC</div>
+                <div>
+                  <p className="text-xs font-semibold leading-none">Enna Coles</p>
+                  <p className="text-[10px] text-muted-foreground">Confirmed</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex-1 relative border-r border-border bg-[linear-gradient(90deg,var(--border)_1px,transparent_1px)] bg-[size:20%]">
+              {/* Gantt Bar spanning day 20, 21, 22 */}
+              <div className="absolute top-4 left-[22%] right-[22%] h-8 bg-warning-muted border border-warning/30 rounded flex items-center px-3 shadow-sm">
+                <span className="text-xs font-semibold text-warning">Confirmed</span>
+                <span className="text-[10px] text-warning/70 ml-auto">Checked in 14:00m</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Standard Row */}
+          <div className="flex border-b border-border min-w-[800px] bg-background">
+            <div className="w-48 shrink-0 p-4 border-r border-border">
+              <span className="font-bold text-sm block mb-2">Standard</span>
+              <div className="flex items-center gap-2 mb-2">
+                <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center text-[10px] font-bold text-primary">SS</div>
+                <div>
+                  <p className="text-xs font-semibold leading-none">Sora Somes</p>
+                  <p className="text-[10px] text-muted-foreground">Confirmed</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex-1 relative border-r border-border bg-[linear-gradient(90deg,var(--border)_1px,transparent_1px)] bg-[size:20%]">
+              {/* Gantt Bar spanning day 21, 22, 23 */}
+              <div className="absolute top-4 left-[42%] right-4 h-8 bg-primary/10 border border-primary/30 rounded flex items-center px-3 shadow-sm">
+                <span className="text-xs font-semibold text-primary">Confirmed</span>
+                <span className="text-[10px] text-primary/70 ml-auto">Check-in in 1 day</span>
+              </div>
+            </div>
           </div>
         </div>
+      </Card>
 
-        {/* View Content */}
-        {view === 'list' ? (
-          <div className="overflow-x-auto flex-1">
-            <table className="w-full text-sm text-left whitespace-nowrap">
-              <thead className="text-xs text-muted-foreground uppercase bg-muted/30 border-b border-border">
-                <tr>
-                  <th className="px-6 py-3.5 font-semibold tracking-wider">Guest</th>
-                  <th className="px-6 py-3.5 font-semibold tracking-wider">Reservation ID</th>
-                  <th className="px-6 py-3.5 font-semibold tracking-wider">Property & Room</th>
-                  <th className="px-6 py-3.5 font-semibold tracking-wider">Check-in / Check-out</th>
-                  <th className="px-6 py-3.5 font-semibold tracking-wider">Source</th>
-                  <th className="px-6 py-3.5 font-semibold tracking-wider">Status</th>
-                  <th className="px-6 py-3.5 font-semibold tracking-wider text-right">Amount</th>
-                  <th className="px-6 py-3.5 font-semibold tracking-wider text-right"></th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border/50">
-                {reservations.map((res) => (
-                  <tr key={res.id} className="bg-background hover:bg-muted/30 transition-colors group cursor-pointer">
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="h-8 w-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center font-semibold text-xs text-primary">
-                          {res.avatar}
-                        </div>
-                        <span className="font-semibold text-foreground">{res.guest}</span>
+      {/* Today's Arrivals & Departures Table (From screenshot) */}
+      <Card className="border-border shadow-sm bg-card mt-2">
+        <div className="flex justify-between items-center p-4 border-b border-border">
+          <div>
+            <h3 className="font-bold text-sm text-foreground">Today's Arrivals & Departures</h3>
+            <p className="text-xs text-muted-foreground">4 Arrivals • 2 Departures</p>
+          </div>
+          <Button variant="outline" className="h-8 text-xs">View All</Button>
+        </div>
+        <CardContent className="p-0">
+          <table className="w-full text-sm text-left whitespace-nowrap">
+            <tbody className="divide-y divide-border">
+              {[
+                { name: "Arian Saberi", type: "Arrivals", room: "Room Number", status: "Checked In" },
+                { name: "Armin Hadziber", type: "Arrivals", room: "Room Number", status: "Checked In" },
+                { name: "Peth Geroen", type: "Arrivals", room: "Room Number", status: "Checked In" },
+              ].map((row, i) => (
+                <tr key={i} className="hover:bg-muted/30 transition-colors">
+                  <td className="px-4 py-3">
+                    <div className="flex items-center gap-3">
+                      <div className="h-8 w-8 rounded-full bg-primary/10 text-[10px] font-bold text-primary flex items-center justify-center">
+                        {row.name.split(' ').map(n=>n[0]).join('')}
                       </div>
-                    </td>
-                    <td className="px-6 py-4 text-muted-foreground">{res.id}</td>
-                    <td className="px-6 py-4">
-                      <p className="font-medium text-foreground">{res.property}</p>
-                      <p className="text-xs text-muted-foreground mt-0.5">{res.room}</p>
-                    </td>
-                    <td className="px-6 py-4">
-                      <p className="text-foreground font-medium">{res.checkIn}</p>
-                      <p className="text-xs text-muted-foreground mt-0.5">to {res.checkOut}</p>
-                    </td>
-                    <td className="px-6 py-4 text-muted-foreground">{res.source}</td>
-                    <td className="px-6 py-4">
-                      {getStatusBadge(res.status)}
-                    </td>
-                    <td className="px-6 py-4 text-right font-semibold text-foreground">{res.amount}</td>
-                    <td className="px-6 py-4 text-right">
-                      <Button variant="ghost" size="icon" className="h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <div className="p-8 text-center text-muted-foreground flex-1 flex flex-col items-center justify-center bg-muted/10">
-            <CalendarIcon className="h-12 w-12 mb-4 opacity-20" />
-            <p className="font-medium text-foreground">Timeline View Active</p>
-            <p className="text-sm mt-1">Interactive Gantt chart of room reservations would render here.</p>
-          </div>
-        )}
-      </div>
+                      <div>
+                        <p className="font-semibold text-sm">{row.name}</p>
+                        <p className="text-[10px] text-muted-foreground">{row.type}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-4 py-3 text-muted-foreground font-medium">{row.room}</td>
+                  <td className="px-4 py-3">
+                    <span className="text-xs font-semibold text-success bg-success-muted px-2 py-1 rounded-md">{row.status}</span>
+                  </td>
+                  <td className="px-4 py-3 text-right">
+                    <Button variant="ghost" size="sm" className="text-xs text-muted-foreground">Actions...</Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </CardContent>
+      </Card>
+
     </div>
   )
 }
