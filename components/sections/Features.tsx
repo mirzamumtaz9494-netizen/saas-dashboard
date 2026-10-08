@@ -52,13 +52,16 @@ export function Features() {
           No generic CRM features—just tools that actually help you manage your daily operations.
         </p>
       </div>
-      <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3 mt-12">
+      <div className="mx-auto grid justify-center gap-6 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3 mt-12">
         {features.map((feature) => (
-          <div key={feature.title} className="relative overflow-hidden rounded-lg border bg-background p-2">
+          <div 
+            key={feature.title} 
+            className="group relative overflow-hidden rounded-xl border bg-card p-2 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-primary/50 cursor-default"
+          >
             <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-              <feature.icon className="h-10 w-10 text-primary" />
+              <feature.icon className="h-10 w-10 text-primary transition-transform duration-300 group-hover:scale-110" />
               <div className="space-y-2">
-                <h3 className="font-bold">{feature.title}</h3>
+                <h3 className="font-bold text-foreground">{feature.title}</h3>
                 <p className="text-sm text-muted-foreground">{feature.description}</p>
               </div>
             </div>

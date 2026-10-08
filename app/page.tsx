@@ -4,6 +4,7 @@ import { Hero } from "@/components/sections/Hero"
 import { SocialProof } from "@/components/sections/SocialProof"
 import { DashboardPreview } from "@/components/sections/DashboardPreview"
 import { Features } from "@/components/sections/Features"
+import { Integrations } from "@/components/sections/Integrations"
 import { Pricing } from "@/components/sections/Pricing"
 import { FAQ } from "@/components/sections/FAQ"
 import { Footer } from "@/components/sections/Footer"
@@ -18,6 +19,7 @@ export default function Home() {
         <SocialProof />
         <DashboardPreview />
         <Features />
+        <Integrations />
         <Pricing />
         <FAQ />
       </main>

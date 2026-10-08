@@ -31,7 +31,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={`${inter.variable} ${jakarta.variable}`}>
       <body className={`${inter.className} min-h-screen flex flex-col antialiased bg-background text-foreground`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider 
+          attribute="class" 
+          defaultTheme="dark"
+          themes={['light', 'dark', 'theme-green', 'theme-gold']} 
+          enableSystem={false} 
+          disableTransitionOnChange
+        >
           {children}
         </ThemeProvider>
       </body>

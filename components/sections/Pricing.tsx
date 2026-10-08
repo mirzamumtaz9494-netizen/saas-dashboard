@@ -59,14 +59,14 @@ export function Pricing() {
           </p>
         </div>
         
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto mt-12">
           {plans.map((plan) => (
             <Card 
               key={plan.name} 
-              className={`flex flex-col relative overflow-hidden transition-all duration-200 ${
+              className={`group flex flex-col relative overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${
                 plan.highlighted 
-                  ? "border-primary shadow-lg scale-100 lg:scale-105 z-10 bg-card" 
-                  : "border-border shadow-sm scale-100 bg-background hover:border-border/80 hover:shadow-md"
+                  ? "border-primary shadow-lg scale-100 lg:scale-105 z-10 bg-card hover:shadow-primary/20" 
+                  : "border-border shadow-sm scale-100 bg-card hover:border-primary/50"
               }`}
             >
               {plan.highlighted && (
