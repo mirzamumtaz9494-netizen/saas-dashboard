@@ -4,6 +4,7 @@ import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, BarChart, 
 import { MoreHorizontal } from "lucide-react"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card"
+import { Button } from "@/components/ui/Button"
 
 const sparklineData = [
   { val: 12 }, { val: 18 }, { val: 15 }, { val: 25 }, { val: 22 }, { val: 30 }, { val: 28 }
