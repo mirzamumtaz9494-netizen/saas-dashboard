@@ -2,50 +2,52 @@ import Image from "next/image"
 
 export function DashboardPreview() {
   return (
-    <section id="preview" className="py-12 md:py-20 bg-background relative overflow-hidden">
-      <div className="container relative z-10">
-        <div className="relative mx-auto max-w-5xl rounded-xl border bg-background/50 p-2 shadow-2xl backdrop-blur sm:p-4">
-          <div className="overflow-hidden rounded-lg border bg-card">
-            {/* Minimal window controls */}
-            <div className="flex h-10 items-center gap-1.5 border-b bg-muted/50 px-4">
-              <div className="h-3 w-3 rounded-full bg-rose-500" />
-              <div className="h-3 w-3 rounded-full bg-amber-500" />
-              <div className="h-3 w-3 rounded-full bg-emerald-500" />
+    <section className="relative bg-background pb-24 md:pb-32 -mt-16 overflow-hidden">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="relative mx-auto max-w-6xl rounded-2xl border border-border/50 bg-card p-2 shadow-2xl md:p-4">
+          <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none h-32 bottom-0 top-auto rounded-b-2xl"></div>
+          
+          <div className="overflow-hidden rounded-xl border border-border/50 bg-background shadow-sm">
+            {/* Window Controls (Mac Style) */}
+            <div className="flex items-center gap-2 border-b border-border/50 bg-muted/30 px-4 py-3">
+              <div className="h-3 w-3 rounded-full bg-error/80"></div>
+              <div className="h-3 w-3 rounded-full bg-warning/80"></div>
+              <div className="h-3 w-3 rounded-full bg-success/80"></div>
+              <div className="mx-auto flex items-center justify-center rounded-md bg-background px-3 py-1 text-xs text-muted-foreground shadow-sm border border-border/50">
+                vprofessionals.com/dashboard
+              </div>
             </div>
             
-            <div className="relative aspect-video w-full bg-muted/20">
-              {/* Fallback layout if no image is present - looks like a dashboard wireframe */}
-              <div className="absolute inset-0 flex">
-                <div className="w-64 border-r bg-card hidden md:block p-4 space-y-4">
-                  <div className="h-8 w-32 bg-primary/20 rounded-md"></div>
-                  <div className="space-y-2 mt-8">
-                    {[1, 2, 3, 4, 5, 6].map(i => (
-                      <div key={i} className="h-8 w-full bg-muted rounded-md"></div>
-                    ))}
-                  </div>
-                </div>
-                <div className="flex-1 p-6 space-y-6">
-                  <div className="flex justify-between items-center">
-                    <div className="h-8 w-48 bg-muted rounded-md"></div>
-                    <div className="h-10 w-32 bg-primary rounded-md"></div>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    {[1, 2, 3, 4].map(i => (
-                      <div key={i} className="h-32 bg-card border rounded-lg p-4 flex flex-col justify-between">
-                        <div className="h-4 w-1/2 bg-muted rounded"></div>
-                        <div className="h-8 w-3/4 bg-foreground/20 rounded"></div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="h-64 bg-card border rounded-lg w-full"></div>
+            {/* Dashboard Mockup Content */}
+            <div className="flex h-[400px] md:h-[600px] w-full bg-background">
+              {/* Sidebar Mock */}
+              <div className="hidden w-64 flex-shrink-0 border-r border-border/50 bg-muted/10 p-4 md:block">
+                <div className="mb-8 h-6 w-32 rounded bg-muted"></div>
+                <div className="space-y-3">
+                  <div className="h-8 w-full rounded bg-primary/10"></div>
+                  <div className="h-8 w-full rounded bg-muted/50"></div>
+                  <div className="h-8 w-full rounded bg-muted/50"></div>
+                  <div className="h-8 w-full rounded bg-muted/50"></div>
                 </div>
               </div>
               
-              <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm">
-                 <p className="text-sm font-medium text-muted-foreground flex items-center">
-                   <span className="inline-block h-2 w-2 rounded-full bg-primary mr-2"></span>
-                   Interactive Preview Available in Template
-                 </p>
+              {/* Main Content Mock */}
+              <div className="flex-1 p-6 space-y-6">
+                <div className="flex items-center justify-between">
+                  <div className="h-8 w-48 rounded bg-muted"></div>
+                  <div className="h-8 w-24 rounded bg-muted"></div>
+                </div>
+                
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div key={i} className="rounded-xl border border-border/50 p-4 space-y-3">
+                      <div className="h-4 w-20 rounded bg-muted"></div>
+                      <div className="h-8 w-24 rounded bg-foreground/10"></div>
+                    </div>
+                  ))}
+                </div>
+                
+                <div className="h-64 w-full rounded-xl border border-border/50 bg-muted/5"></div>
               </div>
             </div>
           </div>

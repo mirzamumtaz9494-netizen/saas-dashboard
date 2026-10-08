@@ -1,130 +1,165 @@
+"use client"
+
 import { 
   Users, 
   CreditCard, 
-  Activity, 
+  BedDouble, 
   CalendarDays, 
   ArrowUpRight, 
-  ArrowDownRight 
+  ArrowDownRight, 
+  MoreHorizontal
 } from "lucide-react"
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts"
 
 import { cn } from "@/lib/utils"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
+import { Badge } from "@/components/ui/Badge"
+
+const revenueData = [
+  { name: "Mon", total: 3200 },
+  { name: "Tue", total: 4100 },
+  { name: "Wed", total: 3800 },
+  { name: "Thu", total: 5400 },
+  { name: "Fri", total: 7200 },
+  { name: "Sat", total: 8500 },
+  { name: "Sun", total: 6100 },
+]
 
 export default function DashboardPage() {
   return (
-    <div className="grid gap-4 md:gap-8">
-      <div className="flex items-center justify-between">
+    <div className="grid gap-6 md:gap-8 pb-8">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Dashboard Overview</h1>
-          <p className="text-muted-foreground">Welcome back, here's what's happening at your properties today.</p>
+          <h1 className="font-heading text-3xl font-bold tracking-tight">Overview</h1>
+          <p className="text-muted-foreground mt-1 text-sm">Here's what's happening at Grand Hotel Downtown today.</p>
         </div>
-        <Button>Download Report</Button>
+        <div className="flex items-center gap-2">
+          <Button variant="outline" className="h-9">Oct 12, 2026</Button>
+          <Button className="h-9">Download Report</Button>
+        </div>
       </div>
       
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Occupancy Rate</CardTitle>
+            <BedDouble className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold tracking-tight">78.4%</div>
+            <p className="text-xs text-success flex items-center mt-1 font-medium">
+              <ArrowUpRight className="h-3 w-3 mr-0.5" /> +8.2% from last week
+            </p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Revenue</CardTitle>
             <CreditCard className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$45,231.89</div>
-            <p className="text-xs text-success flex items-center mt-1">
-              <ArrowUpRight className="h-3 w-3 mr-1" /> +20.1% from last month
+            <div className="text-3xl font-bold tracking-tight">$128,450</div>
+            <p className="text-xs text-success flex items-center mt-1 font-medium">
+              <ArrowUpRight className="h-3 w-3 mr-0.5" /> +12.4% from last month
             </p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Occupancy Rate</CardTitle>
-            <Activity className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">84%</div>
-            <p className="text-xs text-success flex items-center mt-1">
-              <ArrowUpRight className="h-3 w-3 mr-1" /> +12% from last month
-            </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">New Bookings</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Reservations</CardTitle>
             <CalendarDays className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+128</div>
-            <p className="text-xs text-error flex items-center mt-1">
-              <ArrowDownRight className="h-3 w-3 mr-1" /> -4% from last week
+            <div className="text-3xl font-bold tracking-tight">1,284</div>
+            <p className="text-xs text-success flex items-center mt-1 font-medium">
+              <ArrowUpRight className="h-3 w-3 mr-0.5" /> +6.8% from last week
             </p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Guests</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">ADR (Avg Daily Rate)</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">342</div>
-            <p className="text-xs text-success flex items-center mt-1">
-              <ArrowUpRight className="h-3 w-3 mr-1" /> +42 since yesterday
+            <div className="text-3xl font-bold tracking-tight">$184.20</div>
+            <p className="text-xs text-error flex items-center mt-1 font-medium">
+              <ArrowDownRight className="h-3 w-3 mr-0.5" /> -4.2% from last month
             </p>
           </CardContent>
         </Card>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        <Card className="col-span-4">
+        <Card className="col-span-4 flex flex-col">
           <CardHeader>
             <CardTitle>Revenue Overview</CardTitle>
-            <CardDescription>
-              Your revenue and ADR across all properties for the last 7 days.
-            </CardDescription>
+            <CardDescription>Daily revenue performance for the last 7 days.</CardDescription>
           </CardHeader>
-          <CardContent className="pl-2">
-            <div className="h-[350px] w-full bg-muted/20 rounded-md border flex items-center justify-center">
-              <p className="text-muted-foreground text-sm flex items-center">
-                <span className="h-2 w-2 rounded-full bg-primary mr-2"></span>
-                Chart component preview
-              </p>
+          <CardContent className="flex-1 pl-0">
+            <div className="h-[300px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={revenueData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                  <XAxis 
+                    dataKey="name" 
+                    stroke="var(--color-muted-foreground-light)" 
+                    fontSize={12} 
+                    tickLine={false} 
+                    axisLine={false} 
+                    dy={10}
+                  />
+                  <YAxis 
+                    stroke="var(--color-muted-foreground-light)" 
+                    fontSize={12} 
+                    tickLine={false} 
+                    axisLine={false} 
+                    tickFormatter={(value) => `$${value}`}
+                    dx={-10}
+                  />
+                  <Tooltip 
+                    cursor={{ fill: 'var(--muted)' }}
+                    contentStyle={{ backgroundColor: 'var(--card)', borderColor: 'var(--border)', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}
+                    itemStyle={{ color: 'var(--foreground)', fontWeight: 600 }}
+                  />
+                  <Bar dataKey="total" fill="var(--primary)" radius={[4, 4, 0, 0]} maxBarSize={40} />
+                </BarChart>
+              </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>
         
         <Card className="col-span-3">
-          <CardHeader>
-            <CardTitle>Recent Check-ins</CardTitle>
-            <CardDescription>
-              Guests arriving today.
-            </CardDescription>
+          <CardHeader className="flex flex-row items-center justify-between">
+            <div>
+              <CardTitle>Upcoming Arrivals</CardTitle>
+              <CardDescription>Guests checking in today.</CardDescription>
+            </div>
+            <Button variant="ghost" size="icon" className="h-8 w-8 -mr-2"><MoreHorizontal className="h-4 w-4" /></Button>
           </CardHeader>
           <CardContent>
             <div className="space-y-6">
               {[
-                { name: "Olivia Martin", room: "Suite 402", time: "14:30 PM", status: "Checked In" },
-                { name: "Jackson Lee", room: "Room 105", time: "15:00 PM", status: "Pending" },
-                { name: "Isabella Nguyen", room: "Penthouse", time: "16:45 PM", status: "Pending" },
-                { name: "William Kim", room: "Room 204", time: "18:00 PM", status: "Late Arrival" },
+                { name: "Olivia Martin", room: "Suite 402", time: "14:30 PM", status: "VIP", initials: "OM" },
+                { name: "Jackson Lee", room: "Room 105", time: "15:00 PM", status: "Standard", initials: "JL" },
+                { name: "Isabella Nguyen", room: "Penthouse", time: "16:45 PM", status: "VIP", initials: "IN" },
+                { name: "William Kim", room: "Room 204", time: "18:00 PM", status: "Standard", initials: "WK" },
+                { name: "Sofia Davis", room: "Room 305", time: "20:00 PM", status: "Late", initials: "SD" },
               ].map((guest, i) => (
-                <div key={i} className="flex items-center">
-                  <div className="h-9 w-9 rounded-full bg-muted flex items-center justify-center font-medium">
-                    {guest.name.substring(0, 2).toUpperCase()}
+                <div key={i} className="flex items-center group">
+                  <div className="h-9 w-9 rounded-full bg-muted border border-border flex items-center justify-center font-medium text-xs text-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                    {guest.initials}
                   </div>
                   <div className="ml-4 space-y-1">
                     <p className="text-sm font-medium leading-none">{guest.name}</p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-xs text-muted-foreground">
                       {guest.room} • {guest.time}
                     </p>
                   </div>
                   <div className="ml-auto font-medium">
-                    <span className={cn(
-                      "text-xs px-2 py-1 rounded-full",
-                      guest.status === "Checked In" ? "bg-success/20 text-success" :
-                      guest.status === "Pending" ? "bg-accent/20 text-accent-foreground" :
-                      "bg-error/20 text-error"
-                    )}>
+                    <Badge variant={guest.status === 'VIP' ? 'softAccent' : guest.status === 'Late' ? 'softWarning' : 'softDefault'} className="text-[10px] px-2 uppercase tracking-wider">
                       {guest.status}
-                    </span>
+                    </Badge>
                   </div>
                 </div>
               ))}
