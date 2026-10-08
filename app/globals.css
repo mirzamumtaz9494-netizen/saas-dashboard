@@ -1,115 +1,83 @@
-@import "tailwindcss";
-
-@theme {
-  --font-sans: var(--font-inter);
-  --font-heading: var(--font-jakarta);
-
-  /* Light Theme Base Variables */
-  --color-primary: #4F46E5;
-  --color-primary-foreground: #FFFFFF;
-  
-  --color-secondary: #F1F5F9;
-  --color-secondary-foreground: #0F172A;
-  
-  --color-success: #10B981;
-  --color-success-foreground: #FFFFFF;
-  --color-success-muted: #D1FAE5;
-  
-  --color-error: #F43F5E;
-  --color-error-foreground: #FFFFFF;
-  --color-error-muted: #FFE4E6;
-
-  --color-warning: #F59E0B;
-  --color-warning-foreground: #FFFFFF;
-  --color-warning-muted: #FEF3C7;
-  
-  --color-background-light: #F8FAFC;
-  --color-background-dark: #0B1120;
-  
-  --color-foreground-light: #0F172A;
-  --color-foreground-dark: #F8FAFC;
-
-  --color-card-light: #FFFFFF;
-  --color-card-dark: #111827;
-  
-  --color-border-light: #E2E8F0;
-  --color-border-dark: #263247;
-  
-  --color-muted-light: #F1F5F9;
-  --color-muted-dark: #172033;
-  
-  --color-muted-foreground-light: #64748B;
-  --color-muted-foreground-dark: #94A3B8;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   :root {
-    --background: var(--color-background-light);
-    --foreground: var(--color-foreground-light);
-    
-    --card: var(--color-card-light);
-    --card-foreground: var(--color-foreground-light);
-    
-    --border: var(--color-border-light);
-    
-    --primary: var(--color-primary);
-    --primary-foreground: var(--color-primary-foreground);
-    
-    --secondary: var(--color-secondary);
-    --secondary-foreground: var(--color-secondary-foreground);
-    
-    --success: var(--color-success);
-    --success-foreground: var(--color-success-foreground);
-    
-    --error: var(--color-error);
-    --error-foreground: var(--color-error-foreground);
+    /* LUXURY NAVY & GOLD THEME (Matching exact screenshot) */
+    --background: 226 58% 10%; /* Very dark navy #0A1128 */
+    --foreground: 0 0% 100%;
 
-    --warning: var(--color-warning);
-    --warning-foreground: var(--color-warning-foreground);
-    
-    --muted: var(--color-muted-light);
-    --muted-foreground: var(--color-muted-foreground-light);
+    --card: 225 48% 14%; /* Slightly lighter navy for cards */
+    --card-foreground: 0 0% 100%;
 
+    --popover: 225 48% 14%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 43 74% 49%; /* Luxury Gold #D4AF37 */
+    --primary-foreground: 226 58% 10%;
+
+    --secondary: 225 48% 22%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 225 48% 20%;
+    --muted-foreground: 215 20% 70%;
+
+    --accent: 43 74% 49%;
+    --accent-foreground: 226 58% 10%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 225 48% 22%;
+    --input: 225 48% 22%;
+    --ring: 43 74% 49%;
     --radius: 0.5rem;
-  }
-  
-  .dark {
-    --background: var(--color-background-dark);
-    --foreground: var(--color-foreground-dark);
-    
-    --card: var(--color-card-dark);
-    --card-foreground: var(--color-foreground-dark);
-    
-    --border: var(--color-border-dark);
-    
-    --primary: #6366F1;
-    --primary-foreground: #FFFFFF;
-    
-    --secondary: #1E293B;
-    --secondary-foreground: #F8FAFC;
-    
-    --muted: var(--color-muted-dark);
-    --muted-foreground: var(--color-muted-foreground-dark);
 
-    /* Dark Mode Status Overrides */
-    --success-muted: rgba(16, 185, 129, 0.15);
-    --error-muted: rgba(244, 63, 94, 0.15);
-    --warning-muted: rgba(245, 158, 11, 0.15);
+    /* Status Colors adjusted for the dark luxury theme */
+    --success: 142 71% 45%;
+    --success-muted: 142 71% 45% / 0.15;
+    --warning: 43 74% 49%;
+    --warning-muted: 43 74% 49% / 0.15;
+    --error: 346 87% 60%;
+    --error-muted: 346 87% 60% / 0.15;
   }
 
-  html {
-    scroll-behavior: smooth;
+  .light {
+    /* Reverting light mode to force the dark luxury theme as default for the exact match, 
+       but keeping variables in case of toggle */
+    --background: 43 20% 96%; /* Cream/Parchment */
+    --foreground: 226 58% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 226 58% 10%;
+    --border: 43 30% 80%;
   }
-  
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
   body {
-    background-color: var(--background);
-    color: var(--foreground);
-    font-feature-settings: "rlig" 1, "calt" 1;
-    font-family: var(--font-sans), sans-serif;
+    @apply bg-background text-foreground antialiased;
+    /* Adding a subtle gradient background to the body to match the presentation in the screenshot */
+    background: radial-gradient(circle at center, #1a2342 0%, #0a1128 100%);
+    min-height: 100vh;
   }
+}
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading), sans-serif;
-    letter-spacing: -0.01em;
-  }
+/* Custom scrollbar for luxury feel */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
 }

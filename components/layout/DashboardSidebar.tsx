@@ -3,104 +3,69 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { 
-  Building, 
   LayoutDashboard, 
-  LineChart, 
   CalendarDays, 
   Users, 
-  Building2, 
-  BedDouble, 
-  CreditCard, 
-  FileText, 
-  Bell, 
-  Settings,
-  Hotel,
   SprayCan,
-  ConciergeBell
+  ConciergeBell,
+  FileText, 
+  LineChart, 
+  Settings
 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
-const navGroups = [
-  {
-    label: "Overview",
-    items: [
-      { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-    ]
-  },
-  {
-    label: "Operations",
-    items: [
-      { title: "Reservations", href: "/dashboard/reservations", icon: CalendarDays },
-      { title: "Guests", href: "/dashboard/guests", icon: Users },
-      { title: "Rooms", href: "/dashboard/rooms", icon: BedDouble },
-      { title: "Housekeeping", href: "/dashboard/housekeeping", icon: SprayCan },
-      { title: "Front Desk", href: "/dashboard/front-desk", icon: ConciergeBell },
-      { title: "Properties", href: "/dashboard/properties", icon: Building2 },
-    ]
-  },
-  {
-    label: "Insights & Finance",
-    items: [
-      { title: "Analytics", href: "/dashboard/analytics", icon: LineChart },
-      { title: "Reports", href: "/dashboard/reports", icon: FileText },
-      { title: "Transactions", href: "/dashboard/transactions", icon: CreditCard },
-    ]
-  },
-  {
-    label: "System",
-    items: [
-      { title: "Notifications", href: "/dashboard/notifications", icon: Bell },
-      { title: "Settings", href: "/dashboard/settings", icon: Settings },
-    ]
-  }
+const navItems = [
+  { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  { title: "Reservations Calendar", href: "/dashboard/reservations", icon: CalendarDays },
+  { title: "Guest Management", href: "/dashboard/guests", icon: Users },
+  { title: "Housekeeping", href: "/dashboard/housekeeping", icon: SprayCan },
+  { title: "Front Desk", href: "/dashboard/front-desk", icon: ConciergeBell },
+  { title: "Reports", href: "/dashboard/reports", icon: FileText },
+  { title: "Analytics", href: "/dashboard/analytics", icon: LineChart },
+  { title: "Settings", href: "/dashboard/settings", icon: Settings },
 ]
 
 export function DashboardSidebar() {
   const pathname = usePathname()
 
   return (
-    <aside className="hidden border-r border-border bg-card md:flex w-[260px] flex-col flex-shrink-0 min-h-screen transition-all">
-      <div className="flex h-16 items-center px-6 border-b border-border bg-card">
-        <Link href="/" className="flex items-center gap-2 font-semibold group">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm group-hover:opacity-90 transition-opacity">
-            <Hotel className="h-4 w-4" />
+    <aside className="hidden border-r border-border bg-card md:flex w-[250px] flex-col flex-shrink-0 min-h-full">
+      {/* Exact Logo Match from Screenshot */}
+      <div className="flex h-[72px] items-center px-6 border-b border-border bg-card">
+        <Link href="/" className="flex items-center gap-3 font-semibold group">
+          <div className="flex h-7 w-7 items-center justify-center rounded bg-gradient-to-br from-[#D4AF37] to-[#8B6508] shadow-sm">
+            <span className="text-white font-heading font-bold text-lg leading-none">G</span>
           </div>
-          <span className="font-heading tracking-tight text-lg text-foreground">Vprofessionals</span>
+          <span className="font-heading tracking-tight text-xl text-foreground">GrandStay</span>
         </Link>
       </div>
       
-      <div className="flex-1 overflow-auto py-6 space-y-8 no-scrollbar bg-card">
-        {navGroups.map((group, i) => (
-          <div key={i} className="px-4">
-            <h4 className="mb-3 px-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground/70">
-              {group.label}
-            </h4>
-            <nav className="space-y-1">
-              {group.items.map((item) => {
-                const isActive = pathname === item.href
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={cn(
-                      "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all group relative",
-                      isActive 
-                        ? "bg-primary/10 text-primary font-semibold" 
-                        : "text-secondary-foreground/80 hover:bg-muted hover:text-foreground"
-                    )}
-                  >
-                    {isActive && (
-                      <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-primary rounded-r-md" />
-                    )}
-                    <item.icon className={cn("h-[18px] w-[18px]", isActive ? "text-primary" : "text-muted-foreground group-hover:text-secondary-foreground")} />
-                    {item.title}
-                  </Link>
-                )
-              })}
-            </nav>
-          </div>
-        ))}
+      <div className="flex-1 overflow-auto py-6 space-y-1 px-3 bg-card">
+        {navItems.map((item) => {
+          const isActive = pathname === item.href
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all group relative",
+                isActive 
+                  ? "bg-white/5 text-white font-medium" 
+                  : "text-muted-foreground hover:bg-white/5 hover:text-white"
+              )}
+            >
+              {isActive && (
+                <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-6 bg-[#D4AF37] rounded-r-md shadow-[0_0_8px_rgba(212,175,55,0.8)]" />
+              )}
+              <item.icon className={cn(
+                "h-[18px] w-[18px] transition-colors", 
+                isActive ? "text-[#D4AF37]" : "text-muted-foreground group-hover:text-muted-foreground/80"
+              )} />
+              {item.title}
+            </Link>
+          )
+        })}
       </div>
     </aside>
   )

@@ -1,6 +1,6 @@
 "use client"
 
-import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, BarChart, Bar, PieChart, Pie, Cell } from "recharts"
+import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, BarChart, Bar, PieChart, Pie, Cell, LineChart, Line, ComposedChart } from "recharts"
 import { Button } from "@/components/ui/Button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card"
 import { Badge } from "@/components/ui/Badge"
@@ -20,7 +20,7 @@ const roomTypeData = [
   { name: 'Suite', value: 30 },
   { name: 'Standard', value: 25 },
 ]
-const COLORS = ['var(--primary)', '#818cf8', '#c7d2fe']
+const COLORS = ['url(#goldGrad)', 'url(#silverGrad)', '#1e293b']
 
 const sentimentData = [
   [4, 5, 4, 3, 5, 4, 5],
@@ -31,62 +31,79 @@ const sentimentData = [
 
 export default function DashboardPage() {
   return (
-    <div className="flex flex-col gap-6 h-full pb-8">
+    <div className="flex flex-col gap-5 h-full pb-8">
       {/* Top Row: Revenue and Room Type (Matches Screenshot 1 Dark Mode structure) */}
-      <div className="grid gap-6 grid-cols-1 lg:grid-cols-3">
+      <div className="grid gap-5 grid-cols-1 lg:grid-cols-[2fr_1fr]">
         
-        {/* Revenue Chart - spanning 2 cols */}
-        <Card className="lg:col-span-2 border-border shadow-sm bg-card flex flex-col">
+        {/* Revenue Chart */}
+        <Card className="border-[#2A3441] shadow-none bg-card flex flex-col">
           <CardHeader className="flex flex-row justify-between items-start pb-2">
             <div>
-              <CardTitle className="text-lg">Revenue</CardTitle>
-              <p className="text-xs text-muted-foreground mt-1">Last 30 Days</p>
+              <CardTitle className="text-sm font-semibold text-foreground tracking-wide">Revenue</CardTitle>
+              <p className="text-[10px] text-muted-foreground mt-0.5">Last 7 days</p>
               <div className="flex items-baseline gap-3 mt-2">
-                <span className="text-3xl font-bold">$54,290</span>
-                <span className="text-sm text-muted-foreground line-through">$54,290</span>
-                <span className="text-xs font-semibold text-success bg-success-muted px-2 py-0.5 rounded-full">+12.4%</span>
+                <span className="text-2xl font-bold text-white">$54,290</span>
+                <span className="text-xs text-muted-foreground line-through">$54,290</span>
+                <span className="text-[10px] font-semibold text-[#10B981] bg-[#10B981]/10 px-1.5 py-0.5 rounded-sm">+12.4%</span>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <Badge variant="outline" className="text-[10px] font-medium">RevPAR & Occupancy</Badge>
+              <Badge variant="outline" className="text-[9px] font-medium border-[#3A4556] text-muted-foreground bg-[#1A2235]">RevPAR & Occupancy</Badge>
             </div>
           </CardHeader>
-          <CardContent className="flex-1 min-h-[250px]">
+          <CardContent className="flex-1 min-h-[220px]">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={revenueData} margin={{ top: 20, right: 0, left: -20, bottom: 0 }}>
+              <ComposedChart data={revenueData} margin={{ top: 20, right: 0, left: -25, bottom: 0 }}>
                 <defs>
-                  <linearGradient id="colorRev" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="var(--primary)" stopOpacity={0}/>
+                  <linearGradient id="barGold" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#FDE08B"/>
+                    <stop offset="50%" stopColor="#D4AF37"/>
+                    <stop offset="100%" stopColor="#8B6508"/>
                   </linearGradient>
                 </defs>
-                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: 'var(--muted-foreground)' }} dy={10} />
-                <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: 'var(--muted-foreground)' }} tickFormatter={(v) => `$${v/1000}k`} />
-                <Tooltip contentStyle={{ backgroundColor: 'var(--card)', borderColor: 'var(--border)', borderRadius: '8px' }} />
-                <Area type="monotone" dataKey="occ" stroke="#818cf8" strokeWidth={2} fillOpacity={1} fill="url(#colorRev)" />
-                <Area type="monotone" dataKey="revenue" stroke="var(--primary)" strokeWidth={3} fillOpacity={0} />
-              </AreaChart>
+                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: '#64748B' }} dy={10} />
+                <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: '#64748B' }} tickFormatter={(v) => `$${v/1000}k`} />
+                <Tooltip 
+                  cursor={{ fill: 'rgba(255,255,255,0.02)' }}
+                  contentStyle={{ backgroundColor: '#0B132B', borderColor: '#3A4556', borderRadius: '4px', fontSize: '12px' }} 
+                />
+                <Bar dataKey="revenue" fill="url(#barGold)" radius={[2, 2, 0, 0]} maxBarSize={20} />
+                <Line type="monotone" dataKey="occ" stroke="#FFFFFF" strokeWidth={2} dot={{ r: 3, fill: '#D4AF37', strokeWidth: 0 }} />
+              </ComposedChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
 
         {/* Room Type Performance - Donut */}
-        <Card className="border-border shadow-sm bg-card flex flex-col">
-          <CardHeader className="flex flex-row justify-between items-center pb-2">
-            <CardTitle className="text-lg">Room Type Performance</CardTitle>
-            <Button variant="ghost" size="sm" className="text-[10px] h-6 px-2 bg-muted/50">View All</Button>
+        <Card className="border-[#2A3441] shadow-none bg-card flex flex-col">
+          <CardHeader className="flex flex-row justify-between items-center pb-0">
+            <CardTitle className="text-sm font-semibold tracking-wide">Room Type Performance</CardTitle>
+            <Button variant="ghost" size="sm" className="text-[9px] h-5 px-2 bg-[#1A2235] hover:bg-[#2A3441] border border-[#3A4556]">View All</Button>
           </CardHeader>
-          <CardContent className="flex-1 flex flex-col items-center justify-center min-h-[250px]">
-            <div className="h-[200px] w-full">
+          <CardContent className="flex-1 flex flex-col items-center justify-center min-h-[220px] relative">
+            <div className="absolute inset-0 z-0 flex items-center justify-center">
+               <div className="h-24 w-24 rounded-full border border-[#2A3441] opacity-50"></div>
+            </div>
+            <div className="h-[180px] w-full z-10">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
+                  <defs>
+                    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stopColor="#FDE08B"/>
+                      <stop offset="100%" stopColor="#B8860B"/>
+                    </linearGradient>
+                    <linearGradient id="silverGrad" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stopColor="#F8FAFC"/>
+                      <stop offset="100%" stopColor="#94A3B8"/>
+                    </linearGradient>
+                  </defs>
                   <Pie
                     data={roomTypeData}
                     cx="50%"
                     cy="50%"
-                    innerRadius={60}
-                    outerRadius={80}
-                    paddingAngle={5}
+                    innerRadius={50}
+                    outerRadius={75}
+                    paddingAngle={2}
                     dataKey="value"
                     stroke="none"
                   >
@@ -94,14 +111,14 @@ export default function DashboardPage() {
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
-                  <Tooltip contentStyle={{ backgroundColor: 'var(--card)', borderColor: 'var(--border)', borderRadius: '8px' }} />
+                  <Tooltip contentStyle={{ backgroundColor: '#0B132B', borderColor: '#3A4556', borderRadius: '4px', fontSize: '12px' }} />
                 </PieChart>
               </ResponsiveContainer>
             </div>
-            <div className="flex justify-center gap-4 w-full mt-4">
+            <div className="flex justify-center gap-4 w-full mt-2 z-10">
               {roomTypeData.map((item, index) => (
-                <div key={index} className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                  <div className="h-2 w-2 rounded-full" style={{ backgroundColor: COLORS[index] }} />
+                <div key={index} className="flex items-center gap-1.5 text-[9px] font-medium text-muted-foreground uppercase tracking-wider">
+                  <div className="h-1.5 w-1.5 rounded-full" style={{ background: index === 0 ? '#D4AF37' : index === 1 ? '#E2E8F0' : '#1e293b' }} />
                   {item.name}
                 </div>
               ))}
@@ -111,102 +128,106 @@ export default function DashboardPage() {
       </div>
 
       {/* Bottom Row */}
-      <div className="grid gap-6 grid-cols-1 md:grid-cols-3">
+      <div className="grid gap-5 grid-cols-1 md:grid-cols-3">
         
         {/* RevPAR & Occupancy Bar Chart */}
-        <Card className="border-border shadow-sm bg-card">
+        <Card className="border-[#2A3441] shadow-none bg-card">
           <CardHeader className="pb-2">
-            <CardTitle className="text-md">RevPAR & Occupancy</CardTitle>
-            <p className="text-xs text-muted-foreground">026</p>
+            <CardTitle className="text-sm font-semibold tracking-wide">RevPAR & Occupancy</CardTitle>
+            <p className="text-[9px] text-muted-foreground mt-0.5">026</p>
             <div className="flex items-center gap-2 mt-1">
-              <span className="text-2xl font-bold">58%</span>
-              <span className="text-[10px] text-success">+10.4%</span>
+              <span className="text-xl font-bold">58%</span>
+              <span className="text-[9px] font-semibold text-[#10B981]">+10.4%</span>
             </div>
           </CardHeader>
-          <CardContent className="h-[180px]">
+          <CardContent className="h-[150px]">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={revenueData.slice(0, 5)} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
-                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: 'var(--muted-foreground)' }} />
-                <Bar dataKey="revenue" fill="var(--primary)" radius={[2, 2, 0, 0]} maxBarSize={12} />
-              </BarChart>
+              <ComposedChart data={revenueData.slice(0, 5)} margin={{ top: 10, right: 0, left: -25, bottom: 0 }}>
+                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: '#64748B' }} />
+                <Bar dataKey="revenue" fill="url(#barGold)" radius={[1, 1, 0, 0]} maxBarSize={6} />
+                <Line type="monotone" dataKey="occ" stroke="#10B981" strokeWidth={1.5} dot={false} />
+              </ComposedChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
 
         {/* Occupancy Rate Progress */}
-        <Card className="border-border shadow-sm bg-card">
+        <Card className="border-[#2A3441] shadow-none bg-card">
           <CardHeader className="pb-2">
-            <CardTitle className="text-md">Occupancy Rate</CardTitle>
-            <p className="text-xs text-muted-foreground">026</p>
+            <CardTitle className="text-sm font-semibold tracking-wide">Occupancy Rate</CardTitle>
+            <p className="text-[9px] text-muted-foreground mt-0.5">026</p>
             <div className="flex items-center gap-2 mt-1">
-              <span className="text-2xl font-bold">28%</span>
+              <span className="text-xl font-bold">28%</span>
             </div>
           </CardHeader>
-          <CardContent className="space-y-6 mt-4">
+          <CardContent className="space-y-5 mt-3">
             <div>
-              <div className="flex justify-between text-xs mb-1">
-                <span className="text-muted-foreground">Standard</span>
-                <span className="font-bold">$55,300</span>
+              <div className="flex justify-between text-[10px] mb-1.5">
+                <span className="text-muted-foreground font-medium">Standard</span>
+                <span className="font-bold text-white">$55,300</span>
               </div>
-              <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
-                <div className="h-full bg-primary w-[75%] rounded-full" />
+              <div className="h-1 w-full bg-[#1A2235] rounded-full overflow-hidden">
+                <div className="h-full bg-gradient-to-r from-[#D4AF37] to-[#FDE08B] w-[75%] rounded-full shadow-[0_0_8px_rgba(212,175,55,0.5)]" />
               </div>
             </div>
             <div>
-              <div className="flex justify-between text-xs mb-1">
-                <span className="text-muted-foreground">Deluxe</span>
-                <span className="font-bold">$26,305</span>
+              <div className="flex justify-between text-[10px] mb-1.5">
+                <span className="text-muted-foreground font-medium">Deluxe</span>
+                <span className="font-bold text-white">$26,305</span>
               </div>
-              <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
-                <div className="h-full bg-primary/60 w-[45%] rounded-full" />
+              <div className="h-1 w-full bg-[#1A2235] rounded-full overflow-hidden">
+                <div className="h-full bg-gradient-to-r from-[#D4AF37] to-[#FDE08B] opacity-70 w-[45%] rounded-full" />
               </div>
             </div>
             <div>
-              <div className="flex justify-between text-xs mb-1">
-                <span className="text-muted-foreground">Suite</span>
-                <span className="font-bold">$9,105</span>
+              <div className="flex justify-between text-[10px] mb-1.5">
+                <span className="text-muted-foreground font-medium">Suite</span>
+                <span className="font-bold text-white">$9,105</span>
               </div>
-              <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
-                <div className="h-full bg-primary/30 w-[15%] rounded-full" />
+              <div className="h-1 w-full bg-[#1A2235] rounded-full overflow-hidden">
+                <div className="h-full bg-gradient-to-r from-[#D4AF37] to-[#FDE08B] opacity-40 w-[15%] rounded-full" />
               </div>
             </div>
           </CardContent>
         </Card>
 
         {/* Guest Feedback Sentiment (Heatmap Grid) */}
-        <Card className="border-border shadow-sm bg-card flex flex-col">
+        <Card className="border-[#2A3441] shadow-none bg-card flex flex-col">
           <CardHeader className="flex flex-row justify-between items-center pb-2">
-            <CardTitle className="text-md">Guest Feedback Sentiment</CardTitle>
-            <Button variant="ghost" size="sm" className="text-[10px] h-6 px-2 bg-muted/50">View All</Button>
+            <div>
+              <CardTitle className="text-sm font-semibold tracking-wide">Guest Feedback Sentiment</CardTitle>
+            </div>
+            <Button variant="ghost" size="sm" className="text-[9px] h-5 px-2 bg-[#1A2235] hover:bg-[#2A3441] border border-[#3A4556]">View All</Button>
           </CardHeader>
           <CardContent className="flex-1 pt-2">
-            <div className="grid grid-cols-8 gap-1 h-[140px]">
-              <div className="col-span-1 flex flex-col justify-between text-[9px] text-muted-foreground text-right pr-2">
+            <div className="grid grid-cols-[auto_1fr] gap-2 h-[120px]">
+              <div className="flex flex-col justify-between text-[8px] font-medium text-muted-foreground text-right">
                 <span>Deluxe</span>
                 <span>Standard</span>
                 <span>Suite</span>
                 <span>Other</span>
               </div>
-              <div className="col-span-7 grid grid-rows-4 gap-1">
-                {sentimentData.map((row, i) => (
-                  <div key={i} className="grid grid-cols-7 gap-1">
-                    {row.map((val, j) => (
-                      <div 
-                        key={j} 
-                        className="rounded-sm" 
-                        style={{ 
-                          backgroundColor: val === 5 ? 'var(--primary)' : 
-                                           val === 4 ? 'rgba(79, 70, 229, 0.6)' : 
-                                           val === 3 ? 'rgba(79, 70, 229, 0.3)' : 'var(--muted)' 
-                        }}
-                      />
-                    ))}
-                  </div>
-                ))}
-              </div>
-              <div className="col-span-1"></div>
-              <div className="col-span-7 flex justify-between text-[9px] text-muted-foreground mt-1">
-                <span>01</span><span>02</span><span>03</span><span>04</span><span>05</span><span>06</span><span>07</span>
+              <div className="flex flex-col justify-between w-full">
+                <div className="grid grid-rows-4 gap-[2px] flex-1">
+                  {sentimentData.map((row, i) => (
+                    <div key={i} className="grid grid-cols-7 gap-[2px]">
+                      {row.map((val, j) => (
+                        <div 
+                          key={j} 
+                          className="rounded-[1px]" 
+                          style={{ 
+                            backgroundColor: val === 5 ? '#D4AF37' : 
+                                             val === 4 ? 'rgba(212, 175, 55, 0.6)' : 
+                                             val === 3 ? 'rgba(212, 175, 55, 0.2)' : '#1A2235' 
+                          }}
+                        />
+                      ))}
+                    </div>
+                  ))}
+                </div>
+                <div className="grid grid-cols-7 gap-[2px] text-[8px] text-muted-foreground mt-1 text-center">
+                  <span>01</span><span>02</span><span>03</span><span>04</span><span>05</span><span>06</span><span>07</span>
+                </div>
               </div>
             </div>
           </CardContent>

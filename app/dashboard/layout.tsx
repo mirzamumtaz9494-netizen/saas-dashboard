@@ -1,5 +1,5 @@
-import { DashboardSidebar } from "@/components/layout/DashboardSidebar"
 import { DashboardHeader } from "@/components/layout/DashboardHeader"
+import { DashboardSidebar } from "@/components/layout/DashboardSidebar"
 
 export default function DashboardLayout({
   children,
@@ -7,13 +7,16 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex min-h-screen w-full flex-col md:flex-row bg-muted/10">
-      <DashboardSidebar />
-      <div className="flex flex-1 flex-col sm:gap-4 sm:py-4">
-        <DashboardHeader />
-        <main className="flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-          {children}
-        </main>
+    <div className="min-h-screen p-4 md:p-8 flex items-center justify-center relative">
+      {/* Structural Match: The entire app is framed in a gold border with a deep shadow, just like the image */}
+      <div className="flex h-[calc(100vh-4rem)] w-full max-w-[1600px] overflow-hidden rounded-xl border-[3px] border-[#D4AF37]/80 shadow-[0_0_50px_rgba(0,0,0,0.5)] bg-background">
+        <DashboardSidebar />
+        <div className="flex flex-1 flex-col overflow-hidden">
+          <DashboardHeader />
+          <main className="flex-1 overflow-y-auto p-6 bg-background">
+            {children}
+          </main>
+        </div>
       </div>
     </div>
   )
