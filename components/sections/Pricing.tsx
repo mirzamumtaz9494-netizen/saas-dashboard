@@ -1,94 +1,111 @@
-import { Check } from "lucide-react"
+import { CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/Card"
 
+const plans = [
+  {
+    name: "Starter",
+    description: "For individual properties",
+    price: "$49",
+    features: [
+      "Up to 20 rooms",
+      "Basic reservations calendar",
+      "Guest management",
+      "Email support",
+    ],
+    highlighted: false,
+    cta: "Start Free Trial",
+  },
+  {
+    name: "Professional",
+    description: "For growing hospitality teams",
+    price: "$149",
+    features: [
+      "Unlimited rooms",
+      "Advanced revenue analytics",
+      "Multi-property support (up to 3)",
+      "Automated guest messaging",
+      "Priority 24/7 support",
+    ],
+    highlighted: true,
+    cta: "Start Free Trial",
+  },
+  {
+    name: "Enterprise",
+    description: "For multi-property operations",
+    price: "Custom",
+    features: [
+      "Unlimited properties",
+      "Custom API integrations",
+      "Dedicated account manager",
+      "Custom reporting",
+      "White-label options",
+    ],
+    highlighted: false,
+    cta: "Contact Sales",
+  },
+]
+
 export function Pricing() {
   return (
-    <section id="pricing" className="container py-12 md:py-24 lg:py-32">
-      <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center mb-12">
-        <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
-          Simple, transparent pricing
-        </h2>
-        <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
-          Choose the perfect plan for your property. No hidden fees.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        <Card>
-          <CardHeader>
-            <CardTitle>Boutique</CardTitle>
-            <CardDescription>Perfect for small B&Bs and independent rentals</CardDescription>
-            <div className="mt-4 flex items-baseline text-5xl font-extrabold">
-              $49
-              <span className="ml-1 text-xl font-medium text-muted-foreground">/mo</span>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-3">
-              {['Up to 10 rooms', 'Basic booking engine', 'Standard reporting', 'Email support', '1 admin user'].map(feature => (
-                <li key={feature} className="flex items-center gap-2">
-                  <Check className="h-4 w-4 text-primary" />
-                  <span className="text-sm">{feature}</span>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-          <CardFooter>
-            <Button className="w-full" variant="outline">Start Free Trial</Button>
-          </CardFooter>
-        </Card>
-
-        <Card className="border-primary shadow-lg relative">
-          <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
-            Most Popular
-          </div>
-          <CardHeader>
-            <CardTitle>Hotel</CardTitle>
-            <CardDescription>Ideal for mid-sized hotels and resorts</CardDescription>
-            <div className="mt-4 flex items-baseline text-5xl font-extrabold">
-              $149
-              <span className="ml-1 text-xl font-medium text-muted-foreground">/mo</span>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-3">
-              {['Up to 50 rooms', 'Advanced channel manager', 'Custom reporting', 'Priority 24/7 support', '5 admin users', 'Automated guest emails'].map(feature => (
-                <li key={feature} className="flex items-center gap-2">
-                  <Check className="h-4 w-4 text-primary" />
-                  <span className="text-sm">{feature}</span>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-          <CardFooter>
-            <Button className="w-full">Start Free Trial</Button>
-          </CardFooter>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Enterprise</CardTitle>
-            <CardDescription>For large hotel chains and multi-properties</CardDescription>
-            <div className="mt-4 flex items-baseline text-5xl font-extrabold">
-              $399
-              <span className="ml-1 text-xl font-medium text-muted-foreground">/mo</span>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-3">
-              {['Unlimited rooms', 'Custom API access', 'Dedicated account manager', 'SLA guarantee', 'Unlimited users', 'Multi-property management'].map(feature => (
-                <li key={feature} className="flex items-center gap-2">
-                  <Check className="h-4 w-4 text-primary" />
-                  <span className="text-sm">{feature}</span>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-          <CardFooter>
-            <Button className="w-full" variant="outline">Contact Sales</Button>
-          </CardFooter>
-        </Card>
+    <section className="bg-background py-24 md:py-32" id="pricing">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="mx-auto max-w-2xl text-center mb-16">
+          <h2 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl text-foreground">
+            Simple, transparent pricing
+          </h2>
+          <p className="mt-4 text-lg text-muted-foreground font-medium">
+            Choose the plan that fits your hospitality business. All plans include a 14-day free trial.
+          </p>
+        </div>
+        
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+          {plans.map((plan) => (
+            <Card 
+              key={plan.name} 
+              className={`flex flex-col relative overflow-hidden transition-all duration-200 ${
+                plan.highlighted 
+                  ? "border-primary shadow-lg scale-100 lg:scale-105 z-10 bg-card" 
+                  : "border-border shadow-sm scale-100 bg-background hover:border-border/80 hover:shadow-md"
+              }`}
+            >
+              {plan.highlighted && (
+                <div className="absolute top-0 left-0 right-0 bg-primary text-primary-foreground text-center text-xs font-bold uppercase tracking-wider py-1.5">
+                  Recommended
+                </div>
+              )}
+              
+              <CardHeader className={plan.highlighted ? "pt-10" : ""}>
+                <CardTitle className="font-heading text-2xl">{plan.name}</CardTitle>
+                <CardDescription className="text-sm font-medium">{plan.description}</CardDescription>
+                <div className="mt-6 flex items-baseline text-5xl font-extrabold text-foreground tracking-tight">
+                  {plan.price}
+                  {plan.price !== "Custom" && <span className="ml-1 text-xl font-medium text-muted-foreground">/mo</span>}
+                </div>
+              </CardHeader>
+              
+              <CardContent className="flex-1">
+                <ul className="space-y-4">
+                  {plan.features.map((feature) => (
+                    <li key={feature} className="flex items-center gap-3">
+                      <CheckCircle2 className={`h-5 w-5 ${plan.highlighted ? "text-primary" : "text-muted-foreground"}`} />
+                      <span className="text-sm font-medium text-foreground">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+              
+              <CardFooter>
+                <Button 
+                  className="w-full h-11 text-base font-semibold" 
+                  variant={plan.highlighted ? "default" : "outline"}
+                >
+                  {plan.cta}
+                </Button>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
       </div>
     </section>
   )
