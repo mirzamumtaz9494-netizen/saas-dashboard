@@ -42,24 +42,24 @@
 
 @layer base {
   :root {
-    /* LUXURY NAVY & GOLD THEME (Matching exact screenshot) */
-    --background: 226 58% 10%; /* Very dark navy #0A1128 */
+    /* EXACT MATCH: Deep Dark Slate / Off-Black */
+    --background: 226 20% 8%; /* #111216 */
     --foreground: 0 0% 100%;
 
-    --card: 225 48% 14%; /* Slightly lighter navy for cards */
+    --card: 226 18% 12%; /* #181A20 */
     --card-foreground: 0 0% 100%;
 
-    --popover: 225 48% 14%;
+    --popover: 226 18% 12%;
     --popover-foreground: 0 0% 100%;
 
     --primary: 43 74% 49%; /* Luxury Gold #D4AF37 */
     --primary-foreground: 226 58% 10%;
 
-    --secondary: 225 48% 22%;
+    --secondary: 226 18% 16%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 225 48% 20%;
-    --muted-foreground: 215 20% 70%;
+    --muted: 226 18% 16%;
+    --muted-foreground: 215 15% 60%;
 
     --accent: 43 74% 49%;
     --accent-foreground: 226 58% 10%;
@@ -67,8 +67,8 @@
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 225 48% 22%;
-    --input: 225 48% 22%;
+    --border: 226 18% 18%;
+    --input: 226 18% 18%;
     --ring: 43 74% 49%;
     --radius: 0.5rem;
 
@@ -94,7 +94,8 @@
   
   body {
     @apply bg-background text-foreground antialiased;
-    background: radial-gradient(circle at center, #1a2342 0%, #0a1128 100%);
+    /* Richer, darker radial gradient matching the deep screenshots */
+    background: radial-gradient(circle at center, #181a20 0%, #0d0e12 100%);
     min-height: 100vh;
   }
 }
