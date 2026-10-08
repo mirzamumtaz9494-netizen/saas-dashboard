@@ -14,7 +14,9 @@ import {
   FileText, 
   Bell, 
   Settings,
-  Hotel
+  Hotel,
+  SprayCan,
+  ConciergeBell
 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -32,6 +34,8 @@ const navGroups = [
       { title: "Reservations", href: "/dashboard/reservations", icon: CalendarDays },
       { title: "Guests", href: "/dashboard/guests", icon: Users },
       { title: "Rooms", href: "/dashboard/rooms", icon: BedDouble },
+      { title: "Housekeeping", href: "/dashboard/housekeeping", icon: SprayCan },
+      { title: "Front Desk", href: "/dashboard/front-desk", icon: ConciergeBell },
       { title: "Properties", href: "/dashboard/properties", icon: Building2 },
     ]
   },
@@ -39,8 +43,8 @@ const navGroups = [
     label: "Insights & Finance",
     items: [
       { title: "Analytics", href: "/dashboard/analytics", icon: LineChart },
-      { title: "Transactions", href: "/dashboard/transactions", icon: CreditCard },
       { title: "Reports", href: "/dashboard/reports", icon: FileText },
+      { title: "Transactions", href: "/dashboard/transactions", icon: CreditCard },
     ]
   },
   {
