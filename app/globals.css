@@ -42,49 +42,51 @@
 
 @layer base {
   :root {
-    /* EXACT MATCH: Deep Dark Slate / Off-Black */
-    --background: 226 20% 8%; /* #111216 */
-    --foreground: 0 0% 100%;
+    /* EXACT MATCH: Deep Forest Green & Soft Gold Theme */
+    --background: 148 48% 7%; /* #091A11 - Deep forest off-black */
+    --foreground: 38 46% 85%; /* Soft beige/gold for primary text */
 
-    --card: 226 18% 12%; /* #181A20 */
-    --card-foreground: 0 0% 100%;
+    --card: 144 43% 12%; /* #112A1B - Slightly elevated forest green */
+    --card-foreground: 38 46% 85%;
 
-    --popover: 226 18% 12%;
-    --popover-foreground: 0 0% 100%;
+    --popover: 144 43% 12%;
+    --popover-foreground: 38 46% 85%;
 
-    --primary: 43 74% 49%; /* Luxury Gold #D4AF37 */
-    --primary-foreground: 226 58% 10%;
+    --primary: 38 46% 67%; /* #D1B583 - Soft elegant Gold */
+    --primary-foreground: 148 48% 7%;
 
-    --secondary: 226 18% 16%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 145 35% 18%; /* Dark green for secondary elements */
+    --secondary-foreground: 38 46% 85%;
 
-    --muted: 226 18% 16%;
-    --muted-foreground: 215 15% 60%;
+    --muted: 145 35% 18%; /* Same as secondary for subtle backgrounds */
+    --muted-foreground: 143 18% 55%; /* #769080 - Muted sage green text */
 
-    --accent: 43 74% 49%;
-    --accent-foreground: 226 58% 10%;
+    --accent: 38 46% 67%; 
+    --accent-foreground: 148 48% 7%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 226 18% 18%;
-    --input: 226 18% 18%;
-    --ring: 43 74% 49%;
-    --radius: 0.5rem;
+    --border: 145 35% 18%; /* Deep green borders */
+    --input: 145 35% 18%;
+    --ring: 38 46% 67%;
+    --radius: 0.75rem; /* The cards in this design are slightly more rounded */
 
+    /* Themed Status Colors to fit the green aesthetic */
     --success: 142 71% 45%;
     --success-muted: hsl(142 71% 45% / 0.15);
-    --warning: 43 74% 49%;
-    --warning-muted: hsl(43 74% 49% / 0.15);
+    --warning: 38 46% 67%; /* Warning matches primary soft gold */
+    --warning-muted: hsl(38 46% 67% / 0.15);
     --error: 346 87% 60%;
     --error-muted: hsl(346 87% 60% / 0.15);
   }
 
   .light {
+    /* Forcing dark theme default for visual parity with screenshot */
     --background: 43 20% 96%;
-    --foreground: 226 58% 10%;
+    --foreground: 148 48% 7%;
     --card: 0 0% 100%;
-    --card-foreground: 226 58% 10%;
+    --card-foreground: 148 48% 7%;
     --border: 43 30% 80%;
   }
 
@@ -94,13 +96,13 @@
   
   body {
     @apply bg-background text-foreground antialiased;
-    /* Richer, darker radial gradient matching the deep screenshots */
-    background: radial-gradient(circle at center, #181a20 0%, #0d0e12 100%);
+    /* Soft dark green radial gradient */
+    background: radial-gradient(circle at center, #112A1B 0%, #06120C 100%);
     min-height: 100vh;
   }
 }
 
-/* Custom scrollbar for luxury feel */
+/* Custom scrollbar matching soft gold & green */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;

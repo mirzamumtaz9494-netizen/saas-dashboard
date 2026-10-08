@@ -8,8 +8,8 @@ export default function DashboardLayout({
 }) {
   return (
     <div className="min-h-screen p-4 md:p-8 flex items-center justify-center relative">
-      {/* Structural Match: The entire app is framed in a gold border with a deep shadow, just like the image */}
-      <div className="flex h-[calc(100vh-4rem)] w-full max-w-[1600px] overflow-hidden rounded-xl border-[3px] border-[#D4AF37]/80 shadow-[0_0_50px_rgba(0,0,0,0.5)] bg-background">
+      {/* Structural Match: Subtle soft gold border around the deep green app frame */}
+      <div className="flex h-[calc(100vh-4rem)] w-full max-w-[1600px] overflow-hidden rounded-xl border-2 border-[#D1B583]/20 shadow-[0_0_50px_rgba(0,0,0,0.5)] bg-background">
         <DashboardSidebar />
         <div className="flex flex-1 flex-col overflow-hidden">
           <DashboardHeader />
