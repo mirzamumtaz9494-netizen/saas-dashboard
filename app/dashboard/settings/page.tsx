@@ -1,17 +1,24 @@
 "use client"
 
 import { useTheme } from "next-themes"
-import { Building2, Bell, Shield, CreditCard, Palette, User, Link as LinkIcon, Smartphone } from "lucide-react"
+import { Building2, Bell, Shield, CreditCard, Palette, User, Link as LinkIcon, Smartphone, Check } from "lucide-react"
 
 import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
 import { Label } from "@/components/ui/Label"
 
 export default function SettingsPage() {
-  const { setTheme, theme } = useTheme()
+  const { setTheme, theme, resolvedTheme } = useTheme()
+
+  const activeTheme = theme === 'system' ? resolvedTheme : theme;
+
+  const themes = [
+    { id: 'dark', name: 'Dark Blue', color: 'bg-[#3B82F6]' },
+    { id: 'theme-green', name: 'Forest Green', color: 'bg-[#D1B583]' },
+    { id: 'theme-gold', name: 'Navy & Gold', color: 'bg-[#D4AF37]' },
+  ];
 
   return (
-    <div className="flex flex-col gap-6 h-full">
+    <div className="flex flex-col gap-6 h-full pb-8">
       {/* Header */}
       <div>
         <h1 className="font-heading text-2xl font-bold tracking-tight text-foreground">Settings</h1>
@@ -37,7 +44,7 @@ export default function SettingsPage() {
                 href={`#${item.id}`}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                   item.active 
-                    ? 'bg-primary/10 text-primary' 
+                    ? 'bg-primary/10 text-primary border border-primary/20' 
                     : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                 }`}
               >
@@ -61,74 +68,24 @@ export default function SettingsPage() {
               
               {/* Theme Colors */}
               <div>
-                <Label className="text-sm font-semibold mb-3 block">Theme Accent</Label>
-                <div className="flex flex-wrap gap-3">
-                  {[
-                    { name: 'Indigo Executive', color: 'bg-[#4F46E5]', active: true },
-                    { name: 'Navy Luxury', color: 'bg-[#0F172A]', active: false },
-                    { name: 'Emerald Hospitality', color: 'bg-[#10B981]', active: false },
-                    { name: 'Burgundy Luxury', color: 'bg-[#9f1239]', active: false },
-                  ].map(t => (
+                <Label className="text-sm font-semibold mb-3 block">Layout Theme Color</Label>
+                <div className="flex flex-wrap gap-4">
+                  {themes.map(t => (
                     <div 
-                      key={t.name}
-                      className={`flex items-center gap-2 px-3 py-2 rounded-lg border cursor-pointer transition-all ${
-                        t.active ? 'border-primary bg-primary/5 ring-1 ring-primary/20' : 'border-border hover:border-foreground/30 bg-background'
+                      key={t.id}
+                      onClick={() => setTheme(t.id)}
+                      className={`flex items-center gap-3 px-4 py-3 rounded-lg border cursor-pointer transition-all ${
+                        activeTheme === t.id 
+                          ? 'border-primary bg-primary/5 ring-1 ring-primary/30 shadow-md' 
+                          : 'border-border hover:border-foreground/30 bg-card hover:bg-muted/30'
                       }`}
                     >
-                      <div className={`h-4 w-4 rounded-full ${t.color}`}></div>
+                      <div className={`h-5 w-5 rounded-full ${t.color} flex items-center justify-center shadow-inner`}>
+                        {activeTheme === t.id && <Check className="h-3 w-3 text-primary-foreground" />}
+                      </div>
                       <span className="text-sm font-medium text-foreground">{t.name}</span>
                     </div>
                   ))}
-                </div>
-              </div>
-
-              {/* Mode Selection */}
-              <div>
-                <Label className="text-sm font-semibold mb-3 block">Display Mode</Label>
-                <div className="grid grid-cols-3 gap-4">
-                  <div 
-                    onClick={() => setTheme('light')}
-                    className={`flex flex-col items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${
-                      theme === 'light' ? 'border-primary bg-primary/5 ring-1 ring-primary/20' : 'border-border hover:border-foreground/30 bg-background'
-                    }`}
-                  >
-                    <div className="h-20 w-full bg-[#F8FAFC] rounded-md border border-[#E2E8F0] p-2 flex flex-col gap-1 overflow-hidden">
-                      <div className="h-2 w-full bg-[#FFFFFF] rounded-sm shadow-sm"></div>
-                      <div className="flex gap-1 flex-1">
-                        <div className="w-1/4 h-full bg-[#F1F5F9] rounded-sm"></div>
-                        <div className="w-3/4 h-full bg-[#FFFFFF] rounded-sm shadow-sm"></div>
-                      </div>
-                    </div>
-                    <span className="text-sm font-medium text-foreground">Light</span>
-                  </div>
-
-                  <div 
-                    onClick={() => setTheme('dark')}
-                    className={`flex flex-col items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${
-                      theme === 'dark' ? 'border-primary bg-primary/5 ring-1 ring-primary/20' : 'border-border hover:border-foreground/30 bg-background'
-                    }`}
-                  >
-                    <div className="h-20 w-full bg-[#0B1120] rounded-md border border-[#263247] p-2 flex flex-col gap-1 overflow-hidden">
-                      <div className="h-2 w-full bg-[#111827] rounded-sm border border-[#263247]"></div>
-                      <div className="flex gap-1 flex-1">
-                        <div className="w-1/4 h-full bg-[#172033] rounded-sm"></div>
-                        <div className="w-3/4 h-full bg-[#111827] rounded-sm border border-[#263247]"></div>
-                      </div>
-                    </div>
-                    <span className="text-sm font-medium text-foreground">Dark</span>
-                  </div>
-
-                  <div 
-                    onClick={() => setTheme('system')}
-                    className={`flex flex-col items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${
-                      theme === 'system' ? 'border-primary bg-primary/5 ring-1 ring-primary/20' : 'border-border hover:border-foreground/30 bg-background'
-                    }`}
-                  >
-                    <div className="h-20 w-full bg-muted rounded-md border border-border flex items-center justify-center">
-                      <Smartphone className="h-6 w-6 text-muted-foreground" />
-                    </div>
-                    <span className="text-sm font-medium text-foreground">System</span>
-                  </div>
                 </div>
               </div>
 

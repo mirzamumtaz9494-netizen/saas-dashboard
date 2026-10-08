@@ -38,55 +38,155 @@
 
   --font-heading: "Plus Jakarta Sans", sans-serif;
   --font-sans: "Inter", sans-serif;
+  
+  /* Shared gradients for charts */
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
 }
 
 @layer base {
-  :root {
-    /* EXACT MATCH: Deep Forest Green & Soft Gold Theme */
-    --background: 148 48% 7%; /* #091A11 - Deep forest off-black */
-    --foreground: 38 46% 85%; /* Soft beige/gold for primary text */
+  :root, .dark, .theme-blue {
+    /* Theme 1: Dark Blue (From latest screenshot) */
+    --background: 226 47% 8%; /* #0B101E */
+    --foreground: 210 40% 98%;
 
-    --card: 144 43% 12%; /* #112A1B - Slightly elevated forest green */
-    --card-foreground: 38 46% 85%;
+    --card: 225 40% 12%; /* #12182B */
+    --card-foreground: 210 40% 98%;
+    
+    --popover: 225 40% 12%;
+    --popover-foreground: 210 40% 98%;
 
-    --popover: 144 43% 12%;
-    --popover-foreground: 38 46% 85%;
+    --primary: 217 91% 60%; /* #3B82F6 */
+    --primary-foreground: 0 0% 100%;
 
-    --primary: 38 46% 67%; /* #D1B583 - Soft elegant Gold */
-    --primary-foreground: 148 48% 7%;
+    --secondary: 225 30% 16%;
+    --secondary-foreground: 210 40% 98%;
 
-    --secondary: 145 35% 18%; /* Dark green for secondary elements */
-    --secondary-foreground: 38 46% 85%;
+    --muted: 225 30% 16%;
+    --muted-foreground: 215 20% 65%;
 
-    --muted: 145 35% 18%; /* Same as secondary for subtle backgrounds */
-    --muted-foreground: 143 18% 55%; /* #769080 - Muted sage green text */
-
-    --accent: 38 46% 67%; 
-    --accent-foreground: 148 48% 7%;
+    --accent: 217 91% 60%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 145 35% 18%; /* Deep green borders */
-    --input: 145 35% 18%;
-    --ring: 38 46% 67%;
-    --radius: 0.75rem; /* The cards in this design are slightly more rounded */
+    --border: 225 30% 18%;
+    --input: 225 30% 18%;
+    --ring: 217 91% 60%;
+    --radius: 0.5rem;
 
-    /* Themed Status Colors to fit the green aesthetic */
     --success: 142 71% 45%;
     --success-muted: hsl(142 71% 45% / 0.15);
-    --warning: 38 46% 67%; /* Warning matches primary soft gold */
+    --warning: 38 92% 50%;
+    --warning-muted: hsl(38 92% 50% / 0.15);
+    --error: 346 87% 60%;
+    --error-muted: hsl(346 87% 60% / 0.15);
+    
+    /* Charts */
+    --chart-1: 217 91% 60%; /* Blue */
+    --chart-2: 152 69% 51%; /* Teal */
+    --chart-3: 142 71% 45%; /* Green */
+    --chart-4: 0 84% 60%;   /* Red */
+  }
+
+  .theme-green {
+    /* Theme 2: Deep Forest Green & Soft Gold */
+    --background: 148 48% 7%;
+    --foreground: 38 46% 85%;
+    
+    --card: 144 43% 12%;
+    --card-foreground: 38 46% 85%;
+    
+    --popover: 144 43% 12%;
+    --popover-foreground: 38 46% 85%;
+    
+    --primary: 38 46% 67%; /* Soft Gold */
+    --primary-foreground: 148 48% 7%;
+    
+    --secondary: 145 35% 18%;
+    --secondary-foreground: 38 46% 85%;
+    
+    --muted: 145 35% 18%;
+    --muted-foreground: 143 18% 55%;
+    
+    --accent: 38 46% 67%;
+    --accent-foreground: 148 48% 7%;
+    
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 145 35% 18%;
+    --input: 145 35% 18%;
+    --ring: 38 46% 67%;
+    --radius: 0.75rem;
+
+    --success: 142 71% 45%;
+    --success-muted: hsl(142 71% 45% / 0.15);
+    --warning: 38 46% 67%;
     --warning-muted: hsl(38 46% 67% / 0.15);
     --error: 346 87% 60%;
     --error-muted: hsl(346 87% 60% / 0.15);
+
+    /* Charts */
+    --chart-1: 38 46% 67%; /* Soft Gold */
+    --chart-2: 43 74% 49%; /* Mid Gold */
+    --chart-3: 38 30% 40%; /* Dark Gold */
+    --chart-4: 145 35% 25%; /* Accent Green */
+  }
+
+  .theme-gold {
+    /* Theme 3: Luxury Navy & Gold */
+    --background: 226 58% 10%;
+    --foreground: 0 0% 100%;
+    
+    --card: 225 48% 14%;
+    --card-foreground: 0 0% 100%;
+    
+    --popover: 225 48% 14%;
+    --popover-foreground: 0 0% 100%;
+    
+    --primary: 43 74% 49%; /* Bright Gold */
+    --primary-foreground: 226 58% 10%;
+    
+    --secondary: 225 48% 22%;
+    --secondary-foreground: 0 0% 100%;
+    
+    --muted: 225 48% 20%;
+    --muted-foreground: 215 20% 70%;
+    
+    --accent: 43 74% 49%;
+    --accent-foreground: 226 58% 10%;
+    
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 225 48% 22%;
+    --input: 225 48% 22%;
+    --ring: 43 74% 49%;
+    --radius: 0.5rem;
+
+    --success: 142 71% 45%;
+    --success-muted: hsl(142 71% 45% / 0.15);
+    --warning: 43 74% 49%;
+    --warning-muted: hsl(43 74% 49% / 0.15);
+    --error: 346 87% 60%;
+    --error-muted: hsl(346 87% 60% / 0.15);
+
+    /* Charts */
+    --chart-1: 43 74% 49%; /* Gold */
+    --chart-2: 45 93% 76%; /* Light Gold */
+    --chart-3: 35 70% 35%; /* Dark Gold */
+    --chart-4: 225 48% 30%; /* Accent Navy */
   }
 
   .light {
-    /* Forcing dark theme default for visual parity with screenshot */
     --background: 43 20% 96%;
-    --foreground: 148 48% 7%;
+    --foreground: 226 58% 10%;
     --card: 0 0% 100%;
-    --card-foreground: 148 48% 7%;
+    --card-foreground: 226 58% 10%;
     --border: 43 30% 80%;
   }
 
@@ -96,13 +196,13 @@
   
   body {
     @apply bg-background text-foreground antialiased;
-    /* Soft dark green radial gradient */
-    background: radial-gradient(circle at center, #112A1B 0%, #06120C 100%);
+    /* Soft dark radial gradient matching the themes */
+    background: radial-gradient(circle at center, var(--card) 0%, var(--background) 100%);
     min-height: 100vh;
   }
 }
 
-/* Custom scrollbar matching soft gold & green */
+/* Custom scrollbar matching primary */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;

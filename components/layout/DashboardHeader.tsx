@@ -17,14 +17,14 @@ export function DashboardHeader() {
         </p>
       </div>
 
-      {/* Center: Search Bar (Deep Green inset) */}
+      {/* Center: Search Bar (Dynamic semantic background) */}
       <div className="hidden md:flex flex-1 max-w-[320px] mx-8">
         <div className="relative w-full">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             type="search"
             placeholder="Search"
-            className="w-full bg-[#091A11] border-border rounded-full pl-10 h-9 shadow-inner text-sm focus-visible:ring-[#D1B583] placeholder:text-[#769080]"
+            className="w-full bg-background border-border rounded-full pl-10 h-9 shadow-inner text-sm focus-visible:ring-primary placeholder:text-muted-foreground"
           />
         </div>
       </div>
@@ -32,23 +32,23 @@ export function DashboardHeader() {
       {/* Right: Notifications and Profile */}
       <div className="flex items-center gap-4 shrink-0">
         <div className="flex items-center gap-3">
-          <button className="relative h-9 w-9 flex items-center justify-center rounded-full hover:bg-white/5 transition-colors">
+          <button className="relative h-9 w-9 flex items-center justify-center rounded-full hover:bg-muted transition-colors">
             <Bell className="h-4 w-4 text-muted-foreground" />
-            <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-[#D1B583] border border-card shadow-[0_0_5px_rgba(209,181,131,0.6)]" />
+            <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-primary border border-card shadow-sm" />
           </button>
           
           <div className="hidden sm:flex -space-x-2 mr-2">
-            <div className="h-7 w-7 rounded-full bg-[#112A1B] border-2 border-card flex items-center justify-center overflow-hidden">
+            <div className="h-7 w-7 rounded-full bg-card border-2 border-background flex items-center justify-center overflow-hidden">
               <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" alt="Team" className="h-full w-full object-cover opacity-80 mix-blend-luminosity" />
             </div>
-            <div className="h-7 w-7 rounded-full bg-[#112A1B] border-2 border-card flex items-center justify-center overflow-hidden">
+            <div className="h-7 w-7 rounded-full bg-card border-2 border-background flex items-center justify-center overflow-hidden">
               <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Maria" alt="Team" className="h-full w-full object-cover opacity-80 mix-blend-luminosity" />
             </div>
           </div>
         </div>
 
         <div className="flex items-center gap-3 pl-4 border-l border-border">
-          <div className="h-9 w-9 rounded-full bg-gradient-to-br from-[#E8D2A6] to-[#9C8151] p-[1px]">
+          <div className="h-9 w-9 rounded-full bg-primary p-[1px]">
             <div className="h-full w-full rounded-full bg-card overflow-hidden">
               <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" alt="Sarah J." className="h-full w-full object-cover opacity-90" />
             </div>
