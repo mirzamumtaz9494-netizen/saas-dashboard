@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #4f46e5;
+  --color-primary-foreground: #ffffff;
+  
+  --color-secondary: #64748b;
+  --color-secondary-foreground: #ffffff;
+  
+  --color-accent: #f59e0b;
+  --color-accent-foreground: #ffffff;
+  
+  --color-success: #10b981;
+  --color-success-foreground: #ffffff;
+  
+  --color-error: #f43f5e;
+  --color-error-foreground: #ffffff;
+  
+  --color-background-light: #f8fafc;
+  --color-background-dark: #0b1120;
+  
+  --color-foreground-light: #0f172a;
+  --color-foreground-dark: #f8fafc;
+
+  --color-card-light: #ffffff;
+  --color-card-dark: #1e293b;
+  
+  --color-border-light: #e2e8f0;
+  --color-border-dark: #334155;
+  
+  --color-muted-light: #f1f5f9;
+  --color-muted-dark: #1e293b;
+  
+  --color-muted-foreground-light: #64748b;
+  --color-muted-foreground-dark: #94a3b8;
+}
+
+@layer base {
+  :root {
+    --background: var(--color-background-light);
+    --foreground: var(--color-foreground-light);
+    
+    --card: var(--color-card-light);
+    --card-foreground: var(--color-foreground-light);
+    
+    --border: var(--color-border-light);
+    
+    --primary: var(--color-primary);
+    --primary-foreground: var(--color-primary-foreground);
+    
+    --secondary: var(--color-secondary);
+    --secondary-foreground: var(--color-secondary-foreground);
+    
+    --accent: var(--color-accent);
+    --accent-foreground: var(--color-accent-foreground);
+    
+    --success: var(--color-success);
+    --success-foreground: var(--color-success-foreground);
+    
+    --error: var(--color-error);
+    --error-foreground: var(--color-error-foreground);
+    
+    --muted: var(--color-muted-light);
+    --muted-foreground: var(--color-muted-foreground-light);
+
+    --radius: 0.5rem;
+  }
+  
+  .dark {
+    --background: var(--color-background-dark);
+    --foreground: var(--color-foreground-dark);
+    
+    --card: var(--color-card-dark);
+    --card-foreground: var(--color-foreground-dark);
+    
+    --border: var(--color-border-dark);
+    
+    --muted: var(--color-muted-dark);
+    --muted-foreground: var(--color-muted-foreground-dark);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+}

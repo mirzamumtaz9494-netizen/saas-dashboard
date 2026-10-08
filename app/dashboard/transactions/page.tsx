@@ -1,0 +1,1 @@
+export default function TransactionsPage() { return (<div className='flex items-center justify-center h-[50vh] text-muted-foreground'><h2>Transactions module coming soon in full template.</h2></div>) }
