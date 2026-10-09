@@ -537,7 +537,7 @@ export default function MessagesPage() {
                     <label className="text-[10px] text-muted-foreground font-medium">Assignee</label>
                     <select className="w-full h-8 text-xs bg-card border border-border rounded-md px-2 focus:ring-1 focus:ring-primary outline-none">
                       <option>Unassigned</option>
-                      {mockStaff.map(s => <option key={s.id}>{s.name}</option>)}
+                      {mockStaff.filter(s => s.department !== "Housekeeping" && s.department !== "Maintenance").map(s => <option key={s.id}>{s.name}</option>)}
                     </select>
                   </div>
                 </div>

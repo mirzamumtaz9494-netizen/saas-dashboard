@@ -17,7 +17,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator
 } from "@/components/ui/DropdownMenu"
-import { format, parseISO } from "date-fns"
+import { format, parseISO, isSameDay } from "date-fns"
 
 export default function FrontDeskPage() {
   const { tenant } = useTenant()
@@ -157,7 +157,7 @@ export default function FrontDeskPage() {
               <div className="absolute top-2 left-[35px] text-[10px] text-primary font-bold bg-card px-1 rounded-sm border border-primary/30 z-10">NOW</div>
               
               <div className="space-y-4 mt-6 relative z-10">
-                {mockShifts.map(s => {
+                {mockShifts.filter((s:any) => s.status === 'Published' && isSameDay(parseISO(s.start), new Date())).map((s:any) => {
                   const staff = mockStaff.find(st => st.id === s.staffId)
                   return (
                     <div key={s.id} className="ml-[20px] bg-muted/40 border border-border p-3 rounded-lg hover:border-primary/50 transition-colors cursor-pointer">
@@ -165,7 +165,7 @@ export default function FrontDeskPage() {
                         <span className="font-semibold text-sm">{staff?.name}</span>
                         <span className="text-[10px] text-muted-foreground">{format(parseISO(s.start), "h a")} - {format(parseISO(s.end), "h a")}</span>
                       </div>
-                      <Badge variant="outline" className="text-[10px] bg-background">{s.role}</Badge>
+                      <Badge variant="outline" className="text-[10px] bg-background">{s.department}</Badge>
                     </div>
                   )
                 })}
