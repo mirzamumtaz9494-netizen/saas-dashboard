@@ -78,7 +78,7 @@ export function DashboardSidebar() {
       </div>
       
       {/* Navigation Links */}
-      <div className="flex-1 overflow-auto py-6 space-y-1 px-4 bg-card scrollbar-hide">
+      <div className="flex-1 overflow-auto py-6 space-y-1 px-4 bg-card scrollbar-hide flex flex-col">
         {collapsed && (
           <button onClick={() => setCollapsed(false)} className="w-full flex justify-center py-2 mb-2 text-muted-foreground hover:text-foreground">
             <ChevronRight className="h-5 w-5" />
@@ -87,6 +87,7 @@ export function DashboardSidebar() {
 
         {filteredNav.map((item) => {
           const isActive = pathname === item.href
+          const isSettings = item.title === "Settings"
           return (
             <Link
               key={item.href}
@@ -96,6 +97,7 @@ export function DashboardSidebar() {
               className={cn(
                 "flex items-center gap-3 py-2.5 text-sm transition-all group relative overflow-hidden",
                 collapsed ? "justify-center px-2 rounded-lg" : "px-4 rounded-lg",
+                isSettings && "mt-auto border-t border-border/50 pt-4 rounded-none",
                 isActive 
                   ? (collapsed ? "text-primary bg-primary/10" : "text-primary font-semibold border border-primary/40 bg-primary/10")
                   : "text-muted-foreground hover:bg-muted hover:text-foreground"
