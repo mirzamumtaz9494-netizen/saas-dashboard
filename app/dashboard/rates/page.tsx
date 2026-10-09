@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/DropdownMenu"
 import { 
   mockRoomTypes, mockRatePlans, mockPricingRules, mockSeasons, mockRatesHistory,
-  mockRooms, mockReservations, mockWorkOrders, mockChannels
+  mockRooms, mockReservations, mockWorkOrders, mockIntegrations
 } from "@/lib/mock-data"
 import { formatDate, formatCurrency } from "@/lib/formatters"
 import { useSearchParams, useRouter, usePathname } from "next/navigation"
@@ -335,8 +335,8 @@ function CalendarTab() {
         </div>
         
         <div className="space-y-3 pr-2">
-          {mockChannels.map((ch: any) => {
-            const isConnected = ch.connected
+          {mockIntegrations.filter(i => i.category === 'Channels').map((ch: any) => {
+            const isConnected = ch.status === 'Connected'
             const isDirect = ch.id === "direct"
             return (
               <div key={ch.id} className="bg-card border border-border p-3 rounded-lg shadow-sm">

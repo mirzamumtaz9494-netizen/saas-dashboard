@@ -16,7 +16,7 @@ import {
   DropdownMenuItem, DropdownMenuSeparator 
 } from "@/components/ui/DropdownMenu"
 import { 
-  mockConversations, mockChannels, mockTemplates, mockGuests, mockRooms, 
+  mockConversations, mockIntegrations, mockTemplates, mockGuests, mockRooms, 
   mockStaff, mockReservations, mockAutomations
 } from "@/lib/mock-data"
 import { formatDate, formatDateTime, formatCurrency } from "@/lib/formatters"
@@ -212,21 +212,21 @@ export default function MessagesPage() {
           
           {/* Channel Rail */}
           <div className="w-[60px] md:w-[160px] shrink-0 flex flex-col gap-2 overflow-y-auto scrollbar-hide border-r border-border pr-2">
-            {mockChannels.map(ch => {
+            {mockIntegrations.map(ch => {
               const Icon = CHANNEL_ICONS[ch.id] || Globe
               const unreadCount = conversations.filter(c => (ch.id === "all" || c.channel === ch.id) && c.messages.some((m: any) => !m.read && m.senderType === "guest")).length
               
               return (
                 <button 
                   key={ch.id}
-                  onClick={() => { if (ch.connected) setActiveChannel(ch.id) }}
-                  className={`flex flex-col md:flex-row items-center md:justify-between p-2 md:px-3 md:py-2.5 rounded-lg transition-all group ${!ch.connected ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'} ${activeChannel === ch.id ? 'bg-primary/10 text-primary border border-primary/20 font-semibold' : 'hover:bg-muted text-muted-foreground'}`}
+                  onClick={() => { if (ch.status === 'Connected') setActiveChannel(ch.id) }}
+                  className={`flex flex-col md:flex-row items-center md:justify-between p-2 md:px-3 md:py-2.5 rounded-lg transition-all group ${ch.status !== 'Connected' ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'} ${activeChannel === ch.id ? 'bg-primary/10 text-primary border border-primary/20 font-semibold' : 'hover:bg-muted text-muted-foreground'}`}
                 >
                   <div className="flex items-center gap-3">
                     <Icon className="w-5 h-5 shrink-0" />
                     <span className="hidden md:block text-sm">{ch.name}</span>
                   </div>
-                  {ch.connected ? (
+                  {ch.status === 'Connected' ? (
                     unreadCount > 0 && <Badge className="mt-1 md:mt-0 px-1.5 h-5 text-[10px] md:text-xs bg-primary text-primary-foreground">{unreadCount}</Badge>
                   ) : (
                     <div className="hidden md:flex items-center gap-1.5">
