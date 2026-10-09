@@ -1,4 +1,4 @@
-﻿import { addDays, subDays, setHours, setMinutes } from "date-fns";
+﻿import { addDays, subDays, setHours, setMinutes, subHours } from "date-fns";
 
 const today = new Date();
 const todayAt = (hours: number, mins: number = 0) => setMinutes(setHours(today, hours), mins).toISOString();
@@ -16,6 +16,7 @@ export const mockRooms = [
   { id: "R-201", number: "201", type: "rt-3", floor: 2, status: "Clean", condition: "Good" },
   { id: "R-202", number: "202", type: "rt-2", floor: 2, status: "Inspected", condition: "Good" },
   { id: "R-203", number: "203", type: "rt-2", floor: 2, status: "OOO", condition: "Broken AC" },
+  { id: "R-402", number: "402", type: "rt-3", floor: 4, status: "OOO", condition: "AC Failure" },
 ];
 
 export const mockReservations = [
@@ -24,17 +25,13 @@ export const mockReservations = [
   { id: "RES-1003", guestId: "G-104", roomId: "R-201", checkIn: subDays(today, 1).toISOString(), checkOut: addDays(today, 5).toISOString(), status: "Checked In", source: "Expedia", totalAmount: 2400, balance: 0, paymentState: "Paid" },
 ];
 
-export const mockTasks = [
-  { id: "T-01", title: "Clean 102", type: "Housekeeping", priority: "High", status: "Open", assignee: "Maria", due: today.toISOString(), roomId: "R-102" },
-  { id: "T-02", title: "Fix AC", type: "Maintenance", priority: "Urgent", status: "In Progress", assignee: "John", due: today.toISOString(), roomId: "R-203" },
-];
-
 export const mockStaff = [
   { id: "S-01", name: "Sarah J.", role: "Manager", department: "Management", avatar: "SJ" },
   { id: "S-02", name: "Maria", role: "Housekeeping", department: "Housekeeping", avatar: "M" },
   { id: "S-03", name: "John", role: "Maintenance", department: "Engineering", avatar: "J" },
   { id: "S-04", name: "David D.", role: "Front Desk", department: "Front Desk", avatar: "DD" },
-  { id: "S-05", name: "Sarah Planter", role: "Front Desk", department: "Front Desk", avatar: "SP" },
+  { id: "S-05", name: "Neon Amirent", role: "Maintenance", department: "Engineering", avatar: "NA" },
+  { id: "S-06", name: "Dense Menored", role: "Maintenance", department: "Engineering", avatar: "DM" },
 ];
 
 export const mockShifts = [
@@ -47,3 +44,30 @@ export const mockNotes = [
   { id: "N-1", text: "VIP in Room 201 complained about noise, offered free breakfast.", author: "David D.", time: todayAt(8, 30) },
   { id: "N-2", text: "Elevator 2 scheduled for maintenance at 2 PM.", author: "Sarah J.", time: todayAt(9, 0) },
 ];
+
+export const mockAssets = [
+  { id: "AST-001", name: "AC Unit 402", category: "HVAC", location: "Room 402", installDate: "2021-05-10", status: "Needs attention" },
+  { id: "AST-002", name: "Pool Pump Main", category: "Pool", location: "Pool Area", installDate: "2020-03-15", status: "Operational" },
+  { id: "AST-003", name: "Elevator B", category: "Elevator", location: "North Wing", installDate: "2019-11-20", status: "Operational" },
+  { id: "AST-004", name: "Smart Lock C", category: "Lock/Access", location: "Room 402", installDate: "2023-01-10", status: "Operational" },
+  { id: "AST-005", name: "Light Fixture 210", category: "Electrical", location: "Room 210", installDate: "2022-08-05", status: "Operational" },
+];
+
+export const mockWorkOrders = [
+  { id: "WO-00300000", title: "AC Failure - Room 402", assetId: "AST-001", category: "HVAC", location: "Room 402", description: "AC blowing warm air, guest reported at night.", priority: "Urgent", assigneeId: null, status: "Reported", dateLogged: subDays(today, 1).toISOString(), dueDate: today.toISOString(), lastUpdated: subHours(today, 2).toISOString(), photos: 1, ooo: true },
+  { id: "WO-00300001", title: "Smart Lock Offline", assetId: "AST-004", category: "Lock/Access", location: "Room 402", description: "Lock not connecting to gateway.", priority: "High", assigneeId: null, status: "Reported", dateLogged: todayAt(8, 0), dueDate: todayAt(18, 0), lastUpdated: todayAt(9, 0), photos: 0, ooo: false },
+  { id: "WO-00300002", title: "Pool Pump Noise", assetId: "AST-002", category: "Pool", location: "Pool Area", description: "Loud grinding noise from primary pump.", priority: "High", assigneeId: "S-06", status: "Assigned & Dispatched", dateLogged: subDays(today, 2).toISOString(), dueDate: addDays(today, 1).toISOString(), lastUpdated: todayAt(10, 0), photos: 2, ooo: false },
+  { id: "WO-00300003", title: "Elevator B Inspection", assetId: "AST-003", category: "Elevator", location: "North Wing", description: "Quarterly safety inspection and load test.", priority: "Medium", assigneeId: "S-05", status: "In Verification", dateLogged: subDays(today, 5).toISOString(), dueDate: today.toISOString(), lastUpdated: subHours(today, 5).toISOString(), photos: 3, ooo: false },
+  { id: "WO-00300004", title: "Flickering Light", assetId: "AST-005", category: "Electrical", location: "Room 210", description: "Bathroom vanity light flickering.", priority: "Low", assigneeId: "S-03", status: "Resolved", dateLogged: subDays(today, 10).toISOString(), dueDate: subDays(today, 7).toISOString(), lastUpdated: subDays(today, 8).toISOString(), photos: 1, ooo: false },
+];
+
+export const mockTasks = mockWorkOrders.map(wo => ({
+  id: wo.id,
+  title: wo.title,
+  type: wo.category,
+  priority: wo.priority,
+  status: wo.status === "Reported" || wo.status === "Assigned & Dispatched" ? "Open" : wo.status === "In Verification" ? "In Progress" : "Resolved",
+  assignee: mockStaff.find(s => s.id === wo.assigneeId)?.name || "Unassigned",
+  due: wo.dueDate,
+  roomId: wo.location.replace("Room ", "R-")
+}));
