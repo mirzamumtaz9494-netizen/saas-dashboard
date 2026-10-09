@@ -187,7 +187,7 @@ export default function ReservationsPage() {
               <Button className="w-full">Check In Guest</Button>
               <div className="grid grid-cols-2 gap-3">
                 <Button variant="outline">Edit Booking</Button>
-                <Button variant="outline">Message Guest</Button>
+                <Button variant="outline" onClick={() => window.location.href = `/dashboard/messages?guest=${selectedBooking.guestId}`}>Message Guest</Button>
               </div>
               <Button variant="ghost" className="w-full text-destructive hover:bg-destructive/10 hover:text-destructive">Cancel Reservation</Button>
             </div>

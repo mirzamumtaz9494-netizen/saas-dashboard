@@ -1,4 +1,4 @@
-﻿"use client"
+"use client"
 
 import { useState } from "react"
 import { Calendar, Printer, ListTodo, Search, AlertCircle, ChevronLeft, ChevronRight, UserCheck, LogOut, CheckCircle2, Clock, AlertTriangle, Filter, MoreHorizontal, Copy, Camera, Check } from "lucide-react"
@@ -306,7 +306,7 @@ export default function FrontDeskPage() {
               {selectedBooking.status === "Checked In" && (
                 <>
                   <Button variant="outline">Issue New Key</Button>
-                  <Button variant="outline">Print Folio</Button>
+                  <Button variant="outline" onClick={() => window.location.href = `/dashboard/messages?guest=${selectedBooking.guestId}`}>Message Guest</Button>
                 </>
               )}
             </div>

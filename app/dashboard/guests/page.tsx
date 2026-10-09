@@ -18,6 +18,7 @@ import {
 
 export default function GuestsPage() {
   const [guestDrawerOpen, setGuestDrawerOpen] = useState(false)
+  const [drawerTab, setDrawerTab] = useState<"Overview" | "Messages">("Overview")
   const [selectedGuest, setSelectedGuest] = useState<any>(null)
   const [addModalOpen, setAddModalOpen] = useState(false)
   const [confirmDelete, setConfirmDelete] = useState(false)
@@ -140,8 +141,22 @@ export default function GuestsPage() {
 
       <Drawer open={guestDrawerOpen} onClose={() => setGuestDrawerOpen(false)} title="Guest Profile">
         {selectedGuest && (
-          <div className="space-y-6">
-            <div className="flex items-center gap-4 border-b border-border pb-6">
+          <div className="space-y-6 flex flex-col h-full">
+            <div className="flex gap-4 border-b border-border pb-2 shrink-0">
+              {["Overview", "Messages"].map(tab => (
+                <button 
+                  key={tab} 
+                  onClick={() => setDrawerTab(tab as any)} 
+                  className={`pb-2 text-sm font-medium border-b-2 transition-colors ${drawerTab === tab ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"}`}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+
+            {drawerTab === "Overview" && (
+            <div className="space-y-6 flex-1 overflow-y-auto pr-2">
+              <div className="flex items-center gap-4 border-b border-border pb-6">
               <div className="h-16 w-16 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-xl">
                 {selectedGuest.avatar}
               </div>
@@ -177,9 +192,20 @@ export default function GuestsPage() {
             </div>
 
             <div className="pt-4 border-t border-border flex flex-col gap-3">
-              <Button>Create New Booking</Button>
+              <Button onClick={() => window.location.href = `/dashboard/messages?guest=${selectedGuest.id}`}>Open Message Center</Button>
+              <Button variant="outline">Create New Booking</Button>
               <Button variant="outline">View Stay History</Button>
             </div>
+          </div>
+          )}
+
+          {drawerTab === "Messages" && (
+            <div className="flex-1 flex flex-col h-full border border-border rounded-lg bg-muted/10 items-center justify-center p-6 text-center mt-4">
+              <div className="text-muted-foreground mb-4">View this guest's full message history in the Messages module.</div>
+              <Button onClick={() => window.location.href = `/dashboard/messages?guest=${selectedGuest.id}`}>Go to Messages</Button>
+            </div>
+          )}
+
           </div>
         )}
       </Drawer>

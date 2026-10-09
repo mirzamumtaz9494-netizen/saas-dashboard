@@ -122,6 +122,14 @@ export default function DashboardPage() {
             <Link href="/dashboard/housekeeping" className="text-xs text-primary hover:underline">View All</Link>
           </CardHeader>
           <CardContent className="pt-4 flex-1 flex flex-col gap-3 overflow-y-auto">
+              <Link href="/dashboard/messages" className="p-3 border border-border rounded-lg hover:bg-muted/50 transition flex items-start gap-3 bg-primary/5">
+                <div className="w-2 h-2 mt-1.5 rounded-full shrink-0 bg-primary" />
+                <div className="flex-1">
+                  <div className="text-sm font-semibold text-foreground">Unanswered Guest Message</div>
+                  <div className="text-xs text-muted-foreground mt-0.5">Jane Doe (Room 302) has been waiting for &gt;30m</div>
+                </div>
+                <Badge variant="outline" className="text-[10px] whitespace-nowrap bg-background">View</Badge>
+              </Link>
             {mockTasks.map(t => (
               <div key={t.id} className="p-3 border border-border rounded-lg hover:bg-muted/50 transition flex items-start gap-3">
                 <div className={`w-2 h-2 mt-1.5 rounded-full shrink-0 ${t.priority === 'Urgent' ? 'bg-destructive' : 'bg-warning'}`} />
