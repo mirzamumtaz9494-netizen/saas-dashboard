@@ -60,7 +60,7 @@ export function DashboardSidebar() {
 
   const filteredNav = navItems.filter(item => item.roles.includes(role))
 
-  const SidebarContent = () => (
+  const sidebarContent = (
     <>
       {/* Brand Header */}
       <div className={cn("flex h-[72px] items-center border-b border-border bg-card shrink-0 transition-all", collapsed ? "justify-center px-2" : "px-6 justify-between")}>
@@ -113,7 +113,7 @@ export function DashboardSidebar() {
         })}
       </div>
     </>
-  )
+  );
 
   return (
     <>
@@ -130,7 +130,7 @@ export function DashboardSidebar() {
         "hidden md:flex border-r border-border bg-card flex-col flex-shrink-0 min-h-full transition-all duration-300",
         collapsed ? "w-[80px]" : "w-[260px]"
       )}>
-        <SidebarContent />
+        {sidebarContent}
       </aside>
 
       {/* Mobile Off-canvas Sidebar */}
@@ -138,7 +138,7 @@ export function DashboardSidebar() {
         <div className="md:hidden fixed inset-0 z-50 flex">
           <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
           <aside className="relative w-[280px] h-full bg-card shadow-2xl flex flex-col animate-in slide-in-from-left duration-300 z-10">
-            <SidebarContent />
+            {sidebarContent}
           </aside>
         </div>
       )}

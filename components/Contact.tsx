@@ -42,7 +42,7 @@ export default function Contact() {
 
       setStatus("success");
     } catch (error) {
-      console.error(error);
+      // console.error removed for production
       setStatus("error");
     }
   };
