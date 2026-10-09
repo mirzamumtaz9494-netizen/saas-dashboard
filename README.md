@@ -1,78 +1,36 @@
-# Vprofessionals - Premium Hospitality SaaS Dashboard Template
-
-Vprofessionals is a production-ready, premium frontend template built for hospitality management systems, hotel operations, and travel agencies. 
-
-## Features
-- **Next.js App Router** (React 19)
-- **TypeScript** for robust development
-- **Tailwind CSS v4** with native CSS variables for easy theming
-- **Radix UI** for accessible headless components
-- **Recharts** for beautiful data visualization
-- **Light/Dark Mode** out of the box
-- Responsive on all devices
-- WCAG-oriented accessibility features
-- SEO-ready layout structure
-
-## Included Pages
-1. Landing Page
-2. Pricing
-3. Login
-4. Sign Up
-5. Forgot Password
-6. Dashboard Overview
-7. Analytics
-8. Bookings
-9. Reservations, Guests, Properties, Rooms, Transactions, Reports, Notifications, Profile, Settings (UI Scaffolded)
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
-First, install dependencies:
-```bash
-npm install
-```
+First, run the development server:
 
-Run the development server:
 ```bash
 npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Customization
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-### Theme Colors
-To change the template colors, simply edit the CSS variables in `app/globals.css`. 
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-```css
-@theme {
-  --color-primary: #YOUR_HEX;
-  /* ... */
-}
-```
+## Learn More
 
-### Fonts
-Fonts are configured in `app/layout.tsx`. To change them, import new fonts from `next/font/google` and update the `className` on the body tag.
+To learn more about Next.js, take a look at the following resources:
 
-### Brand Name & Info
-Update the `config/site.ts` file to easily change the brand name, contact info, and links globally across the template.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-## Marketplace Packaging
-For Envato/ThemeForest submission, package the following directories and files:
-- `app/`
-- `components/`
-- `config/`
-- `lib/`
-- `public/`
-- `package.json`
-- `tsconfig.json`
-- `next.config.ts`
-- `tailwind.config` / `globals.css` (Tailwind 4)
-- `README.md`
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-**DO NOT INCLUDE:**
-- `node_modules/`
-- `.next/`
-- `.env.local`
+## Deploy on Vercel
 
-## Notes for Buyers
-This is a frontend-only template. All forms and authentication elements are UI-only and need to be wired up to your backend of choice (e.g., Supabase, Firebase, Node.js).
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

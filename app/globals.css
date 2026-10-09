@@ -1,6 +1,13 @@
 @import "tailwindcss";
 
 @theme {
+  --color-brand-dark: #0f1f16;
+  --color-brand-darker: #08120c;
+  --color-brand-gold: #cba864;
+  --color-brand-gold-light: #e4cc95;
+  --color-brand-green: #1c3626;
+  --color-brand-green-light: #284c36;
+
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
 

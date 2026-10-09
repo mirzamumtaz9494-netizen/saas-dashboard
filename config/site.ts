@@ -1,12 +1,12 @@
 export const siteConfig = {
-  name: "Vprofessionals",
-  description: "Premium Hospitality Management SaaS Dashboard Template",
-  website: "https://vprofessionals.com",
-  email: "hello@vprofessionals.com",
+  name: "Teqdeepseek",
+  description: "We understand the business requirement first, then build the right technology solution around it.",
+  website: "https://YOUR-COMPANY-WEBSITE.com",
+  email: "hello@teqdeepseek.com",
   phone: "+1 (555) 123-4567",
-  address: "123 Hospitality Ave, Suite 100",
+  address: "123 Innovation Drive, Tech District",
   socials: {
-    linkedin: "https://linkedin.com/company/vprofessionals",
-    twitter: "https://twitter.com/vprofessionals",
+    linkedin: "https://linkedin.com/company/teqdeepseek",
+    twitter: "https://twitter.com/teqdeepseek",
   }
 };
