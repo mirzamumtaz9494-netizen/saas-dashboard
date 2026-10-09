@@ -1,4 +1,4 @@
-﻿"use client"
+"use client"
 
 import { useState } from "react"
 import { Search, Filter, Plus, MoreHorizontal, Mail, Download, ChevronLeft, ChevronRight } from "lucide-react"
@@ -47,12 +47,12 @@ export default function GuestsPage() {
           { label: "Total Guests", value: "8,249", trend: "+120 this month", color: "text-blue-500" },
           { label: "Active VIPs", value: "342", trend: "+12 this month", color: "text-brand-gold" },
           { label: "Repeat Guests", value: "28%", trend: "+2.4% vs prev", color: "text-green-500" },
-          { label: "Avg Spend", value: formatCurrency(1240), trend: "+ vs prev", color: "text-purple-500" },
+          { label: "Avg Spend", value: formatCurrency(1240), trend: "+$45 vs prev", color: "text-purple-500" },
         ].map((stat, i) => (
           <div key={i} className="bg-card border border-border p-4 rounded-xl shadow-sm">
             <div className="text-sm text-muted-foreground mb-1">{stat.label}</div>
             <div className="text-2xl font-bold">{stat.value}</div>
-            <div className={`	ext-xs mt-1 \`}>{stat.trend}</div>
+            <div className={`text-xs mt-1 ${stat.color}`}>{stat.trend}</div>
           </div>
         ))}
       </div>
@@ -97,7 +97,7 @@ export default function GuestsPage() {
                   <td className="px-4 py-3">
                     <div className="flex gap-1.5 flex-wrap">
                       {guest.tags.map(tag => (
-                        <Badge key={tag} variant="outline" className={`	ext-[10px] uppercase \`}>{tag}</Badge>
+                        <Badge key={tag} variant="outline" className={`text-[10px] uppercase ${tag === 'VIP' ? 'bg-brand-gold/10 text-brand-gold border-brand-gold/30' : 'bg-muted text-muted-foreground'}`}>{tag}</Badge>
                       ))}
                     </div>
                   </td>
@@ -150,7 +150,7 @@ export default function GuestsPage() {
                 <p className="text-muted-foreground">{selectedGuest.email} • {selectedGuest.phone}</p>
                 <div className="flex gap-2 mt-2">
                   {selectedGuest.tags.map((tag: string) => (
-                    <Badge key={tag} variant="outline" className={`	ext-xs \`}>{tag}</Badge>
+                    <Badge key={tag} variant="outline" className={`text-xs ${tag === 'VIP' ? 'bg-brand-gold/10 text-brand-gold border-brand-gold/30' : ''}`}>{tag}</Badge>
                   ))}
                 </div>
               </div>

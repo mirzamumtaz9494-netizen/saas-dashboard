@@ -1,4 +1,4 @@
-﻿"use client"
+"use client"
 
 import { useState } from "react"
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, BarChart, Bar, PieChart, Pie, Cell, LineChart, Line, ComposedChart, CartesianGrid, Legend } from "recharts"
@@ -54,7 +54,7 @@ export default function DashboardPage() {
         <div className="flex items-center gap-3">
           <div className="bg-card border border-border rounded-lg p-1 flex items-center text-sm shadow-sm">
             {['Today', '7D', '30D', 'Custom'].map(r => (
-              <button key={r} onClick={() => setDateRange(r)} className={`px-3 py-1.5 rounded-md transition-colors \`}>
+              <button key={r} onClick={() => setDateRange(r)} className={`px-3 py-1.5 rounded-md transition-colors ${dateRange === r ? 'bg-primary text-primary-foreground font-medium' : 'text-muted-foreground hover:text-foreground'}`}>
                 {r}
               </button>
             ))}
@@ -73,7 +73,7 @@ export default function DashboardPage() {
                 <kpi.icon className="h-4 w-4 opacity-50" />
               </div>
               <div className="text-2xl font-bold text-foreground">{kpi.value}</div>
-              <div className={`lex items-center text-xs font-medium \`}>
+              <div className={`flex items-center text-xs font-medium ${kpi.up ? 'text-success' : 'text-destructive'}`}>
                 {kpi.up ? <ArrowUpRight className="h-3 w-3 mr-1" /> : <ArrowDownRight className="h-3 w-3 mr-1" />}
                 {kpi.trend} <span className="text-muted-foreground font-normal ml-1">vs prev</span>
               </div>
@@ -98,8 +98,8 @@ export default function DashboardPage() {
                 <ComposedChart data={revenueData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
                   <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} dy={10} />
-                  <YAxis yAxisId="left" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} tickFormatter={(val) => \$\k`} />
-                  <YAxis yAxisId="right" orientation="right" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} tickFormatter={(val) => \\%`} />
+                  <YAxis yAxisId="left" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} tickFormatter={(val) => `$${val/1000}k`} />
+                  <YAxis yAxisId="right" orientation="right" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} tickFormatter={(val) => `${val}%`} />
                   <Tooltip 
                     contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))', borderRadius: '8px' }}
                     itemStyle={{ color: 'hsl(var(--foreground))' }}
@@ -124,7 +124,7 @@ export default function DashboardPage() {
           <CardContent className="pt-4 flex-1 flex flex-col gap-3 overflow-y-auto">
             {mockTasks.map(t => (
               <div key={t.id} className="p-3 border border-border rounded-lg hover:bg-muted/50 transition flex items-start gap-3">
-                <div className={`w-2 h-2 mt-1.5 rounded-full shrink-0 \`} />
+                <div className={`w-2 h-2 mt-1.5 rounded-full shrink-0 ${t.priority === 'Urgent' ? 'bg-destructive' : 'bg-warning'}`} />
                 <div className="flex-1">
                   <h4 className="text-sm font-semibold text-foreground">{t.title}</h4>
                   <p className="text-xs text-muted-foreground mt-1">Room {t.roomId} • Assignee: {t.assignee}</p>
@@ -136,7 +136,7 @@ export default function DashboardPage() {
               <div className="w-2 h-2 mt-1.5 rounded-full shrink-0 bg-destructive" />
               <div className="flex-1">
                 <h4 className="text-sm font-semibold text-foreground">Unpaid Folio</h4>
-                <p className="text-xs text-muted-foreground mt-1">Room 304 checkout pending  balance.</p>
+                <p className="text-xs text-muted-foreground mt-1">Room 304 checkout pending $450 balance.</p>
               </div>
             </div>
           </CardContent>
@@ -153,7 +153,7 @@ export default function DashboardPage() {
                 <PieChart>
                   <Pie data={sources} cx="50%" cy="50%" innerRadius={60} outerRadius={80} paddingAngle={5} dataKey="value">
                     {sources.map((entry, index) => (
-                      <Cell key={`cell-\`} fill={COLORS[index % COLORS.length]} />
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
                   <Tooltip contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))' }} />
@@ -175,12 +175,12 @@ export default function DashboardPage() {
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={roomTypeOcc} layout="vertical" margin={{ top: 0, right: 30, left: 0, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="hsl(var(--border))" />
-                  <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => \\%`} axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} />
+                  <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} />
                   <YAxis type="category" dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--foreground))', fontWeight: 500 }} />
-                  <Tooltip contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))' }} cursor={{fill: 'hsl(var(--muted))'}} formatter={(val) => [\\%\, 'Occupancy']} />
+                  <Tooltip contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))' }} cursor={{fill: 'hsl(var(--muted))'}} formatter={(val) => [`${val}%`, 'Occupancy']} />
                   <Bar dataKey="value" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} maxBarSize={30}>
                     {roomTypeOcc.map((entry, index) => (
-                      <Cell key={`cell-\`} fill={COLORS[index % COLORS.length]} />
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Bar>
                 </BarChart>

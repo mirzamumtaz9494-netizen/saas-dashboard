@@ -1,4 +1,4 @@
-﻿"use client"
+"use client"
 
 import { useState, useMemo } from "react"
 import { Search, Filter, Plus, MoreHorizontal, CheckSquare, Clock, User, ClipboardList, CheckCircle2, AlertTriangle, ShieldCheck } from "lucide-react"
@@ -87,11 +87,11 @@ export default function HousekeepingPage() {
               <div key={floor}>
                 <h3 className="font-bold text-sm text-muted-foreground mb-3 border-b border-border pb-1">Floor {floor}</h3>
                 <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-4 xl:grid-cols-6 gap-3">
-                  {rooms.filter(r => filter ? r.status === filter : true).map((room) => (
+                  {rooms.filter((r: any) => filter ? r.status === filter : true).map((room: any) => (
                     <div 
                       key={room.id}
                       onClick={() => setSelectedRoom(room)}
-                      className={`cursor-pointer rounded-xl border p-3 flex flex-col transition-all hover:scale-105 \ \`}
+                      className={`cursor-pointer rounded-xl border p-3 flex flex-col transition-all hover:scale-105 ${selectedRoom?.id === room.id ? 'ring-2 ring-primary ring-offset-2 ring-offset-background' : ''} ${getStatusColor(room.status)}`}
                     >
                       <span className="font-bold text-lg leading-none">{room.number}</span>
                       <span className="text-[10px] mt-1 font-medium flex items-center">{getStatusIcon(room.status)} {room.status}</span>
