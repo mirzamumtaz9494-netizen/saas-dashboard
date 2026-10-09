@@ -11,9 +11,15 @@ import { format, addDays, subDays } from "date-fns"
 import { Drawer, Modal, ConfirmDialog } from "@/components/ui/Feedback"
 import { formatCurrency } from "@/lib/formatters"
 
+import { useEffect } from "react";
+
 export default function ReservationsPage() {
-  const [currentDate, setCurrentDate] = useState(new Date())
+  const [currentDate, setCurrentDate] = useState(new Date("2026-10-10T00:00:00Z"))
   const [view, setView] = useState("14 Days")
+  
+  useEffect(() => {
+    setCurrentDate(new Date())
+  }, [])
   
   // Modals / Drawers state
   const [bookingDrawerOpen, setBookingDrawerOpen] = useState(false)
