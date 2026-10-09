@@ -237,7 +237,7 @@ export default function GuestsPage() {
       <ConfirmDialog 
         open={confirmDelete} 
         onClose={() => setConfirmDelete(false)} 
-        onConfirm={() => setDeleteConfirmOpen(false)} 
+        onConfirm={() => setConfirmDelete(false)} 
         title="Delete Guest Data?" 
         description="This action cannot be undone and will anonymize historical folios per GDPR compliance." 
         variant="destructive" 

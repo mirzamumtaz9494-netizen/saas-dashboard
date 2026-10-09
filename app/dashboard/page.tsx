@@ -29,9 +29,9 @@ const COLORS = ['#3b82f6', '#8b5cf6', '#eab308']
 
 const sources = [
   { name: 'Direct', value: 45 },
-  { name: 'Booking.com', value: 30 },
-  { name: 'Expedia', value: 15 },
-  { name: 'Airbnb', value: 10 },
+  { name: 'GlobalOTA', value: 30 },
+  { name: 'TravelNet', value: 15 },
+  { name: 'VacationRentals', value: 10 },
 ]
 
 export default function DashboardPage() {

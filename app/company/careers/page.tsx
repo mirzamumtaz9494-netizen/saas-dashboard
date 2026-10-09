@@ -1,7 +1,7 @@
 import { SubPageLayout } from "@/components/landing/SubPageLayout";
 
 export const metadata = {
-  title: "Careers | GrandStay",
+  title: "Careers | GrandHotel",
   description: "Join our fully remote team and help shape the future of hospitality."
 };
 

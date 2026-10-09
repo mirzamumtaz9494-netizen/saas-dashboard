@@ -3,7 +3,7 @@ import { Pricing as PricingSection } from "@/components/landing/Pricing";
 import { FAQ } from "@/components/landing/FAQ";
 
 export const metadata = {
-  title: "Pricing | GrandStay",
+  title: "Pricing | GrandHotel",
   description: "Simple, transparent pricing for properties of all sizes."
 };
 
@@ -47,7 +47,7 @@ export default function PricingPage() {
                 <td className="py-4 px-6 text-white text-center font-medium">Unlimited</td>
               </tr>
               <tr className="border-b border-white/5 hover:bg-white/5 transition">
-                <td className="py-4 px-6 text-gray-300">OTA Channels (Booking, Expedia)</td>
+                <td className="py-4 px-6 text-gray-300">OTA Channels (Booking, TravelNet)</td>
                 <td className="py-4 px-6 text-gray-400 text-center">3 included</td>
                 <td className="py-4 px-6 text-white text-center font-medium">Unlimited</td>
                 <td className="py-4 px-6 text-white text-center font-medium">Unlimited</td>

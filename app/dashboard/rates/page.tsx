@@ -198,7 +198,7 @@ function CalendarTab() {
             <select className="h-9 text-sm bg-card border border-border rounded-md px-2 hidden lg:block">
               <option>All Channels</option>
               <option>Direct</option>
-              <option>Booking.com</option>
+              <option>GlobalOTA</option>
             </select>
           </div>
         </div>

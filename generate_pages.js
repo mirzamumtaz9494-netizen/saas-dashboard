@@ -2,7 +2,7 @@
 const path = require('path');
 
 const routes = [
-  { path: 'product', title: 'Product Overview', desc: 'Discover how GrandStay unifies your operations into a single platform.' },
+  { path: 'product', title: 'Product Overview', desc: 'Discover how GrandHotel unifies your operations into a single platform.' },
   { path: 'product/property-management', title: 'Property Management', desc: 'Centralized calendar and reservations. Manage availability across all channels in one interface.' },
   { path: 'product/guest-check-in', title: 'Guest Check-in', desc: 'Contactless mobile check-in, automated welcome emails, and rich guest profiling.' },
   { path: 'product/housekeeping-maintenance', title: 'Housekeeping & Maintenance', desc: 'Auto-assign tasks based on check-outs and track maintenance in real-time.' },
@@ -21,23 +21,23 @@ const routes = [
   { path: 'solutions/front-desk', title: 'For Front Desk', desc: 'A lightning-fast interface to check guests in and handle requests.' },
   { path: 'solutions/housekeeping', title: 'For Housekeeping', desc: 'Mobile-friendly checklists and real-time room status updates.' },
   { path: 'company/about', title: 'About Us', desc: 'Our mission is to empower hospitality professionals with better technology.' },
-  { path: 'company/customers', title: 'Customers', desc: 'See how properties around the world are succeeding with GrandStay.' },
+  { path: 'company/customers', title: 'Customers', desc: 'See how properties around the world are succeeding with GrandHotel.' },
   { path: 'company/careers', title: 'Careers', desc: 'Join our fully remote team and help shape the future of hospitality.' },
   { path: 'company/blog', title: 'Blog', desc: 'Insights, tips, and news for modern hoteliers.' },
-  { path: 'company/partners', title: 'Partners', desc: 'Grow your business by partnering with the GrandStay ecosystem.' },
+  { path: 'company/partners', title: 'Partners', desc: 'Grow your business by partnering with the GrandHotel ecosystem.' },
   { path: 'company/press', title: 'Press', desc: 'Media kit, brand assets, and recent press releases.' },
   { path: 'resources/help-center', title: 'Help Center', desc: 'Search our knowledge base for quick answers and tutorials.' },
   { path: 'resources/api-docs', title: 'API Documentation', desc: 'Build custom integrations with our robust, RESTful API.' },
-  { path: 'resources/user-guides', title: 'User Guides', desc: 'In-depth manuals for getting the most out of every GrandStay feature.' },
+  { path: 'resources/user-guides', title: 'User Guides', desc: 'In-depth manuals for getting the most out of every GrandHotel feature.' },
   { path: 'resources/community', title: 'Community Forum', desc: 'Connect with other property managers to share tips and strategies.' },
   { path: 'privacy', title: 'Privacy Policy', desc: 'How we collect, use, and protect your data.' },
-  { path: 'terms', title: 'Terms of Service', desc: 'The rules and guidelines for using the GrandStay platform.' }
+  { path: 'terms', title: 'Terms of Service', desc: 'The rules and guidelines for using the GrandHotel platform.' }
 ];
 
 const template = (title, desc) => import { SubPageLayout } from "@/components/landing/SubPageLayout";
 
 export const metadata = {
-  title: " | GrandStay",
+  title: " | GrandHotel",
   description: ""
 };
 

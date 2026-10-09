@@ -1,13 +1,13 @@
 import { SubPageLayout } from "@/components/landing/SubPageLayout";
 
 export const metadata = {
-  title: "Terms of Service | GrandStay",
-  description: "The rules and guidelines for using the GrandStay platform."
+  title: "Terms of Service | GrandHotel",
+  description: "The rules and guidelines for using the GrandHotel platform."
 };
 
 export default function Page() {
   return (
-    <SubPageLayout title="Terms of Service" description="The rules and guidelines for using the GrandStay platform.">
+    <SubPageLayout title="Terms of Service" description="The rules and guidelines for using the GrandHotel platform.">
       <div className="max-w-4xl mx-auto px-6 space-y-16">
         
         {/* Content Block 1 */}

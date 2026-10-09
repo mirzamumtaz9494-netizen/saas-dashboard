@@ -1,7 +1,7 @@
 import { SubPageLayout } from "@/components/landing/SubPageLayout";
 
 export const metadata = {
-  title: "Guest Check-in | GrandStay",
+  title: "Guest Check-in | GrandHotel",
   description: "Contactless mobile check-in, automated welcome emails, and rich guest profiling."
 };
 

@@ -11,7 +11,7 @@ export function Hero() {
       <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-brand-gold/30 bg-brand-gold/5 mb-8">
           <span className="w-2 h-2 rounded-full bg-brand-gold animate-pulse"></span>
-          <span className="text-brand-gold text-xs font-semibold tracking-wider uppercase">GrandStay 2.0 is Live</span>
+          <span className="text-brand-gold text-xs font-semibold tracking-wider uppercase">GrandHotel 2.0 is Live</span>
         </div>
         
         <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight mb-8 leading-tight">

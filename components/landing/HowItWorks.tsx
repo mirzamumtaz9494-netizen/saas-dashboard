@@ -10,7 +10,7 @@ export function HowItWorks() {
     {
       icon: RefreshCw,
       title: "2. Sync channels",
-      description: "Connect to Airbnb, Booking.com, and Expedia with zero double-bookings."
+      description: "Connect to VacationRentals, GlobalOTA, and TravelNet with zero double-bookings."
     },
     {
       icon: Zap,

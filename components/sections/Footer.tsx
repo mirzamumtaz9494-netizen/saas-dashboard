@@ -19,25 +19,25 @@ export function Footer() {
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li><Link href="#features" className="hover:text-foreground">Features</Link></li>
               <li><Link href="/pricing" className="hover:text-foreground">Pricing</Link></li>
-              <li><Link href="#" className="hover:text-foreground">Integrations</Link></li>
-              <li><Link href="#" className="hover:text-foreground">Changelog</Link></li>
+              <li><Link href="#!" className="hover:text-foreground">Integrations</Link></li>
+              <li><Link href="#!" className="hover:text-foreground">Changelog</Link></li>
             </ul>
           </div>
           <div>
             <h3 className="font-medium mb-4">Company</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link href="#" className="hover:text-foreground">About Us</Link></li>
-              <li><Link href="#" className="hover:text-foreground">Careers</Link></li>
-              <li><Link href="#" className="hover:text-foreground">Contact</Link></li>
-              <li><Link href="#" className="hover:text-foreground">Partners</Link></li>
+              <li><Link href="#!" className="hover:text-foreground">About Us</Link></li>
+              <li><Link href="#!" className="hover:text-foreground">Careers</Link></li>
+              <li><Link href="#!" className="hover:text-foreground">Contact</Link></li>
+              <li><Link href="#!" className="hover:text-foreground">Partners</Link></li>
             </ul>
           </div>
           <div>
             <h3 className="font-medium mb-4">Legal</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link href="#" className="hover:text-foreground">Privacy Policy</Link></li>
-              <li><Link href="#" className="hover:text-foreground">Terms of Service</Link></li>
-              <li><Link href="#" className="hover:text-foreground">Cookie Policy</Link></li>
+              <li><Link href="#!" className="hover:text-foreground">Privacy Policy</Link></li>
+              <li><Link href="#!" className="hover:text-foreground">Terms of Service</Link></li>
+              <li><Link href="#!" className="hover:text-foreground">Cookie Policy</Link></li>
             </ul>
           </div>
         </div>

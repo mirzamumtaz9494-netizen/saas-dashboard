@@ -1,7 +1,7 @@
 import { SubPageLayout } from "@/components/landing/SubPageLayout";
 
 export const metadata = {
-  title: "API Documentation | GrandStay",
+  title: "API Documentation | GrandHotel",
   description: "Build custom integrations with our robust, RESTful API."
 };
 

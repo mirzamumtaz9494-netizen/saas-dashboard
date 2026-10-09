@@ -1,7 +1,7 @@
 import { SubPageLayout } from "@/components/landing/SubPageLayout";
 
 export const metadata = {
-  title: "Staff & Shift Scheduler | GrandStay",
+  title: "Staff & Shift Scheduler | GrandHotel",
   description: "Manage employee shifts, payroll exports, and internal communications securely."
 };
 

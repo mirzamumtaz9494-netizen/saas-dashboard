@@ -3,7 +3,7 @@ import { Quote } from "lucide-react";
 export function Testimonials() {
   const testimonials = [
     {
-      quote: "GrandStay completely transformed how we run our boutique properties. Check-in times are down 90% and guest satisfaction is through the roof.",
+      quote: "GrandHotel completely transformed how we run our boutique properties. Check-in times are down 90% and guest satisfaction is through the roof.",
       name: "Sarah Jenkins",
       role: "General Manager",
       property: "The Azure Boutique",
@@ -30,7 +30,7 @@ export function Testimonials() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Loved by Hoteliers</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">Don't just take our word for it. See what property managers around the world say about GrandStay.</p>
+          <p className="text-gray-400 max-w-2xl mx-auto text-lg">Don't just take our word for it. See what property managers around the world say about GrandHotel.</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">

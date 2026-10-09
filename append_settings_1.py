@@ -13,7 +13,7 @@ function SectionProperty({ onChange }: any) {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="text-xs font-bold text-muted-foreground block mb-1">Property Name</label>
-              <Input defaultValue="The Grand Plaza" onChange={onChange} className="bg-background" />
+              <Input defaultValue="The Grand Hotel" onChange={onChange} className="bg-background" />
             </div>
             <div>
               <label className="text-xs font-bold text-muted-foreground block mb-1">Legal Name</label>

@@ -1,7 +1,7 @@
 import { SubPageLayout } from "@/components/landing/SubPageLayout";
 
 export const metadata = {
-  title: "Revenue & Pricing | GrandStay",
+  title: "Revenue & Pricing | GrandHotel",
   description: "Dynamic pricing matrix that adjusts rates automatically to maximize your RevPAR."
 };
 

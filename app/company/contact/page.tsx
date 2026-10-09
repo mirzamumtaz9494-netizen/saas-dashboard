@@ -30,7 +30,7 @@ export default function ContactPage() {
   };
 
   return (
-    <SubPageLayout title="Contact Us" description="Have questions about GrandStay? Our team is here to help you find the right solution for your properties.">
+    <SubPageLayout title="Contact Us" description="Have questions about GrandHotel? Our team is here to help you find the right solution for your properties.">
       <div className="max-w-xl mx-auto px-6">
         
         {submitted ? (

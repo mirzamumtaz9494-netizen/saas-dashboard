@@ -61,7 +61,7 @@ export function FAQ() {
       answer: "Yes, our Enterprise plan is specifically built for multi-property management, allowing you to seamlessly switch between locations, aggregate data, and manage staff access per property."
     },
     {
-      question: "Do you integrate with OTA channels like Booking.com and Expedia?",
+      question: "Do you integrate with OTA channels like GlobalOTA and TravelNet?",
       answer: "Absolutely. We offer a robust built-in channel manager that synchronizes your availability and rates across over 200 channels in real-time."
     },
     {

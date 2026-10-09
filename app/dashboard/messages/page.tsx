@@ -157,7 +157,7 @@ export default function MessagesPage() {
   const handleTemplateInsert = (templateContent: string) => {
     let text = templateContent
     if (selectedGuest) text = text.replace(/{guest_name}/g, selectedGuest.name.split(" ")[0])
-    text = text.replace(/{hotel_name}/g, "vProfessional")
+    text = text.replace(/{hotel_name}/g, "StayManager")
     if (selectedRoom) text = text.replace(/{room}/g, selectedRoom.number)
     if (selectedRes) {
       text = text.replace(/{checkin_date}/g, formatDate(selectedRes.checkIn))

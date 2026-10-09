@@ -14,13 +14,13 @@ export function FinalCTA() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <div className="relative aspect-[4/3] rounded-xl overflow-hidden group border border-white/10">
-              <Image src="/images/footer-lock.jpg" alt="Smart Lock Integration" fill className="object-cover transition duration-700 group-hover:scale-105" />
+              <Image src="https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=600&q=80" alt="Smart Lock Integration" fill className="object-cover transition duration-700 group-hover:scale-105" />
             </div>
             <div className="relative aspect-[4/3] rounded-xl overflow-hidden group border border-white/10">
-              <Image src="/images/footer-mobile.jpg" alt="Mobile Guest Check-in App" fill className="object-cover transition duration-700 group-hover:scale-105" />
+              <Image src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=600&q=80" alt="Mobile Guest Check-in App" fill className="object-cover transition duration-700 group-hover:scale-105" />
             </div>
             <div className="relative aspect-[4/3] rounded-xl overflow-hidden group border border-white/10">
-              <Image src="/images/footer-dashboard.jpg" alt="GrandStay Property Dashboard View" fill className="object-cover transition duration-700 group-hover:scale-105" />
+              <Image src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="GrandHotel Property Dashboard View" fill className="object-cover transition duration-700 group-hover:scale-105" />
             </div>
           </div>
         </div>

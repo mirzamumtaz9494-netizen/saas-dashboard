@@ -1,7 +1,7 @@
 import { SubPageLayout } from "@/components/landing/SubPageLayout";
 
 export const metadata = {
-  title: "For Vacation Rentals | GrandStay",
+  title: "For Vacation Rentals | GrandHotel",
   description: "Automate guest communication and smart lock generation seamlessly."
 };
 

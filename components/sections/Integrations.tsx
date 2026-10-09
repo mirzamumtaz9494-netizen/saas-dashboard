@@ -9,12 +9,12 @@ import {
 
 export function Integrations() {
   const integrations = [
-    { name: "Stripe", icon: CreditCard, color: "text-[#6366f1]", bg: "bg-[#6366f1]/10" },
+    { name: "PayGateway", icon: CreditCard, color: "text-[#6366f1]", bg: "bg-[#6366f1]/10" },
     { name: "Mailchimp", icon: Mail, color: "text-[#F6E05E]", bg: "bg-[#F6E05E]/10" },
-    { name: "Expedia Group", icon: Globe, color: "text-[#000080]", bg: "bg-[#000080]/10" },
+    { name: "TravelNet Group", icon: Globe, color: "text-[#000080]", bg: "bg-[#000080]/10" },
     { name: "Twilio", icon: MessageSquare, color: "text-[#F56565]", bg: "bg-[#F56565]/10" },
     { name: "Salto", icon: Lock, color: "text-[#10B981]", bg: "bg-[#10B981]/10" },
-    { name: "Airbnb", icon: Building2, color: "text-[#FF5A5F]", bg: "bg-[#FF5A5F]/10" },
+    { name: "VacationRentals", icon: Building2, color: "text-[#FF5A5F]", bg: "bg-[#FF5A5F]/10" },
   ]
 
   return (

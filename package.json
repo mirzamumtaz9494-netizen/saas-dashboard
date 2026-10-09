@@ -33,9 +33,16 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "braces": "^3.0.3",
     "eslint": "^9",
     "eslint-config-next": "16.4.0",
+    "fast-glob": "^3.3.3",
+    "micromatch": "^4.0.8",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "braces": "^3.0.3",
+    "micromatch": "^4.0.8"
   }
 }

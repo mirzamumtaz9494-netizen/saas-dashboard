@@ -1,7 +1,7 @@
 import { SubPageLayout } from "@/components/landing/SubPageLayout";
 
 export const metadata = {
-  title: "Community Forum | GrandStay",
+  title: "Community Forum | GrandHotel",
   description: "Connect with other property managers to share tips and strategies."
 };
 

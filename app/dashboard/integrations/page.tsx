@@ -318,7 +318,7 @@ export default function IntegrationsPage() {
               </div>
               <div className="bg-card border border-border p-3 rounded-lg">
                 <div className="text-xs text-muted-foreground">Connected Account</div>
-                <div className="font-bold mt-1 text-sm">The Grand Plaza (ID: 10092)</div>
+                <div className="font-bold mt-1 text-sm">The Grand Hotel (ID: 10092)</div>
               </div>
             </div>
 

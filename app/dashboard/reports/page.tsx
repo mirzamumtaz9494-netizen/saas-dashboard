@@ -170,7 +170,7 @@ function OverviewTab({ compare, setCompare }: { compare: boolean, setCompare: (v
         <div className="flex items-center gap-2 border-r border-border pr-3">
           <span className="text-sm font-semibold text-muted-foreground whitespace-nowrap">Property:</span>
           <select className="h-8 text-sm bg-background border border-border rounded px-2 w-48">
-            <option>The Grand Plaza</option>
+            <option>The Grand Hotel</option>
           </select>
         </div>
         <div className="flex items-center gap-2">
@@ -295,9 +295,9 @@ function OverviewTab({ compare, setCompare }: { compare: boolean, setCompare: (v
             <div className="space-y-4">
               {[
                 { name: "Direct Website", rev: 12500, pct: 45 },
-                { name: "Booking.com", rev: 8400, pct: 30 },
-                { name: "Expedia", rev: 4200, pct: 15 },
-                { name: "Airbnb", rev: 2800, pct: 10 }
+                { name: "GlobalOTA", rev: 8400, pct: 30 },
+                { name: "TravelNet", rev: 4200, pct: 15 },
+                { name: "VacationRentals", rev: 2800, pct: 10 }
               ].map((s, i) => (
                 <div key={i}>
                   <div className="flex justify-between text-xs mb-1.5">
@@ -339,7 +339,7 @@ function OverviewTab({ compare, setCompare }: { compare: boolean, setCompare: (v
             <div className="space-y-3">
               <div className="bg-card p-3 rounded border border-border text-xs">
                 <div className="flex items-center gap-1.5 font-bold text-destructive mb-1"><AlertTriangle className="w-3.5 h-3.5"/> High Severity</div>
-                <p className="text-muted-foreground mb-2">Cancellations are up 18% vs the previous 30 days, primarily originating from Booking.com.</p>
+                <p className="text-muted-foreground mb-2">Cancellations are up 18% vs the previous 30 days, primarily originating from GlobalOTA.</p>
                 <Button variant="outline" size="sm" className="h-6 text-[10px] w-full">View Cancellations Report</Button>
               </div>
               <div className="bg-card p-3 rounded border border-border text-xs">

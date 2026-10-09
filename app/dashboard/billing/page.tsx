@@ -163,7 +163,7 @@ export default function BillingPage() {
             <div className="space-y-2">
               <label className="text-sm font-bold">Payment Method</label>
               <select className="w-full h-10 border border-border rounded-md px-3 bg-background text-sm">
-                <option>Credit Card (Stripe)</option>
+                <option>Credit Card (PayGateway)</option>
                 <option>Cash</option>
                 <option>Bank Transfer</option>
                 <option>OTA Virtual Card</option>

@@ -85,7 +85,7 @@ export function Navbar() {
               <div className="w-8 h-8 rounded border border-brand-gold flex items-center justify-center">
                 <span className="text-brand-gold font-bold text-lg leading-none">G</span>
               </div>
-              <span className="text-white font-semibold text-xl tracking-tight">GrandStay</span>
+              <span className="text-white font-semibold text-xl tracking-tight">GrandHotel</span>
             </Link>
 
             {/* Desktop Nav */}

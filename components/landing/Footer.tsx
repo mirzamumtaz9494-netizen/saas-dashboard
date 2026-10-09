@@ -30,7 +30,7 @@ export function Footer() {
               <div className="w-8 h-8 rounded border border-brand-gold flex items-center justify-center">
                 <span className="text-brand-gold font-bold text-lg leading-none">G</span>
               </div>
-              <span className="text-white font-semibold text-xl">GrandStay</span>
+              <span className="text-white font-semibold text-xl">GrandHotel</span>
             </Link>
             <p className="text-gray-400 text-sm mb-8 leading-relaxed">
               Top-rated Hospitality SaaS platform used by properties worldwide to streamline operations and enhance guest experiences.
@@ -103,7 +103,7 @@ export function Footer() {
         </div>
         
         <div className="text-center text-gray-500 text-xs mt-10 border-t border-white/5 pt-8">
-          &copy; {currentYear} GrandStay Hospitality SaaS. All rights reserved.
+          &copy; {currentYear} GrandHotel Hospitality SaaS. All rights reserved.
         </div>
       </div>
     </footer>

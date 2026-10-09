@@ -1,7 +1,7 @@
 import { SubPageLayout } from "@/components/landing/SubPageLayout";
 
 export const metadata = {
-  title: "Privacy Policy | GrandStay",
+  title: "Privacy Policy | GrandHotel",
   description: "How we collect, use, and protect your data."
 };
 

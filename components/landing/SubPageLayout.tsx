@@ -34,7 +34,7 @@ export function SubPageLayout({ title, description, children }: SubPageLayoutPro
         <section className="py-24 bg-brand-darker border-y border-white/5 text-center px-6">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold text-white mb-6">Ready to see it in action?</h2>
-            <p className="text-gray-400 mb-10 text-lg">Join the thousands of properties running on GrandStay today.</p>
+            <p className="text-gray-400 mb-10 text-lg">Join the thousands of properties running on GrandHotel today.</p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link href="/signup" className="bg-brand-gold text-brand-darker font-medium px-8 py-3 rounded-full hover:bg-brand-gold-light transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold">
                 Start Free Trial

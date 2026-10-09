@@ -1,7 +1,7 @@
 import { SubPageLayout } from "@/components/landing/SubPageLayout";
 
 export const metadata = {
-  title: "Press | GrandStay",
+  title: "Press | GrandHotel",
   description: "Media kit, brand assets, and recent press releases."
 };
 

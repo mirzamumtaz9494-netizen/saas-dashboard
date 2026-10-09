@@ -25,7 +25,7 @@ export default function DemoPage() {
   };
 
   return (
-    <SubPageLayout title="Schedule a Demo" description="See exactly how GrandStay can transform your property operations in a personalized 30-minute walkthrough.">
+    <SubPageLayout title="Schedule a Demo" description="See exactly how GrandHotel can transform your property operations in a personalized 30-minute walkthrough.">
       <div className="max-w-2xl mx-auto px-6">
         
         {step === 3 ? (

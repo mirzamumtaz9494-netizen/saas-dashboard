@@ -22,7 +22,7 @@ export interface TenantConfig {
 export const tenants: TenantConfig[] = [
   {
     id: "t-001",
-    propertyName: "The Grand Plaza",
+    propertyName: "The Grand Hotel",
     logo: "G",
     accentColor: "45 100% 65%", // Gold
     currency: "USD",

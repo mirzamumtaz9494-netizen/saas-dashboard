@@ -1,7 +1,7 @@
 import { SubPageLayout } from "@/components/landing/SubPageLayout";
 
 export const metadata = {
-  title: "For Boutique Hotels | GrandStay",
+  title: "For Boutique Hotels | GrandHotel",
   description: "Deliver personalized guest experiences with enterprise-grade operational tools."
 };
 

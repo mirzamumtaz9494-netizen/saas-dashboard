@@ -49,8 +49,8 @@ export default function Footer() {
               <li><Link href={siteConfig.website} target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">Official Website</Link></li>
               <li><Link href="#process" className="hover:text-blue-400 transition-colors">How We Work</Link></li>
               <li><Link href="#why-us" className="hover:text-blue-400 transition-colors">Why Choose Us</Link></li>
-              <li><Link href="#" className="hover:text-blue-400 transition-colors">Privacy Policy</Link></li>
-              <li><Link href="#" className="hover:text-blue-400 transition-colors">Terms of Service</Link></li>
+              <li><Link href="#!" className="hover:text-blue-400 transition-colors">Privacy Policy</Link></li>
+              <li><Link href="#!" className="hover:text-blue-400 transition-colors">Terms of Service</Link></li>
             </ul>
           </div>
 

@@ -22,7 +22,7 @@ const faqs = [
   },
   {
     question: "What integrations do you support?",
-    answer: "We support over 50 native integrations including Stripe, Booking.com, Airbnb, Expedia, QuickBooks, Xero, Salto smart locks, and Mailchimp. We also offer an open API for custom connections."
+    answer: "We support over 50 native integrations including PayGateway, GlobalOTA, VacationRentals, TravelNet, CloudBooks, AcctPlus, Salto smart locks, and Mailchimp. We also offer an open API for custom connections."
   },
   {
     question: "Is there a limit on the number of users?",
@@ -46,7 +46,7 @@ export function FAQ() {
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Frequently Asked Questions</h2>
-          <p className="text-gray-400 text-lg">Everything you need to know about switching to GrandStay.</p>
+          <p className="text-gray-400 text-lg">Everything you need to know about switching to GrandHotel.</p>
         </div>
 
         <div className="space-y-4">

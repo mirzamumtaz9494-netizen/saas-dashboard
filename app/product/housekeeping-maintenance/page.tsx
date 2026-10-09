@@ -1,7 +1,7 @@
 import { SubPageLayout } from "@/components/landing/SubPageLayout";
 
 export const metadata = {
-  title: "Housekeeping & Maintenance | GrandStay",
+  title: "Housekeeping & Maintenance | GrandHotel",
   description: "Auto-assign tasks based on check-outs and track maintenance in real-time."
 };
 

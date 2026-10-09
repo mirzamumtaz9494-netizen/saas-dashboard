@@ -1,7 +1,7 @@
 import { SubPageLayout } from "@/components/landing/SubPageLayout";
 
 export const metadata = {
-  title: "Property Management | GrandStay",
+  title: "Property Management | GrandHotel",
   description: "Centralized calendar and reservations. Manage availability across all channels in one interface."
 };
 

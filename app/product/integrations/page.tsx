@@ -1,7 +1,7 @@
 import { SubPageLayout } from "@/components/landing/SubPageLayout";
 
 export const metadata = {
-  title: "Integrations | GrandStay",
+  title: "Integrations | GrandHotel",
   description: "Connect seamlessly with the OTAs, payment gateways, and tools you already use."
 };
 

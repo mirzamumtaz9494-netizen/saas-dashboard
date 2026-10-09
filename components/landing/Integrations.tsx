@@ -35,34 +35,34 @@ export function Integrations() {
               </svg>
 
               {/* Outer Nodes */}
-              {/* Top - Stripe */}
+              {/* Top - PayGateway */}
               <div className="absolute top-[40px] left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-brand-dark border border-white/20 rounded-xl flex items-center justify-center z-10">
-                <span className="text-white text-xs font-bold">Stripe</span>
+                <span className="text-white text-xs font-bold">PayGateway</span>
               </div>
               
-              {/* Top Right - Booking.com */}
+              {/* Top Right - GlobalOTA */}
               <div className="absolute top-[120px] left-[338px] -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-brand-dark border border-white/20 rounded-xl flex items-center justify-center z-10">
                 <span className="text-blue-400 text-xs font-bold text-center leading-tight">Booking<br/>.com</span>
               </div>
 
-              {/* Bottom Right - Expedia */}
+              {/* Bottom Right - TravelNet */}
               <div className="absolute top-[280px] left-[338px] -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-brand-dark border border-white/20 rounded-xl flex items-center justify-center z-10">
-                <span className="text-yellow-400 text-xs font-bold">Expedia</span>
+                <span className="text-yellow-400 text-xs font-bold">TravelNet</span>
               </div>
 
-              {/* Bottom - Airbnb */}
+              {/* Bottom - VacationRentals */}
               <div className="absolute top-[360px] left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-brand-dark border border-white/20 rounded-xl flex items-center justify-center z-10">
-                <span className="text-red-400 text-xs font-bold">Airbnb</span>
+                <span className="text-red-400 text-xs font-bold">VacationRentals</span>
               </div>
 
-              {/* Bottom Left - QuickBooks */}
+              {/* Bottom Left - CloudBooks */}
               <div className="absolute top-[280px] left-[62px] -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-brand-dark border border-white/20 rounded-xl flex items-center justify-center z-10 text-center">
                 <span className="text-green-400 text-xs font-bold">Quick<br/>Books</span>
               </div>
 
-              {/* Top Left - Xero */}
+              {/* Top Left - AcctPlus */}
               <div className="absolute top-[120px] left-[62px] -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-brand-dark border border-white/20 rounded-xl flex items-center justify-center z-10">
-                <span className="text-blue-300 text-xs font-bold">Xero</span>
+                <span className="text-blue-300 text-xs font-bold">AcctPlus</span>
               </div>
 
             </div>
@@ -72,7 +72,7 @@ export function Integrations() {
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Connects seamlessly with tools you already use</h2>
             <p className="text-gray-400 mb-8 leading-relaxed text-lg">
-              No need to rip and replace your entire tech stack. GrandStay integrates natively with the world's leading OTAs, payment gateways, accounting software, and smart lock providers.
+              No need to rip and replace your entire tech stack. GrandHotel integrates natively with the world's leading OTAs, payment gateways, accounting software, and smart lock providers.
             </p>
             <ul className="space-y-4 mb-8 text-white">
               <li className="flex items-center gap-3">

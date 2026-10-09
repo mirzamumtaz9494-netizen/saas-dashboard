@@ -1,7 +1,7 @@
 import { SubPageLayout } from "@/components/landing/SubPageLayout";
 
 export const metadata = {
-  title: "Help Center | GrandStay",
+  title: "Help Center | GrandHotel",
   description: "Search our knowledge base for quick answers and tutorials."
 };
 

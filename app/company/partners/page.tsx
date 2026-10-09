@@ -1,13 +1,13 @@
 import { SubPageLayout } from "@/components/landing/SubPageLayout";
 
 export const metadata = {
-  title: "Partners | GrandStay",
-  description: "Grow your business by partnering with the GrandStay ecosystem."
+  title: "Partners | GrandHotel",
+  description: "Grow your business by partnering with the GrandHotel ecosystem."
 };
 
 export default function Page() {
   return (
-    <SubPageLayout title="Partners" description="Grow your business by partnering with the GrandStay ecosystem.">
+    <SubPageLayout title="Partners" description="Grow your business by partnering with the GrandHotel ecosystem.">
       <div className="max-w-4xl mx-auto px-6 space-y-16">
         
         {/* Content Block 1 */}

@@ -21,8 +21,8 @@ export const mockRooms = [
 
 export const mockReservations = [
   { id: "RES-1001", guestId: "G-102", roomId: "R-101", checkIn: subDays(today, 2).toISOString(), checkOut: today.toISOString(), status: "Expected Departure", source: "Direct", totalAmount: 850, balance: 45, paymentState: "Balance due" },
-  { id: "RES-1002", guestId: "G-103", roomId: "R-102", checkIn: today.toISOString(), checkOut: addDays(today, 3).toISOString(), status: "Expected Arrival", source: "Booking.com", totalAmount: 1200, balance: 1200, paymentState: "Deposit held" },
-  { id: "RES-1003", guestId: "G-104", roomId: "R-201", checkIn: subDays(today, 1).toISOString(), checkOut: addDays(today, 5).toISOString(), status: "Checked In", source: "Expedia", totalAmount: 2400, balance: 0, paymentState: "Paid" },
+  { id: "RES-1002", guestId: "G-103", roomId: "R-102", checkIn: today.toISOString(), checkOut: addDays(today, 3).toISOString(), status: "Expected Arrival", source: "GlobalOTA", totalAmount: 1200, balance: 1200, paymentState: "Deposit held" },
+  { id: "RES-1003", guestId: "G-104", roomId: "R-201", checkIn: subDays(today, 1).toISOString(), checkOut: addDays(today, 5).toISOString(), status: "Checked In", source: "TravelNet", totalAmount: 2400, balance: 0, paymentState: "Paid" },
 ];
 
 export const mockStaff = [
@@ -125,9 +125,9 @@ export const mockChannels = [
   { id: "sms", name: "SMS", icon: "message-square", connected: true },
   { id: "email", name: "Email", icon: "mail", connected: true },
   { id: "whatsapp", name: "WhatsApp", icon: "phone", connected: true },
-  { id: "booking", name: "Booking.com", icon: "b-logo", connected: true },
-  { id: "airbnb", name: "Airbnb", icon: "a-logo", connected: false },
-  { id: "expedia", name: "Expedia", icon: "e-logo", connected: true },
+  { id: "booking", name: "GlobalOTA", icon: "b-logo", connected: true },
+  { id: "airbnb", name: "VacationRentals", icon: "a-logo", connected: false },
+  { id: "expedia", name: "TravelNet", icon: "e-logo", connected: true },
   { id: "direct", name: "Direct/Web", icon: "globe", connected: true },
 ];
 
@@ -205,16 +205,16 @@ export const mockRoomTypes = [
 ];
 
 export const mockRatePlans = [
-  { id: "rp-1", name: "Standard Rate", type: "Base", derivation: null, cancelPolicy: "24h prior", mealPlan: "Room Only", minStay: 1, channels: ["Direct", "Booking.com", "Expedia", "Airbnb"] },
-  { id: "rp-2", name: "Non-Refundable", type: "Derived", derivation: "-10%", cancelPolicy: "No cancellation", mealPlan: "Room Only", minStay: 1, channels: ["Direct", "Booking.com", "Expedia"] },
+  { id: "rp-1", name: "Standard Rate", type: "Base", derivation: null, cancelPolicy: "24h prior", mealPlan: "Room Only", minStay: 1, channels: ["Direct", "GlobalOTA", "TravelNet", "VacationRentals"] },
+  { id: "rp-2", name: "Non-Refundable", type: "Derived", derivation: "-10%", cancelPolicy: "No cancellation", mealPlan: "Room Only", minStay: 1, channels: ["Direct", "GlobalOTA", "TravelNet"] },
   { id: "rp-3", name: "Corporate", type: "Fixed", derivation: null, cancelPolicy: "6h prior", mealPlan: "Breakfast included", minStay: 1, channels: ["Direct"] },
-  { id: "rp-4", name: "Long Stay (7+ nights)", type: "Derived", derivation: "-15%", cancelPolicy: "72h prior", mealPlan: "Room Only", minStay: 7, channels: ["Direct", "Booking.com"] }
+  { id: "rp-4", name: "Long Stay (7+ nights)", type: "Derived", derivation: "-15%", cancelPolicy: "72h prior", mealPlan: "Room Only", minStay: 7, channels: ["Direct", "GlobalOTA"] }
 ];
 
 export const mockPricingRules = [
   { id: "pr-1", name: "Weekend Premium", active: true, conditions: ["Day of week: Fri, Sat"], action: "+15%", priority: 1, minRate: null, maxRate: null, roomTypes: ["All"], channels: ["All"] },
   { id: "pr-2", name: "High Occupancy Push", active: true, conditions: ["Occupancy > 80%"], action: "+20%", priority: 2, minRate: null, maxRate: null, roomTypes: ["All"], channels: ["All"] },
-  { id: "pr-3", name: "Last Minute Discount", active: false, conditions: ["Days before arrival < 7", "Occupancy < 50%"], action: "-10%", priority: 3, minRate: 120, maxRate: null, roomTypes: ["rt-1", "rt-2"], channels: ["Direct", "Booking.com"] }
+  { id: "pr-3", name: "Last Minute Discount", active: false, conditions: ["Days before arrival < 7", "Occupancy < 50%"], action: "-10%", priority: 3, minRate: 120, maxRate: null, roomTypes: ["rt-1", "rt-2"], channels: ["Direct", "GlobalOTA"] }
 ];
 
 export const mockSeasons = [
@@ -242,13 +242,13 @@ export const mockInvoices = [
     activity: [
       { time: subDays(today, 5).toISOString(), action: "Created", user: "System" },
       { time: subDays(today, 5).toISOString(), action: "Sent", user: "Sarah Jenkins" },
-      { time: subDays(today, 2).toISOString(), action: "Paid", user: "Guest (Stripe)" }
+      { time: subDays(today, 2).toISOString(), action: "Paid", user: "Guest (PayGateway)" }
     ]
   },
   { 
     id: "INV-3092", status: "Pending", guestId: "G-103", bookingId: "RES-1002", roomId: null, folioId: "FOL-223",
     issueDate: today.toISOString(), dueDate: addDays(today, 7).toISOString(), 
-    amount: 1200, paid: 0, balance: 1200, paymentMethod: "Pending", source: "Booking.com", syncStatus: "Pending",
+    amount: 1200, paid: 0, balance: 1200, paymentMethod: "Pending", source: "GlobalOTA", syncStatus: "Pending",
     lineItems: [
       { id: "li-3", description: "Room Night (Deluxe King) x3", amount: 1100, taxes: 100 }
     ],
@@ -259,7 +259,7 @@ export const mockInvoices = [
   { 
     id: "INV-3093", status: "Partially Paid", guestId: "G-104", bookingId: "RES-1003", roomId: "R-201", folioId: null,
     issueDate: subDays(today, 2).toISOString(), dueDate: addDays(today, 5).toISOString(), 
-    amount: 2400, paid: 1200, balance: 1200, paymentMethod: "Bank Transfer", source: "Expedia", syncStatus: "Synced",
+    amount: 2400, paid: 1200, balance: 1200, paymentMethod: "Bank Transfer", source: "TravelNet", syncStatus: "Synced",
     lineItems: [
       { id: "li-4", description: "Room Night (Executive Suite) x4", amount: 2200, taxes: 200 }
     ],
@@ -289,16 +289,16 @@ export const mockInvoices = [
     ],
     activity: [
       { time: subDays(today, 40).toISOString(), action: "Created", user: "Sarah Jenkins" },
-      { time: subDays(today, 39).toISOString(), action: "Paid", user: "Guest (Stripe)" },
+      { time: subDays(today, 39).toISOString(), action: "Paid", user: "Guest (PayGateway)" },
       { time: subDays(today, 35).toISOString(), action: "Refunded", user: "Sarah Jenkins" }
     ]
   }
 ];
 
 export const mockPayments = [
-  { id: "PAY-9001", date: subDays(today, 2).toISOString(), method: "Credit Card", amount: 850, reference: "ch_1Nxxxxx", collectedBy: "Stripe", source: "Online", status: "Completed", invoiceId: "INV-3091" },
+  { id: "PAY-9001", date: subDays(today, 2).toISOString(), method: "Credit Card", amount: 850, reference: "ch_1Nxxxxx", collectedBy: "PayGateway", source: "Online", status: "Completed", invoiceId: "INV-3091" },
   { id: "PAY-9002", date: subDays(today, 1).toISOString(), method: "Bank Transfer", amount: 1200, reference: "TXN-88219", collectedBy: "Maria Garcia", source: "Manual", status: "Completed", invoiceId: "INV-3093" },
-  { id: "PAY-9003", date: subDays(today, 39).toISOString(), method: "Credit Card", amount: 150, reference: "ch_2Nxxxxx", collectedBy: "Stripe", source: "Online", status: "Completed", invoiceId: "INV-3095" }
+  { id: "PAY-9003", date: subDays(today, 39).toISOString(), method: "Credit Card", amount: 150, reference: "ch_2Nxxxxx", collectedBy: "PayGateway", source: "Online", status: "Completed", invoiceId: "INV-3095" }
 ];
 
 export const mockRefunds = [
@@ -313,18 +313,18 @@ export const mockFolios = [
 export const mockIntegrations = [
   // Channels
   { id: "int-direct", category: "Channels", name: "Direct Website", description: "Built-in booking engine.", status: "Connected", capabilities: ["Inventory", "Rates", "Reservations"], lastSync: subHours(today, 1).toISOString(), icon: "Globe", warning: null },
-  { id: "int-booking", category: "Channels", name: "Booking.com", description: "World's largest OTA.", status: "Warning", capabilities: ["Inventory", "Rates", "Reservations", "Messages"], lastSync: subMinutes(today, 15).toISOString(), icon: "Map", warning: "2 room types not mapped" },
-  { id: "int-expedia", category: "Channels", name: "Expedia", description: "Global travel platform.", status: "Connected", capabilities: ["Inventory", "Rates", "Reservations"], lastSync: subHours(today, 2).toISOString(), icon: "Plane", warning: null },
-  { id: "int-airbnb", category: "Channels", name: "Airbnb", description: "Vacation rental platform.", status: "Paused", capabilities: ["Inventory", "Rates", "Reservations", "Messages"], lastSync: subDays(today, 1).toISOString(), icon: "Home", warning: null },
-  { id: "int-agoda", category: "Channels", name: "Agoda", description: "Asia-focused travel platform.", status: "Not connected", capabilities: ["Inventory", "Rates", "Reservations"], lastSync: null, icon: "MapPin", warning: null },
+  { id: "int-booking", category: "Channels", name: "GlobalOTA", description: "World's largest OTA.", status: "Warning", capabilities: ["Inventory", "Rates", "Reservations", "Messages"], lastSync: subMinutes(today, 15).toISOString(), icon: "Map", warning: "2 room types not mapped" },
+  { id: "int-expedia", category: "Channels", name: "TravelNet", description: "Global travel platform.", status: "Connected", capabilities: ["Inventory", "Rates", "Reservations"], lastSync: subHours(today, 2).toISOString(), icon: "Plane", warning: null },
+  { id: "int-airbnb", category: "Channels", name: "VacationRentals", description: "Vacation rental platform.", status: "Paused", capabilities: ["Inventory", "Rates", "Reservations", "Messages"], lastSync: subDays(today, 1).toISOString(), icon: "Home", warning: null },
+  { id: "int-agoda", category: "Channels", name: "AsiaTravel", description: "Asia-focused travel platform.", status: "Not connected", capabilities: ["Inventory", "Rates", "Reservations"], lastSync: null, icon: "MapPin", warning: null },
   
   // Payments
-  { id: "int-stripe", category: "Payments", name: "Stripe", description: "Global payment processing.", status: "Connected", capabilities: ["Deposits", "Refunds", "Payment Links"], lastSync: subMinutes(today, 5).toISOString(), icon: "CreditCard", warning: null },
-  { id: "int-paypal", category: "Payments", name: "PayPal", description: "Online payments system.", status: "Not connected", capabilities: ["Deposits", "Refunds"], lastSync: null, icon: "Wallet", warning: null },
+  { id: "int-stripe", category: "Payments", name: "PayGateway", description: "Global payment processing.", status: "Connected", capabilities: ["Deposits", "Refunds", "Payment Links"], lastSync: subMinutes(today, 5).toISOString(), icon: "CreditCard", warning: null },
+  { id: "int-paypal", category: "Payments", name: "DigitalWallet", description: "Online payments system.", status: "Not connected", capabilities: ["Deposits", "Refunds"], lastSync: null, icon: "Wallet", warning: null },
   
   // Accounting
-  { id: "int-qbo", category: "Accounting", name: "QuickBooks", description: "Accounting software for SMBs.", status: "Error", capabilities: ["Invoices", "Payments", "Taxes"], lastSync: subHours(today, 24).toISOString(), icon: "Calculator", warning: "Auth token expired" },
-  { id: "int-xero", category: "Accounting", name: "Xero", description: "Cloud-based accounting.", status: "Not connected", capabilities: ["Invoices", "Payments"], lastSync: null, icon: "FileText", warning: null },
+  { id: "int-qbo", category: "Accounting", name: "CloudBooks", description: "Accounting software for SMBs.", status: "Error", capabilities: ["Invoices", "Payments", "Taxes"], lastSync: subHours(today, 24).toISOString(), icon: "Calculator", warning: "Auth token expired" },
+  { id: "int-xero", category: "Accounting", name: "AcctPlus", description: "Cloud-based accounting.", status: "Not connected", capabilities: ["Invoices", "Payments"], lastSync: null, icon: "FileText", warning: null },
   
   // Messaging
   { id: "int-twilio", category: "Messaging", name: "Twilio SMS", description: "Programmable SMS.", status: "Connected", capabilities: ["SMS", "Automations"], lastSync: subMinutes(today, 2).toISOString(), icon: "MessageSquare", warning: null },
@@ -346,7 +346,7 @@ export const mockDocuments = [
   { id: "doc-3", name: "Cancellation and No-show Policy", category: "Policies", version: "v3.4", owner: "stf-1", lastModified: subDays(today, 45).toISOString(), type: "DOCX", size: 850000, status: "Current", effectiveDate: subDays(today, 45).toISOString(), expiryDate: addDays(today, 320).toISOString(), tags: ["Policy", "Guest"] },
   { id: "doc-4", name: "Fire Safety Certificate", category: "Compliance & Licenses", version: "v1.0", owner: "stf-1", lastModified: subDays(today, 300).toISOString(), type: "PDF", size: 4500000, status: "Expiring soon", effectiveDate: subDays(today, 300).toISOString(), expiryDate: addDays(today, 15).toISOString(), tags: ["Safety", "Compliance"] },
   { id: "doc-5", name: "Elevator Maintenance Contract", category: "Vendor & Asset Manuals", version: "v1.2", owner: "stf-3", lastModified: subDays(today, 400).toISOString(), type: "PDF", size: 3100000, status: "Expired", effectiveDate: subDays(today, 400).toISOString(), expiryDate: subDays(today, 5).toISOString(), tags: ["Vendor", "Maintenance"] },
-  { id: "doc-6", name: "Booking.com Partner Agreement", category: "Contracts", version: "v5.0", owner: "stf-1", lastModified: subDays(today, 20).toISOString(), type: "PDF", size: 6800000, status: "Current", effectiveDate: subDays(today, 20).toISOString(), expiryDate: addDays(today, 700).toISOString(), tags: ["OTA", "Contract"] },
+  { id: "doc-6", name: "GlobalOTA Partner Agreement", category: "Contracts", version: "v5.0", owner: "stf-1", lastModified: subDays(today, 20).toISOString(), type: "PDF", size: 6800000, status: "Current", effectiveDate: subDays(today, 20).toISOString(), expiryDate: addDays(today, 700).toISOString(), tags: ["OTA", "Contract"] },
   { id: "doc-7", name: "Employee Handbook 2024", category: "HR", version: "v2.0", owner: "stf-1", lastModified: subDays(today, 10).toISOString(), type: "PDF", size: 15400000, status: "Current", effectiveDate: subDays(today, 10).toISOString(), expiryDate: addDays(today, 355).toISOString(), tags: ["HR", "Policy"] },
   { id: "doc-8", name: "Guest Registration Card", category: "Guest Forms & Terms", version: "v1.1", owner: "stf-1", lastModified: subDays(today, 60).toISOString(), type: "PDF", size: 450000, status: "Current", effectiveDate: subDays(today, 60).toISOString(), expiryDate: addDays(today, 305).toISOString(), tags: ["Form", "Guest"] },
   { id: "doc-9", name: "GDPR Privacy Notice", category: "Policies", version: "v1.5", owner: "stf-1", lastModified: subDays(today, 200).toISOString(), type: "PDF", size: 900000, status: "Current", effectiveDate: subDays(today, 200).toISOString(), expiryDate: addDays(today, 165).toISOString(), tags: ["Legal", "Privacy"] },
@@ -362,7 +362,7 @@ export const mockDocumentTemplates = [
 
 export const mockSignatures = [
   { id: "sig-1", docId: "doc-8", signer: "John Doe", status: "Signed", sentAt: subDays(today, 2).toISOString(), signedAt: subDays(today, 2).toISOString() },
-  { id: "sig-2", docId: "doc-6", signer: "Booking.com Rep", status: "Awaiting signature", sentAt: subDays(today, 1).toISOString(), signedAt: null }
+  { id: "sig-2", docId: "doc-6", signer: "GlobalOTA Rep", status: "Awaiting signature", sentAt: subDays(today, 1).toISOString(), signedAt: null }
 ];
 
 export const mockAcknowledgments = [

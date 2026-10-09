@@ -1,7 +1,7 @@
 import { SubPageLayout } from "@/components/landing/SubPageLayout";
 
 export const metadata = {
-  title: "For Hostels and B&Bs | GrandStay",
+  title: "For Hostels and B&Bs | GrandHotel",
   description: "Affordable, easy-to-use software that handles the heavy lifting."
 };
 

@@ -94,7 +94,7 @@ function SectionBilling() {
     <div className="max-w-2xl space-y-8 animate-in fade-in">
       <div>
         <h2 className="text-xl font-bold mb-1">Plan & Billing</h2>
-        <p className="text-sm text-muted-foreground mb-6">Manage your vProfessional subscription.</p>
+        <p className="text-sm text-muted-foreground mb-6">Manage your StayManager subscription.</p>
         
         <div className="bg-card border border-border rounded-xl p-6 shadow-sm flex flex-col gap-6">
           <div className="flex justify-between items-start">

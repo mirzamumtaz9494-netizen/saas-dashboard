@@ -1,0 +1,16 @@
+﻿# Theme License
+
+This theme is sold exclusively on Envato / ThemeForest.
+
+## What you can do:
+- Use this template for a single end product (for yourself or a client) per license.
+- Modify the code, design, and assets to fit your project's needs.
+- Integrate this front-end template with your own back-end systems.
+
+## What you cannot do:
+- You cannot resell, redistribute, or license this template as a stock item or template, even if you modify it.
+- You cannot extract the components to create a derivative UI kit or theme for sale.
+- You cannot use this template for multiple end products without purchasing multiple licenses (unless you have an Extended License).
+
+For full details on the standard license terms, please visit:
+https://themeforest.net/licenses/standard

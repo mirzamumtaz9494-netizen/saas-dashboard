@@ -17,7 +17,7 @@ export function DashboardPreview() {
               <div className="h-3 w-3 rounded-full bg-warning/80 border border-warning/20"></div>
               <div className="h-3 w-3 rounded-full bg-success/80 border border-success/20"></div>
               <div className="mx-auto flex items-center justify-center rounded-md bg-background px-3 py-1 text-xs text-muted-foreground font-medium shadow-sm border border-border/50">
-                vprofessionals.com/dashboard
+                staymanagers.com/dashboard
               </div>
             </div>
             
