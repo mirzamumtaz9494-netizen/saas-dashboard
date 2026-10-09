@@ -1,3 +1,5 @@
+"use client"
+
 import { CreditCard } from "lucide-react"
 import { EmptyState } from "@/components/ui/Feedback"
 import { Button } from "@/components/ui/Button"
