@@ -1,218 +1,190 @@
-"use client"
+﻿"use client"
 
-import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, BarChart, Bar, PieChart, Pie, Cell, LineChart, Line, ComposedChart } from "recharts"
+import { useState } from "react"
+import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, BarChart, Bar, PieChart, Pie, Cell, LineChart, Line, ComposedChart, CartesianGrid, Legend } from "recharts"
 import { Button } from "@/components/ui/Button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card"
 import { Badge } from "@/components/ui/Badge"
+import { Calendar as CalendarIcon, ArrowUpRight, ArrowDownRight, Users, DoorOpen, DollarSign, Activity, AlertCircle, ChevronRight } from "lucide-react"
+import { formatCurrency, formatDateTime } from "@/lib/formatters"
+import { mockTasks } from "@/lib/mock-data"
+import Link from "next/link"
 
 const revenueData = [
-  { name: "1st", revenue: 42000, occ: 35000 },
-  { name: "5th", revenue: 48000, occ: 38000 },
-  { name: "10th", revenue: 51000, occ: 42000 },
-  { name: "15th", revenue: 49000, occ: 45000 },
-  { name: "20th", revenue: 58000, occ: 52000 },
-  { name: "25th", revenue: 54000, occ: 48000 },
-  { name: "30th", revenue: 62000, occ: 55000 },
+  { name: "Mon", revenue: 4200, occ: 65, prevOcc: 60, prevRevenue: 3900 },
+  { name: "Tue", revenue: 4800, occ: 68, prevOcc: 65, prevRevenue: 4500 },
+  { name: "Wed", revenue: 5100, occ: 72, prevOcc: 70, prevRevenue: 4800 },
+  { name: "Thu", revenue: 4900, occ: 75, prevOcc: 72, prevRevenue: 4600 },
+  { name: "Fri", revenue: 5800, occ: 85, prevOcc: 80, prevRevenue: 5200 },
+  { name: "Sat", revenue: 6400, occ: 92, prevOcc: 88, prevRevenue: 5900 },
+  { name: "Sun", revenue: 6200, occ: 88, prevOcc: 85, prevRevenue: 5800 },
 ]
 
-const roomTypeData = [
-  { name: 'Deluxe', value: 45 },
-  { name: 'Suite', value: 30 },
-  { name: 'Standard', value: 25 },
+const roomTypeOcc = [
+  { name: 'Standard', value: 85 },
+  { name: 'Deluxe', value: 72 },
+  { name: 'Suite', value: 95 },
 ]
-const COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))']
+const COLORS = ['#3b82f6', '#8b5cf6', '#eab308']
 
-const sentimentData = [
-  [4, 5, 4, 3, 5, 4, 5],
-  [5, 4, 5, 4, 4, 5, 4],
-  [3, 4, 4, 3, 4, 4, 5],
-  [4, 5, 5, 4, 5, 5, 4],
+const sources = [
+  { name: 'Direct', value: 45 },
+  { name: 'Booking.com', value: 30 },
+  { name: 'Expedia', value: 15 },
+  { name: 'Airbnb', value: 10 },
 ]
 
 export default function DashboardPage() {
+  const [dateRange, setDateRange] = useState("7D")
+
+  const kpis = [
+    { title: "Occupancy", value: "82%", trend: "+5.2%", up: true, icon: DoorOpen },
+    { title: "ADR", value: formatCurrency(145), trend: "+2.1%", up: true, icon: DollarSign },
+    { title: "RevPAR", value: formatCurrency(118.90), trend: "+7.4%", up: true, icon: Activity },
+    { title: "Revenue", value: formatCurrency(37400), trend: "+8.3%", up: true, icon: DollarSign },
+    { title: "Arrivals", value: "24", trend: "-2", up: false, icon: Users },
+    { title: "In-House", value: "112", trend: "+12", up: true, icon: Users },
+  ]
+
   return (
-    <div className="flex flex-col gap-5 h-full pb-8">
-      {/* Top Row: Revenue and Room Type */}
-      <div className="grid gap-5 grid-cols-1 lg:grid-cols-[2fr_1fr]">
-        
-        {/* Revenue Chart */}
-        <Card className="border-border shadow-none bg-card flex flex-col">
-          <CardHeader className="flex flex-row justify-between items-start pb-2">
-            <div>
-              <CardTitle className="text-sm font-semibold text-foreground tracking-wide">Revenue</CardTitle>
-              <p className="text-[10px] text-muted-foreground mt-0.5">Last 7 days</p>
-              <div className="flex items-baseline gap-3 mt-2">
-                <span className="text-2xl font-bold text-primary">$54,290</span>
-                <span className="text-xs text-muted-foreground line-through">$54,290</span>
-                <span className="text-[10px] font-semibold text-success bg-success-muted px-1.5 py-0.5 rounded-sm">+12.4%</span>
+    <div className="flex flex-col gap-6 pb-12">
+      {/* Global Controls */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <h1 className="font-heading text-2xl font-bold text-foreground">Overview</h1>
+        <div className="flex items-center gap-3">
+          <div className="bg-card border border-border rounded-lg p-1 flex items-center text-sm shadow-sm">
+            {['Today', '7D', '30D', 'Custom'].map(r => (
+              <button key={r} onClick={() => setDateRange(r)} className={\px-3 py-1.5 rounded-md transition-colors \\}>
+                {r}
+              </button>
+            ))}
+          </div>
+          <Button variant="outline" className="h-9"><CalendarIcon className="w-4 h-4 mr-2"/> Compare: Prev Period</Button>
+        </div>
+      </div>
+
+      {/* KPI Row */}
+      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+        {kpis.map((kpi, i) => (
+          <Card key={i} className="bg-card shadow-sm border-border">
+            <CardContent className="p-4 flex flex-col gap-2">
+              <div className="flex items-center justify-between text-muted-foreground">
+                <span className="text-xs font-medium uppercase tracking-wider">{kpi.title}</span>
+                <kpi.icon className="h-4 w-4 opacity-50" />
               </div>
+              <div className="text-2xl font-bold text-foreground">{kpi.value}</div>
+              <div className={\lex items-center text-xs font-medium \\}>
+                {kpi.up ? <ArrowUpRight className="h-3 w-3 mr-1" /> : <ArrowDownRight className="h-3 w-3 mr-1" />}
+                {kpi.trend} <span className="text-muted-foreground font-normal ml-1">vs prev</span>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      <div className="grid lg:grid-cols-3 gap-6">
+        
+        {/* Main Chart */}
+        <Card className="lg:col-span-2 shadow-sm border-border bg-card">
+          <CardHeader className="flex flex-row items-center justify-between pb-2 border-b border-border">
+            <div>
+              <CardTitle className="text-base font-bold">Revenue & Occupancy Trend</CardTitle>
             </div>
-            <div className="flex items-center gap-2">
-              <Badge variant="outline" className="text-[9px] font-medium border-border text-primary bg-background">RevPAR & Occupancy</Badge>
-            </div>
+            <Button variant="ghost" size="sm" className="text-xs">Export CSV</Button>
           </CardHeader>
-          <CardContent className="flex-1 min-h-[220px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <ComposedChart data={revenueData} margin={{ top: 20, right: 0, left: -25, bottom: 0 }}>
-                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: 'hsl(var(--muted-foreground))' }} dy={10} />
-                <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: 'hsl(var(--muted-foreground))' }} tickFormatter={(v) => `$${v/1000}k`} />
-                <Tooltip 
-                  cursor={{ fill: 'rgba(255,255,255,0.02)' }}
-                  contentStyle={{ backgroundColor: 'hsl(var(--background))', borderColor: 'hsl(var(--border))', borderRadius: '4px', fontSize: '12px', color: 'hsl(var(--primary))' }} 
-                />
-                <Bar dataKey="revenue" fill="hsl(var(--chart-1))" radius={[2, 2, 0, 0]} maxBarSize={20} />
-                <Line type="monotone" dataKey="occ" stroke="hsl(var(--chart-2))" strokeWidth={2} dot={{ r: 3, fill: 'hsl(var(--primary))', strokeWidth: 0 }} />
-              </ComposedChart>
-            </ResponsiveContainer>
+          <CardContent className="pt-6">
+            <div className="h-[300px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <ComposedChart data={revenueData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} dy={10} />
+                  <YAxis yAxisId="left" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} tickFormatter={(val) => \\$\k\} />
+                  <YAxis yAxisId="right" orientation="right" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} tickFormatter={(val) => \\%\} />
+                  <Tooltip 
+                    contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))', borderRadius: '8px' }}
+                    itemStyle={{ color: 'hsl(var(--foreground))' }}
+                  />
+                  <Legend wrapperStyle={{ paddingTop: '20px' }} />
+                  <Bar yAxisId="left" dataKey="revenue" name="Revenue" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} maxBarSize={40} />
+                  <Line yAxisId="right" type="monotone" dataKey="occ" name="Occupancy %" stroke="#eab308" strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+                </ComposedChart>
+              </ResponsiveContainer>
+            </div>
           </CardContent>
         </Card>
 
-        {/* Room Type Performance - Donut */}
-        <Card className="border-border shadow-none bg-card flex flex-col">
-          <CardHeader className="flex flex-row justify-between items-center pb-0">
-            <CardTitle className="text-sm font-semibold tracking-wide">Room Type Performance</CardTitle>
-            <Button variant="ghost" size="sm" className="text-[9px] h-5 px-2 bg-background hover:bg-muted border border-border text-primary">View All</Button>
+        {/* Tasks & Alerts Panel */}
+        <Card className="shadow-sm border-border bg-card flex flex-col">
+          <CardHeader className="flex flex-row items-center justify-between pb-2 border-b border-border">
+            <CardTitle className="text-base font-bold flex items-center gap-2">
+              <AlertCircle className="h-4 w-4 text-warning" /> Tasks & Alerts
+            </CardTitle>
+            <Link href="/dashboard/housekeeping" className="text-xs text-primary hover:underline">View All</Link>
           </CardHeader>
-          <CardContent className="flex-1 flex flex-col items-center justify-center min-h-[220px] relative">
-            <div className="absolute inset-0 z-0 flex items-center justify-center">
-               <div className="h-24 w-24 rounded-full border border-border opacity-50"></div>
+          <CardContent className="pt-4 flex-1 flex flex-col gap-3 overflow-y-auto">
+            {mockTasks.map(t => (
+              <div key={t.id} className="p-3 border border-border rounded-lg hover:bg-muted/50 transition flex items-start gap-3">
+                <div className={\w-2 h-2 mt-1.5 rounded-full shrink-0 \\} />
+                <div className="flex-1">
+                  <h4 className="text-sm font-semibold text-foreground">{t.title}</h4>
+                  <p className="text-xs text-muted-foreground mt-1">Room {t.roomId} • Assignee: {t.assignee}</p>
+                </div>
+                <Badge variant="outline" className="text-[10px]">{t.status}</Badge>
+              </div>
+            ))}
+            <div className="p-3 border border-border rounded-lg hover:bg-muted/50 transition flex items-start gap-3">
+              <div className="w-2 h-2 mt-1.5 rounded-full shrink-0 bg-destructive" />
+              <div className="flex-1">
+                <h4 className="text-sm font-semibold text-foreground">Unpaid Folio</h4>
+                <p className="text-xs text-muted-foreground mt-1">Room 304 checkout pending  balance.</p>
+              </div>
             </div>
-            <div className="h-[180px] w-full z-10">
+          </CardContent>
+        </Card>
+
+        {/* Booking Sources (Donut) */}
+        <Card className="shadow-sm border-border bg-card">
+          <CardHeader className="flex flex-row items-center justify-between pb-2 border-b border-border">
+            <CardTitle className="text-base font-bold">Booking Sources</CardTitle>
+          </CardHeader>
+          <CardContent className="pt-6 flex flex-col items-center">
+            <div className="h-[200px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
-                  <Pie
-                    data={roomTypeData}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={50}
-                    outerRadius={75}
-                    paddingAngle={2}
-                    dataKey="value"
-                    stroke="none"
-                  >
-                    {roomTypeData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  <Pie data={sources} cx="50%" cy="50%" innerRadius={60} outerRadius={80} paddingAngle={5} dataKey="value">
+                    {sources.map((entry, index) => (
+                      <Cell key={\cell-\\} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
-                  <Tooltip contentStyle={{ backgroundColor: 'hsl(var(--background))', borderColor: 'hsl(var(--border))', borderRadius: '4px', fontSize: '12px' }} />
+                  <Tooltip contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))' }} />
+                  <Legend />
                 </PieChart>
               </ResponsiveContainer>
             </div>
-            <div className="flex justify-center gap-4 w-full mt-2 z-10">
-              {roomTypeData.map((item, index) => (
-                <div key={index} className="flex items-center gap-1.5 text-[9px] font-medium text-muted-foreground uppercase tracking-wider">
-                  <div className="h-1.5 w-1.5 rounded-full" style={{ background: COLORS[index] }} />
-                  {item.name}
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Bottom Row */}
-      <div className="grid gap-5 grid-cols-1 md:grid-cols-3">
-        
-        {/* RevPAR & Occupancy Bar Chart */}
-        <Card className="border-border shadow-none bg-card">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-semibold tracking-wide">RevPAR & Occupancy</CardTitle>
-            <p className="text-[9px] text-muted-foreground mt-0.5">026</p>
-            <div className="flex items-center gap-2 mt-1">
-              <span className="text-xl font-bold text-primary">58%</span>
-              <span className="text-[9px] font-semibold text-success">+10.4%</span>
-            </div>
-          </CardHeader>
-          <CardContent className="h-[150px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <ComposedChart data={revenueData.slice(0, 5)} margin={{ top: 10, right: 0, left: -25, bottom: 0 }}>
-                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: 'hsl(var(--muted-foreground))' }} />
-                <Bar dataKey="revenue" fill="hsl(var(--chart-1))" radius={[1, 1, 0, 0]} maxBarSize={6} />
-                <Line type="monotone" dataKey="occ" stroke="hsl(var(--chart-2))" strokeWidth={1.5} dot={false} />
-              </ComposedChart>
-            </ResponsiveContainer>
           </CardContent>
         </Card>
 
-        {/* Occupancy Rate Progress */}
-        <Card className="border-border shadow-none bg-card">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-semibold tracking-wide">Occupancy Rate</CardTitle>
-            <p className="text-[9px] text-muted-foreground mt-0.5">026</p>
-            <div className="flex items-center gap-2 mt-1">
-              <span className="text-xl font-bold text-primary">28%</span>
-            </div>
+        {/* Occupancy by Room Type */}
+        <Card className="shadow-sm border-border bg-card lg:col-span-2">
+          <CardHeader className="flex flex-row items-center justify-between pb-2 border-b border-border">
+            <CardTitle className="text-base font-bold">Occupancy Rate by Room Type</CardTitle>
+            <Link href="/dashboard/rooms" className="text-xs text-primary hover:underline">View Availability <ChevronRight className="inline w-3 h-3"/></Link>
           </CardHeader>
-          <CardContent className="space-y-5 mt-3">
-            <div>
-              <div className="flex justify-between text-[10px] mb-1.5">
-                <span className="text-muted-foreground font-medium">Standard</span>
-                <span className="font-bold text-primary">$55,300</span>
-              </div>
-              <div className="h-1 w-full bg-background rounded-full overflow-hidden">
-                <div className="h-full bg-chart-1 w-[75%] rounded-full shadow-sm" style={{ backgroundColor: 'hsl(var(--chart-1))' }} />
-              </div>
-            </div>
-            <div>
-              <div className="flex justify-between text-[10px] mb-1.5">
-                <span className="text-muted-foreground font-medium">Deluxe</span>
-                <span className="font-bold text-primary">$26,305</span>
-              </div>
-              <div className="h-1 w-full bg-background rounded-full overflow-hidden">
-                <div className="h-full bg-chart-1 opacity-70 w-[45%] rounded-full" style={{ backgroundColor: 'hsl(var(--chart-1))' }} />
-              </div>
-            </div>
-            <div>
-              <div className="flex justify-between text-[10px] mb-1.5">
-                <span className="text-muted-foreground font-medium">Suite</span>
-                <span className="font-bold text-primary">$9,105</span>
-              </div>
-              <div className="h-1 w-full bg-background rounded-full overflow-hidden">
-                <div className="h-full bg-chart-1 opacity-40 w-[15%] rounded-full" style={{ backgroundColor: 'hsl(var(--chart-1))' }} />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Guest Feedback Sentiment (Heatmap Grid) */}
-        <Card className="border-border shadow-none bg-card flex flex-col">
-          <CardHeader className="flex flex-row justify-between items-center pb-2">
-            <div>
-              <CardTitle className="text-sm font-semibold tracking-wide">Guest Feedback Sentiment</CardTitle>
-            </div>
-            <Button variant="ghost" size="sm" className="text-[9px] h-5 px-2 bg-background hover:bg-muted border border-border text-primary">View All</Button>
-          </CardHeader>
-          <CardContent className="flex-1 pt-2">
-            <div className="grid grid-cols-[auto_1fr] gap-2 h-[120px]">
-              <div className="flex flex-col justify-between text-[8px] font-medium text-muted-foreground text-right">
-                <span>Deluxe</span>
-                <span>Standard</span>
-                <span>Suite</span>
-                <span>Other</span>
-              </div>
-              <div className="flex flex-col justify-between w-full">
-                <div className="grid grid-rows-4 gap-[2px] flex-1">
-                  {sentimentData.map((row, i) => (
-                    <div key={i} className="grid grid-cols-7 gap-[2px]">
-                      {row.map((val, j) => {
-                        let op = val === 5 ? 1 : val === 4 ? 0.6 : val === 3 ? 0.2 : 0;
-                        return (
-                          <div 
-                            key={j} 
-                            className="rounded-[1px]" 
-                            style={{ 
-                              backgroundColor: op > 0 ? `hsl(var(--primary) / ${op})` : 'hsl(var(--background))' 
-                            }}
-                          />
-                        )
-                      })}
-                    </div>
-                  ))}
-                </div>
-                <div className="grid grid-cols-7 gap-[2px] text-[8px] text-muted-foreground mt-1 text-center">
-                  <span>01</span><span>02</span><span>03</span><span>04</span><span>05</span><span>06</span><span>07</span>
-                </div>
-              </div>
+          <CardContent className="pt-6">
+            <div className="h-[200px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={roomTypeOcc} layout="vertical" margin={{ top: 0, right: 30, left: 0, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="hsl(var(--border))" />
+                  <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => \\%\} axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} />
+                  <YAxis type="category" dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--foreground))', fontWeight: 500 }} />
+                  <Tooltip contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))' }} cursor={{fill: 'hsl(var(--muted))'}} formatter={(val) => [\\%\, 'Occupancy']} />
+                  <Bar dataKey="value" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} maxBarSize={30}>
+                    {roomTypeOcc.map((entry, index) => (
+                      <Cell key={\cell-\\} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>

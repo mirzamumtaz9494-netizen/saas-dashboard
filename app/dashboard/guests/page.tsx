@@ -1,18 +1,32 @@
-import { Search, Filter, Plus, Mail, Phone, MoreHorizontal, Star } from "lucide-react"
+﻿"use client"
 
+import { useState } from "react"
+import { Search, Filter, Plus, MoreHorizontal, Mail, Download, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
 import { Badge } from "@/components/ui/Badge"
-
-const guests = [
-  { id: "G-102", name: "Eleanor Pena", email: "eleanor.pena@example.com", phone: "+1 (555) 0192", country: "United States", lastStay: "Oct 12, 2026", totalStays: 4, totalSpend: "$4,200", vip: true, avatar: "EP" },
-  { id: "G-103", name: "Jacob Jones", email: "jacob.jones@example.com", phone: "+44 7700 900077", country: "United Kingdom", lastStay: "Oct 10, 2026", totalStays: 1, totalSpend: "$850", vip: false, avatar: "JJ" },
-  { id: "G-104", name: "Leslie Alexander", email: "leslie.a@example.com", phone: "+1 (555) 0124", country: "Canada", lastStay: "Sep 28, 2026", totalStays: 12, totalSpend: "$14,500", vip: true, avatar: "LA" },
-  { id: "G-105", name: "Cameron Williamson", email: "cameron.w@example.com", phone: "+61 400 000 000", country: "Australia", lastStay: "Sep 15, 2026", totalStays: 2, totalSpend: "$1,200", vip: false, avatar: "CW" },
-  { id: "G-106", name: "Brooklyn Simmons", email: "brooklyn.s@example.com", phone: "+1 (555) 0111", country: "United States", lastStay: "Aug 30, 2026", totalStays: 1, totalSpend: "$450", vip: false, avatar: "BS" },
-]
+import { Drawer, Modal, ConfirmDialog } from "@/components/ui/Feedback"
+import { mockGuests } from "@/lib/mock-data"
+import { formatCurrency, formatDate } from "@/lib/formatters"
+import { 
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator
+} from "@/components/ui/DropdownMenu"
 
 export default function GuestsPage() {
+  const [guestDrawerOpen, setGuestDrawerOpen] = useState(false)
+  const [selectedGuest, setSelectedGuest] = useState<any>(null)
+  const [addModalOpen, setAddModalOpen] = useState(false)
+  const [confirmDelete, setConfirmDelete] = useState(false)
+
+  const handleRowClick = (guest: any) => {
+    setSelectedGuest(guest)
+    setGuestDrawerOpen(true)
+  }
+
   return (
     <div className="flex flex-col gap-6 h-full">
       {/* Header */}
@@ -22,102 +36,187 @@ export default function GuestsPage() {
           <p className="text-muted-foreground mt-1 text-sm">Manage guest profiles, histories, and preferences.</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <Button variant="outline" className="h-9 bg-background"><Filter className="h-4 w-4 mr-2" /> Filter Guests</Button>
-          <Button className="h-9"><Plus className="h-4 w-4 mr-2" /> Add Guest</Button>
+          <Button variant="outline" className="h-9"><Download className="h-4 w-4 mr-2" /> Export CSV</Button>
+          <Button variant="outline" className="h-9"><Filter className="h-4 w-4 mr-2" /> Filters</Button>
+          <Button onClick={() => setAddModalOpen(true)} className="h-9"><Plus className="h-4 w-4 mr-2" /> Add Guest</Button>
         </div>
       </div>
 
-      {/* Guest Statistics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: "Total Guests", value: "8,420" },
-          { label: "Returning Guests", value: "2,145" },
-          { label: "VIP Guests", value: "342" },
-          { label: "Active Stays", value: "142" },
-        ].map((kpi, i) => (
-          <div key={i} className="p-4 bg-card rounded-xl border border-border flex flex-col justify-center shadow-sm">
-            <span className="text-sm font-medium text-muted-foreground">{kpi.label}</span>
-            <div className="mt-1 text-2xl font-bold text-foreground">{kpi.value}</div>
+          { label: "Total Guests", value: "8,249", trend: "+120 this month", color: "text-blue-500" },
+          { label: "Active VIPs", value: "342", trend: "+12 this month", color: "text-brand-gold" },
+          { label: "Repeat Guests", value: "28%", trend: "+2.4% vs prev", color: "text-green-500" },
+          { label: "Avg Spend", value: formatCurrency(1240), trend: "+ vs prev", color: "text-purple-500" },
+        ].map((stat, i) => (
+          <div key={i} className="bg-card border border-border p-4 rounded-xl shadow-sm">
+            <div className="text-sm text-muted-foreground mb-1">{stat.label}</div>
+            <div className="text-2xl font-bold">{stat.value}</div>
+            <div className={\	ext-xs mt-1 \\}>{stat.trend}</div>
           </div>
         ))}
       </div>
 
-      {/* Main Content Workspace */}
-      <div className="flex-1 flex flex-col bg-card rounded-xl border border-border shadow-sm overflow-hidden">
-        {/* Workspace Toolbar */}
-        <div className="flex justify-between items-center p-4 border-b border-border bg-muted/20">
-          <div className="relative w-full max-w-md">
+      <div className="bg-card border border-border rounded-xl shadow-sm flex-1 flex flex-col overflow-hidden">
+        <div className="p-4 border-b border-border flex items-center justify-between">
+          <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input 
-              type="search" 
-              placeholder="Search guests by name, email, or phone..." 
-              className="pl-9 h-9 bg-background border-border w-full"
-            />
+            <Input placeholder="Search guests..." className="pl-9 h-9 w-[300px] bg-background border-border" />
           </div>
+          <div className="text-sm text-muted-foreground">Showing 1-10 of 8,249</div>
         </div>
-
-        {/* List View */}
+        
         <div className="overflow-x-auto flex-1">
-          <table className="w-full text-sm text-left whitespace-nowrap">
-            <thead className="text-xs text-muted-foreground uppercase bg-muted/30 border-b border-border">
+          <table className="w-full text-sm text-left">
+            <thead className="bg-muted/50 border-b border-border text-muted-foreground">
               <tr>
-                <th className="px-6 py-3.5 font-semibold tracking-wider">Guest Identity</th>
-                <th className="px-6 py-3.5 font-semibold tracking-wider">Contact</th>
-                <th className="px-6 py-3.5 font-semibold tracking-wider">Location</th>
-                <th className="px-6 py-3.5 font-semibold tracking-wider">Last Stay</th>
-                <th className="px-6 py-3.5 font-semibold tracking-wider text-right">Total Stays</th>
-                <th className="px-6 py-3.5 font-semibold tracking-wider text-right">Total Spend</th>
-                <th className="px-6 py-3.5 font-semibold tracking-wider text-right"></th>
+                <th className="px-4 py-3 font-medium w-10"><input type="checkbox" className="rounded border-muted-foreground" /></th>
+                <th className="px-4 py-3 font-medium">Guest Name</th>
+                <th className="px-4 py-3 font-medium">Status / Tier</th>
+                <th className="px-4 py-3 font-medium">Contact</th>
+                <th className="px-4 py-3 font-medium">Last Stay</th>
+                <th className="px-4 py-3 font-medium text-right">Total Spend</th>
+                <th className="px-4 py-3 font-medium w-10"></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border/50">
-              {guests.map((guest) => (
-                <tr key={guest.id} className="bg-background hover:bg-muted/30 transition-colors group cursor-pointer">
-                  <td className="px-6 py-4">
+            <tbody>
+              {mockGuests.map((guest) => (
+                <tr key={guest.id} className="border-b border-border hover:bg-muted/30 transition-colors group cursor-pointer" onClick={() => handleRowClick(guest)}>
+                  <td className="px-4 py-3" onClick={e => e.stopPropagation()}><input type="checkbox" className="rounded border-muted-foreground" /></td>
+                  <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
-                      <div className="relative">
-                        <div className="h-9 w-9 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center font-semibold text-sm text-primary">
-                          {guest.avatar}
-                        </div>
-                        {guest.vip && (
-                          <div className="absolute -bottom-1 -right-1 h-4 w-4 rounded-full bg-warning flex items-center justify-center border border-background">
-                            <Star className="h-2.5 w-2.5 text-warning-foreground fill-current" />
-                          </div>
-                        )}
+                      <div className="h-8 w-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-xs">
+                        {guest.avatar}
                       </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold text-foreground flex items-center gap-2">
-                          {guest.name}
-                        </span>
-                        <span className="text-xs text-muted-foreground mt-0.5">{guest.id}</span>
+                      <div>
+                        <div className="font-semibold text-foreground group-hover:text-primary transition-colors">{guest.name}</div>
+                        <div className="text-xs text-muted-foreground">ID: {guest.id}</div>
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4">
-                    <div className="flex flex-col space-y-1">
-                      <span className="text-muted-foreground flex items-center text-xs">
-                        <Mail className="h-3 w-3 mr-1.5" /> {guest.email}
-                      </span>
-                      <span className="text-muted-foreground flex items-center text-xs">
-                        <Phone className="h-3 w-3 mr-1.5" /> {guest.phone}
-                      </span>
+                  <td className="px-4 py-3">
+                    <div className="flex gap-1.5 flex-wrap">
+                      {guest.tags.map(tag => (
+                        <Badge key={tag} variant="outline" className={\	ext-[10px] uppercase \\}>{tag}</Badge>
+                      ))}
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-muted-foreground">{guest.country}</td>
-                  <td className="px-6 py-4 text-foreground font-medium">{guest.lastStay}</td>
-                  <td className="px-6 py-4 text-right font-semibold text-foreground">{guest.totalStays}</td>
-                  <td className="px-6 py-4 text-right font-semibold text-foreground">{guest.totalSpend}</td>
-                  <td className="px-6 py-4 text-right">
-                    <Button variant="ghost" size="icon" className="h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
-                    </Button>
+                  <td className="px-4 py-3 text-muted-foreground">
+                    <div>{guest.email}</div>
+                    <div className="text-xs">{guest.phone}</div>
+                  </td>
+                  <td className="px-4 py-3 text-muted-foreground">{formatDate(guest.lastStay)}</td>
+                  <td className="px-4 py-3 text-right font-medium text-foreground">{formatCurrency(guest.totalSpend)}</td>
+                  <td className="px-4 py-3" onClick={e => e.stopPropagation()}>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon" className="h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem onClick={() => handleRowClick(guest)}>View Profile</DropdownMenuItem>
+                        <DropdownMenuItem>New Booking</DropdownMenuItem>
+                        <DropdownMenuItem><Mail className="w-4 h-4 mr-2"/> Message</DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem onClick={() => setConfirmDelete(true)} className="text-destructive focus:text-destructive focus:bg-destructive/10">Delete Guest</DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+
+        <div className="p-4 border-t border-border flex items-center justify-between bg-muted/10">
+          <div className="text-xs text-muted-foreground">Rows per page: <strong>25</strong></div>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" className="h-8 px-2"><ChevronLeft className="w-4 h-4" /></Button>
+            <Button variant="outline" size="sm" className="h-8 px-2"><ChevronRight className="w-4 h-4" /></Button>
+          </div>
+        </div>
       </div>
+
+      <Drawer open={guestDrawerOpen} onClose={() => setGuestDrawerOpen(false)} title="Guest Profile">
+        {selectedGuest && (
+          <div className="space-y-6">
+            <div className="flex items-center gap-4 border-b border-border pb-6">
+              <div className="h-16 w-16 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-xl">
+                {selectedGuest.avatar}
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-foreground">{selectedGuest.name}</h2>
+                <p className="text-muted-foreground">{selectedGuest.email} • {selectedGuest.phone}</p>
+                <div className="flex gap-2 mt-2">
+                  {selectedGuest.tags.map((tag: string) => (
+                    <Badge key={tag} variant="outline" className={\	ext-xs \\}>{tag}</Badge>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-card border border-border p-3 rounded-lg">
+                <div className="text-xs text-muted-foreground">Total Stays</div>
+                <div className="font-bold text-xl">{selectedGuest.totalStays}</div>
+              </div>
+              <div className="bg-card border border-border p-3 rounded-lg">
+                <div className="text-xs text-muted-foreground">Total Spend</div>
+                <div className="font-bold text-xl">{formatCurrency(selectedGuest.totalSpend)}</div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="font-bold mb-3 border-b border-border pb-2">Preferences & Notes</h3>
+              <ul className="text-sm space-y-2 text-muted-foreground">
+                <li>• Prefers high floor away from elevator</li>
+                <li>• Feather-free pillows</li>
+                <li>• Dietary: Gluten-free</li>
+              </ul>
+            </div>
+
+            <div className="pt-4 border-t border-border flex flex-col gap-3">
+              <Button>Create New Booking</Button>
+              <Button variant="outline">View Stay History</Button>
+            </div>
+          </div>
+        )}
+      </Drawer>
+
+      <Modal open={addModalOpen} onClose={() => setAddModalOpen(false)} title="Add Guest">
+        <form className="space-y-4" onSubmit={e => { e.preventDefault(); setAddModalOpen(false) }}>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">First Name</label>
+              <Input required className="bg-background" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Last Name</label>
+              <Input required className="bg-background" />
+            </div>
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Email Address</label>
+            <Input type="email" required className="bg-background" />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Phone Number</label>
+            <Input type="tel" className="bg-background" />
+          </div>
+          <Button type="submit" className="w-full mt-4">Save Guest Profile</Button>
+        </form>
+      </Modal>
+
+      <ConfirmDialog 
+        open={confirmDelete} 
+        onClose={() => setConfirmDelete(false)} 
+        onConfirm={() => console.log("Deleted")} 
+        title="Delete Guest Data?" 
+        description="This action cannot be undone and will anonymize historical folios per GDPR compliance." 
+        variant="destructive" 
+        confirmText="Delete Guest" 
+      />
     </div>
   )
 }

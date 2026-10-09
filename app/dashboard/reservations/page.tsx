@@ -1,151 +1,217 @@
+﻿"use client"
+
+import { useState } from "react"
 import { Button } from "@/components/ui/Button"
 import { Card, CardContent } from "@/components/ui/Card"
+import { Input } from "@/components/ui/Input"
+import { Badge } from "@/components/ui/Badge"
+import { ChevronLeft, ChevronRight, Search, Plus, Filter, Calendar as CalendarIcon, Settings, MoreHorizontal } from "lucide-react"
+import { mockReservations, mockRooms } from "@/lib/mock-data"
+import { format, addDays, subDays } from "date-fns"
+import { Drawer, Modal, ConfirmDialog } from "@/components/ui/Feedback"
+import { formatCurrency } from "@/lib/formatters"
 
 export default function ReservationsPage() {
+  const [currentDate, setCurrentDate] = useState(new Date())
+  const [view, setView] = useState("14 Days")
+  
+  // Modals / Drawers state
+  const [bookingDrawerOpen, setBookingDrawerOpen] = useState(false)
+  const [selectedBooking, setSelectedBooking] = useState<any>(null)
+  const [addModalOpen, setAddModalOpen] = useState(false)
+
+  // Generate 14 days header
+  const days = Array.from({ length: 14 }).map((_, i) => addDays(currentDate, i))
+
+  const handleBookingClick = (booking: any) => {
+    setSelectedBooking(booking)
+    setBookingDrawerOpen(true)
+  }
+
   return (
     <div className="flex flex-col gap-6 h-full pb-8">
-      {/* Structural Match: Screenshot 2 Bottom Left (Reservations Calendar Gantt) */}
       
-      <div className="flex items-center justify-between">
-        <h1 className="font-heading text-xl font-bold text-foreground">Reservations Calendar</h1>
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 className="font-heading text-2xl font-bold text-foreground">Reservations Calendar</h1>
+          <p className="text-sm text-muted-foreground mt-1">Arrivals today: <strong className="text-foreground">12</strong> • Departures: <strong className="text-foreground">8</strong> • In-house: <strong className="text-foreground">45</strong></p>
+        </div>
+        
+        <div className="flex items-center gap-2">
+          <div className="relative">
+            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+            <Input className="pl-9 h-9 w-[200px] bg-card border-border" placeholder="Search guests..." />
+          </div>
+          <Button variant="outline" className="h-9"><Filter className="w-4 h-4 mr-2" /> Filters</Button>
+          <Button onClick={() => setAddModalOpen(true)} className="h-9"><Plus className="w-4 h-4 mr-2" /> New Booking</Button>
+        </div>
       </div>
 
-      {/* Gantt Calendar View */}
-      <Card className="border-border shadow-sm bg-card overflow-hidden">
+      <Card className="border-border shadow-sm bg-card flex flex-col flex-1 min-h-[600px] overflow-hidden">
         
-        {/* Calendar Header */}
-        <div className="flex justify-between items-center p-4 border-b border-border bg-muted/10">
-          <div className="flex items-center gap-4">
-            <span className="font-bold text-sm">Room Type</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Button className="h-8 text-xs bg-primary text-primary-foreground">Add Booking</Button>
-            <Button variant="outline" className="h-8 text-xs">View All</Button>
-          </div>
-        </div>
-
-        {/* Gantt Grid Structure */}
-        <div className="flex flex-col w-full overflow-x-auto">
-          {/* Dates Header Row */}
-          <div className="flex border-b border-border min-w-[800px]">
-            <div className="w-48 shrink-0 p-3 bg-background border-r border-border"></div>
-            <div className="flex-1 grid grid-cols-5 bg-background">
-              {[19, 20, 21, 22, 23].map(date => (
-                <div key={date} className="p-2 border-r border-border flex flex-col items-center justify-center">
-                  <span className="text-xs text-muted-foreground font-semibold uppercase">Oct</span>
-                  <span className="text-sm font-bold text-foreground">{date}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Deluxe Row */}
-          <div className="flex border-b border-border min-w-[800px] bg-background">
-            <div className="w-48 shrink-0 p-4 border-r border-border">
-              <span className="font-bold text-sm block mb-2">Deluxe</span>
-              <div className="flex items-center gap-2 mb-2">
-                <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center text-[10px] font-bold text-primary">GB</div>
-                <div>
-                  <p className="text-xs font-semibold leading-none">Gim Baxter</p>
-                  <p className="text-[10px] text-muted-foreground">Confirmed</p>
-                </div>
-              </div>
-            </div>
-            <div className="flex-1 relative border-r border-border bg-[linear-gradient(90deg,var(--border)_1px,transparent_1px)] bg-[size:20%]">
-              {/* Gantt Bar spanning day 19, 20, 21 */}
-              <div className="absolute top-4 left-4 right-[42%] h-8 bg-success-muted border border-success/30 rounded flex items-center px-3 shadow-sm">
-                <span className="text-xs font-semibold text-success">Confirmed</span>
-                <span className="text-[10px] text-success/70 ml-auto">Checked in 11:15m</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Suite Row */}
-          <div className="flex border-b border-border min-w-[800px] bg-background">
-            <div className="w-48 shrink-0 p-4 border-r border-border">
-              <span className="font-bold text-sm block mb-2">Suite</span>
-              <div className="flex items-center gap-2 mb-2">
-                <div className="h-6 w-6 rounded-full bg-warning/20 flex items-center justify-center text-[10px] font-bold text-warning">EC</div>
-                <div>
-                  <p className="text-xs font-semibold leading-none">Enna Coles</p>
-                  <p className="text-[10px] text-muted-foreground">Confirmed</p>
-                </div>
-              </div>
-            </div>
-            <div className="flex-1 relative border-r border-border bg-[linear-gradient(90deg,var(--border)_1px,transparent_1px)] bg-[size:20%]">
-              {/* Gantt Bar spanning day 20, 21, 22 */}
-              <div className="absolute top-4 left-[22%] right-[22%] h-8 bg-warning-muted border border-warning/30 rounded flex items-center px-3 shadow-sm">
-                <span className="text-xs font-semibold text-warning">Confirmed</span>
-                <span className="text-[10px] text-warning/70 ml-auto">Checked in 14:00m</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Standard Row */}
-          <div className="flex border-b border-border min-w-[800px] bg-background">
-            <div className="w-48 shrink-0 p-4 border-r border-border">
-              <span className="font-bold text-sm block mb-2">Standard</span>
-              <div className="flex items-center gap-2 mb-2">
-                <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center text-[10px] font-bold text-primary">SS</div>
-                <div>
-                  <p className="text-xs font-semibold leading-none">Sora Somes</p>
-                  <p className="text-[10px] text-muted-foreground">Confirmed</p>
-                </div>
-              </div>
-            </div>
-            <div className="flex-1 relative border-r border-border bg-[linear-gradient(90deg,var(--border)_1px,transparent_1px)] bg-[size:20%]">
-              {/* Gantt Bar spanning day 21, 22, 23 */}
-              <div className="absolute top-4 left-[42%] right-4 h-8 bg-primary/10 border border-primary/30 rounded flex items-center px-3 shadow-sm">
-                <span className="text-xs font-semibold text-primary">Confirmed</span>
-                <span className="text-[10px] text-primary/70 ml-auto">Check-in in 1 day</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Card>
-
-      {/* Today's Arrivals & Departures Table (From screenshot) */}
-      <Card className="border-border shadow-sm bg-card mt-2">
+        {/* Controls */}
         <div className="flex justify-between items-center p-4 border-b border-border">
-          <div>
-            <h3 className="font-bold text-sm text-foreground">Today's Arrivals & Departures</h3>
-            <p className="text-xs text-muted-foreground">4 Arrivals • 2 Departures</p>
+          <div className="flex items-center gap-4">
+            <Button variant="outline" size="sm" onClick={() => setCurrentDate(new Date())}>Today</Button>
+            <div className="flex items-center gap-2">
+              <Button variant="ghost" size="icon" onClick={() => setCurrentDate(subDays(currentDate, 7))}><ChevronLeft className="w-4 h-4" /></Button>
+              <h2 className="font-semibold w-[140px] text-center">{format(currentDate, "MMM d, yyyy")}</h2>
+              <Button variant="ghost" size="icon" onClick={() => setCurrentDate(addDays(currentDate, 7))}><ChevronRight className="w-4 h-4" /></Button>
+            </div>
           </div>
-          <Button variant="outline" className="h-8 text-xs">View All</Button>
+          <div className="flex items-center gap-2 bg-muted/50 p-1 rounded-lg">
+            {['Day', 'Week', '14 Days', 'Month'].map(v => (
+              <button key={v} onClick={() => setView(v)} className={\px-3 py-1 text-xs rounded-md font-medium transition-colors \\}>
+                {v}
+              </button>
+            ))}
+          </div>
         </div>
-        <CardContent className="p-0">
-          <table className="w-full text-sm text-left whitespace-nowrap">
-            <tbody className="divide-y divide-border">
-              {[
-                { name: "Arian Saberi", type: "Arrivals", room: "Room Number", status: "Checked In" },
-                { name: "Armin Hadziber", type: "Arrivals", room: "Room Number", status: "Checked In" },
-                { name: "Peth Geroen", type: "Arrivals", room: "Room Number", status: "Checked In" },
-              ].map((row, i) => (
-                <tr key={i} className="hover:bg-muted/30 transition-colors">
-                  <td className="px-4 py-3">
-                    <div className="flex items-center gap-3">
-                      <div className="h-8 w-8 rounded-full bg-primary/10 text-[10px] font-bold text-primary flex items-center justify-center">
-                        {row.name.split(' ').map(n=>n[0]).join('')}
-                      </div>
-                      <div>
-                        <p className="font-semibold text-sm">{row.name}</p>
-                        <p className="text-[10px] text-muted-foreground">{row.type}</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-4 py-3 text-muted-foreground font-medium">{row.room}</td>
-                  <td className="px-4 py-3">
-                    <span className="text-xs font-semibold text-success bg-success-muted px-2 py-1 rounded-md">{row.status}</span>
-                  </td>
-                  <td className="px-4 py-3 text-right">
-                    <Button variant="ghost" size="sm" className="text-xs text-muted-foreground">Actions...</Button>
-                  </td>
-                </tr>
+
+        {/* Legend */}
+        <div className="flex items-center gap-4 p-3 border-b border-border bg-muted/20 text-xs text-muted-foreground overflow-x-auto">
+          <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-sm bg-blue-500/20 border border-blue-500"></div> Confirmed</div>
+          <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-sm bg-yellow-500/20 border border-yellow-500"></div> Pending</div>
+          <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-sm bg-green-500/20 border border-green-500"></div> Checked In</div>
+          <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-sm bg-purple-500/20 border border-purple-500"></div> Checked Out</div>
+          <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-sm bg-muted border border-border"></div> Blocked / OOO</div>
+        </div>
+
+        {/* Gantt Area (Mock Grid) */}
+        <div className="flex-1 overflow-auto flex relative">
+          
+          {/* Left Column (Rooms) */}
+          <div className="w-[180px] shrink-0 border-r border-border bg-card sticky left-0 z-20">
+            <div className="h-[60px] border-b border-border flex items-end p-3 text-xs font-semibold text-muted-foreground">Rooms</div>
+            {mockRooms.map(room => (
+              <div key={room.id} className="h-14 border-b border-border p-3 flex flex-col justify-center">
+                <span className="font-bold text-sm">Room {room.number}</span>
+                <span className="text-[10px] text-muted-foreground uppercase">{room.type}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Right Area (Grid) */}
+          <div className="flex-1 min-w-[1200px]">
+            {/* Header Dates */}
+            <div className="flex h-[60px] border-b border-border bg-card sticky top-0 z-10">
+              {days.map((d, i) => (
+                <div key={i} className="flex-1 border-r border-border flex flex-col items-center justify-center p-1">
+                  <span className="text-[10px] text-muted-foreground uppercase">{format(d, "EEE")}</span>
+                  <span className={\	ext-sm font-bold \\}>{format(d, "d")}</span>
+                </div>
               ))}
-            </tbody>
-          </table>
-        </CardContent>
+            </div>
+
+            {/* Grid Rows */}
+            {mockRooms.map(room => {
+              // Find a mock booking for this room to render a drag block
+              const booking = mockReservations.find(r => r.roomId === room.id)
+              
+              return (
+                <div key={room.id} className="flex h-14 border-b border-border group relative">
+                  {/* Empty Cells */}
+                  {days.map((d, i) => (
+                    <div key={i} className="flex-1 border-r border-border hover:bg-muted/30 cursor-pointer transition-colors" onClick={() => setAddModalOpen(true)} />
+                  ))}
+                  
+                  {/* Mock Booking Block if exists */}
+                  {booking && (
+                    <div 
+                      onClick={() => handleBookingClick(booking)}
+                      className={\bsolute top-1.5 h-11 rounded-md border text-xs p-2 overflow-hidden shadow-sm cursor-pointer transition-transform hover:scale-[1.02] z-10
+                        \\}
+                      style={{ left: \\%\, width: \\%\ }}
+                    >
+                      <div className="font-semibold whitespace-nowrap">{booking.guestId}</div>
+                      <div className="text-[10px] opacity-80">{booking.status}</div>
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+
+        </div>
       </Card>
+
+      {/* Detail Drawer */}
+      <Drawer open={bookingDrawerOpen} onClose={() => setBookingDrawerOpen(false)} title="Booking Details">
+        {selectedBooking && (
+          <div className="space-y-6">
+            <div>
+              <div className="flex justify-between items-start mb-2">
+                <h3 className="text-xl font-bold text-foreground">Guest {selectedBooking.guestId}</h3>
+                <Badge>{selectedBooking.status}</Badge>
+              </div>
+              <p className="text-sm text-muted-foreground">{selectedBooking.id} • {selectedBooking.source}</p>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-muted/30 p-3 rounded-lg border border-border">
+                <div className="text-xs text-muted-foreground mb-1">Check In</div>
+                <div className="font-semibold">{format(new Date(selectedBooking.checkIn), "MMM d, yyyy")}</div>
+              </div>
+              <div className="bg-muted/30 p-3 rounded-lg border border-border">
+                <div className="text-xs text-muted-foreground mb-1">Check Out</div>
+                <div className="font-semibold">{format(new Date(selectedBooking.checkOut), "MMM d, yyyy")}</div>
+              </div>
+              <div className="bg-muted/30 p-3 rounded-lg border border-border">
+                <div className="text-xs text-muted-foreground mb-1">Room</div>
+                <div className="font-semibold">{selectedBooking.roomId}</div>
+              </div>
+              <div className="bg-muted/30 p-3 rounded-lg border border-border">
+                <div className="text-xs text-muted-foreground mb-1">Balance</div>
+                <div className="font-semibold text-destructive">{formatCurrency(selectedBooking.balance)}</div>
+              </div>
+            </div>
+
+            <div className="space-y-3 pt-4 border-t border-border">
+              <Button className="w-full">Check In Guest</Button>
+              <div className="grid grid-cols-2 gap-3">
+                <Button variant="outline">Edit Booking</Button>
+                <Button variant="outline">Message Guest</Button>
+              </div>
+              <Button variant="ghost" className="w-full text-destructive hover:bg-destructive/10 hover:text-destructive">Cancel Reservation</Button>
+            </div>
+          </div>
+        )}
+      </Drawer>
+
+      {/* Add Modal */}
+      <Modal open={addModalOpen} onClose={() => setAddModalOpen(false)} title="New Booking">
+        <form className="space-y-4" onSubmit={e => { e.preventDefault(); setAddModalOpen(false) }}>
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Guest Name or Search</label>
+            <Input placeholder="Search existing or type new..." className="bg-background" />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Check In</label>
+              <Input type="date" className="bg-background [color-scheme:dark]" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Check Out</label>
+              <Input type="date" className="bg-background [color-scheme:dark]" />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Room Type</label>
+              <select className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring">
+                <option>Standard</option>
+                <option>Deluxe</option>
+                <option>Suite</option>
+              </select>
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Adults</label>
+              <Input type="number" defaultValue={2} className="bg-background" />
+            </div>
+          </div>
+          <Button type="submit" className="w-full mt-4">Create Booking</Button>
+        </form>
+      </Modal>
 
     </div>
   )
