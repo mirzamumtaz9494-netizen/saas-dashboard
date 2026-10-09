@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card"
 import { Badge } from "@/components/ui/Badge"
 import { Input } from "@/components/ui/Input"
 import { Drawer, ConfirmDialog } from "@/components/ui/Feedback"
-import { mockRooms, mockTasks } from "@/lib/mock-data"
+import { mockRooms, mockWorkOrders } from "@/lib/mock-data"
 import { formatDateTime } from "@/lib/formatters"
 import { 
   DropdownMenu,
@@ -147,15 +147,15 @@ export default function HousekeepingPage() {
                   <h4 className="text-sm font-bold">Maintenance Tickets</h4>
                   <Button variant="ghost" size="sm" className="h-6 text-xs px-2"><Plus className="w-3 h-3 mr-1"/> New</Button>
                 </div>
-                {mockTasks.filter(t => t.roomId === selectedRoom?.id).length > 0 ? (
-                  mockTasks.filter(t => t.roomId === selectedRoom?.id).map(t => (
+                {mockWorkOrders.filter(t => t.location === "Room " + selectedRoom?.number).length > 0 ? (
+                  mockWorkOrders.filter(t => t.location === "Room " + selectedRoom?.number).map(t => (
                     <div key={t.id} className="p-3 border border-border rounded-lg bg-muted/20 text-sm">
                       <div className="flex justify-between font-semibold mb-1">
                         <span>{t.title}</span>
                         <Badge variant="outline" className="text-[10px]">{t.status}</Badge>
                       </div>
                       <div className="text-xs text-muted-foreground flex items-center gap-2 mt-2">
-                        <User className="w-3 h-3"/> {t.assignee}
+                        <User className="w-3 h-3"/> {t.priority}
                       </div>
                     </div>
                   ))

@@ -1,4 +1,4 @@
-﻿import { addDays, subDays, setHours, setMinutes, subHours } from "date-fns";
+import { addDays, subDays, setHours, setMinutes, subHours } from "date-fns";
 
 const today = new Date();
 const todayAt = (hours: number, mins: number = 0) => setMinutes(setHours(today, hours), mins).toISOString();
@@ -30,8 +30,8 @@ export const mockStaff = [
   { id: "S-02", name: "Maria", role: "Housekeeping", department: "Housekeeping", avatar: "M" },
   { id: "S-03", name: "John", role: "Maintenance", department: "Engineering", avatar: "J" },
   { id: "S-04", name: "David D.", role: "Front Desk", department: "Front Desk", avatar: "DD" },
-  { id: "S-05", name: "Neon Amirent", role: "Maintenance", department: "Engineering", avatar: "NA" },
-  { id: "S-06", name: "Dense Menored", role: "Maintenance", department: "Engineering", avatar: "DM" },
+  { id: "S-05", name: "Nathan Roberts", role: "Maintenance", department: "Engineering", avatar: "NR" },
+  { id: "S-06", name: "Dennis Miller", role: "Maintenance", department: "Engineering", avatar: "DM" },
 ];
 
 export const mockShifts = [
@@ -71,3 +71,10 @@ export const mockTasks = mockWorkOrders.map(wo => ({
   due: wo.dueDate,
   roomId: wo.location.replace("Room ", "R-")
 }));
+
+
+export const mockPreventiveSchedules = [
+  { id: "PM-1", title: "HVAC Quarterly Inspection", category: "HVAC", asset: "All HVAC Units", frequency: "Quarterly", nextDue: addDays(today, 15).toISOString(), assignedTeam: "Engineering" },
+  { id: "PM-2", title: "Elevator Safety Check", category: "Elevator", asset: "Elevator B", frequency: "Monthly", nextDue: addDays(today, 5).toISOString(), assignedTeam: "External Vendor" },
+  { id: "PM-3", title: "Pool Chemical Balance", category: "Pool", asset: "Main Pool", frequency: "Weekly", nextDue: addDays(today, 2).toISOString(), assignedTeam: "Maintenance" }
+];

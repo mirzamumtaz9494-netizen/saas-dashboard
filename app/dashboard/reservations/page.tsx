@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/Card"
 import { Input } from "@/components/ui/Input"
 import { Badge } from "@/components/ui/Badge"
 import { ChevronLeft, ChevronRight, Search, Plus, Filter, Calendar as CalendarIcon, Settings, MoreHorizontal } from "lucide-react"
-import { mockReservations, mockRooms } from "@/lib/mock-data"
+import { mockReservations, mockRooms, mockWorkOrders } from "@/lib/mock-data"
 import { format, addDays, subDays } from "date-fns"
 import { Drawer, Modal, ConfirmDialog } from "@/components/ui/Feedback"
 import { formatCurrency } from "@/lib/formatters"
@@ -129,10 +129,19 @@ export default function ReservationsPage() {
                         ${booking.status === 'Checked In' ? 'bg-green-500/20 border-green-500/50 text-green-700 dark:text-green-300' : 
                           booking.status === 'Expected' ? 'bg-yellow-500/20 border-yellow-500/50 text-yellow-700 dark:text-yellow-300' : 
                           'bg-blue-500/20 border-blue-500/50 text-blue-700 dark:text-blue-300'}`}
-                      style={{ left: `${(parseInt(room.id.replace(/\\D/g, '')) % 3) * 7.14}%`, width: `${(2 + (parseInt(room.id.replace(/\\D/g, '')) % 3)) * 7.14}%` }}
+                      style={{ left: `${(parseInt(room.id.replace(/\D/g, '')) % 3) * 7.14}%`, width: `${(2 + (parseInt(room.id.replace(/\D/g, '')) % 3)) * 7.14}%` }}
                     >
                       <div className="font-semibold whitespace-nowrap">{booking.guestId}</div>
                       <div className="text-[10px] opacity-80">{booking.status}</div>
+                    </div>
+                  )}
+
+                  {mockWorkOrders.some(w => w.location === `Room ${room.number}` && w.ooo && w.status !== "Resolved") && (
+                    <div 
+                      className="absolute top-1.5 h-11 rounded-md border text-xs p-2 overflow-hidden shadow-sm z-20 bg-muted/90 border-border text-muted-foreground flex items-center justify-center font-bold"
+                      style={{ left: `0%`, width: `21.42%` }}
+                    >
+                      BLOCKED / OOO
                     </div>
                   )}
                 </div>
