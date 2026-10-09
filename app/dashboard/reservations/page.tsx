@@ -129,7 +129,7 @@ export default function ReservationsPage() {
                         ${booking.status === 'Checked In' ? 'bg-green-500/20 border-green-500/50 text-green-700 dark:text-green-300' : 
                           booking.status === 'Expected' ? 'bg-yellow-500/20 border-yellow-500/50 text-yellow-700 dark:text-yellow-300' : 
                           'bg-blue-500/20 border-blue-500/50 text-blue-700 dark:text-blue-300'}`}
-                      style={{ left: `${(Math.random() * 3) * 7.14}%`, width: `${(2 + Math.random() * 3) * 7.14}%` }}
+                      style={{ left: `${(parseInt(room.id.replace(/\\D/g, '')) % 3) * 7.14}%`, width: `${(2 + (parseInt(room.id.replace(/\\D/g, '')) % 3)) * 7.14}%` }}
                     >
                       <div className="font-semibold whitespace-nowrap">{booking.guestId}</div>
                       <div className="text-[10px] opacity-80">{booking.status}</div>
