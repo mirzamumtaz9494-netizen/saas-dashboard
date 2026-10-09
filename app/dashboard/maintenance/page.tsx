@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Plus, List, LayoutGrid, Filter, Download, Wrench, AlertTriangle, Clock, CheckCircle2, MoreVertical, Image as ImageIcon, Wind, Zap, Lock, Lightbulb, Box, Key, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card"
@@ -38,9 +38,9 @@ export default function MaintenancePage() {
   const [telemetryOpen, setTelemetryOpen] = useState(true)
   const [mounted, setMounted] = useState(false)
 
-  import("react").then(React => {
-    React.useEffect(() => setMounted(true), [])
-  })
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const columns = ["Reported", "Assigned & Dispatched", "In Verification", "Resolved"]
 
