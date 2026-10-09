@@ -61,7 +61,7 @@ export default function ReservationsPage() {
           </div>
           <div className="flex items-center gap-2 bg-muted/50 p-1 rounded-lg">
             {['Day', 'Week', '14 Days', 'Month'].map(v => (
-              <button key={v} onClick={() => setView(v)} className={\px-3 py-1 text-xs rounded-md font-medium transition-colors \\}>
+              <button key={v} onClick={() => setView(v)} className={`px-3 py-1 text-xs rounded-md font-medium transition-colors \`}>
                 {v}
               </button>
             ))}
@@ -98,7 +98,7 @@ export default function ReservationsPage() {
               {days.map((d, i) => (
                 <div key={i} className="flex-1 border-r border-border flex flex-col items-center justify-center p-1">
                   <span className="text-[10px] text-muted-foreground uppercase">{format(d, "EEE")}</span>
-                  <span className={\	ext-sm font-bold \\}>{format(d, "d")}</span>
+                  <span className={`	ext-sm font-bold \`}>{format(d, "d")}</span>
                 </div>
               ))}
             </div>
@@ -119,8 +119,8 @@ export default function ReservationsPage() {
                   {booking && (
                     <div 
                       onClick={() => handleBookingClick(booking)}
-                      className={\bsolute top-1.5 h-11 rounded-md border text-xs p-2 overflow-hidden shadow-sm cursor-pointer transition-transform hover:scale-[1.02] z-10
-                        \\}
+                      className={`bsolute top-1.5 h-11 rounded-md border text-xs p-2 overflow-hidden shadow-sm cursor-pointer transition-transform hover:scale-[1.02] z-10
+                        \`}
                       style={{ left: \\%\, width: \\%\ }}
                     >
                       <div className="font-semibold whitespace-nowrap">{booking.guestId}</div>

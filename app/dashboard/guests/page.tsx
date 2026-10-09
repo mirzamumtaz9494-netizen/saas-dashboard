@@ -52,7 +52,7 @@ export default function GuestsPage() {
           <div key={i} className="bg-card border border-border p-4 rounded-xl shadow-sm">
             <div className="text-sm text-muted-foreground mb-1">{stat.label}</div>
             <div className="text-2xl font-bold">{stat.value}</div>
-            <div className={\	ext-xs mt-1 \\}>{stat.trend}</div>
+            <div className={`	ext-xs mt-1 \`}>{stat.trend}</div>
           </div>
         ))}
       </div>
@@ -97,7 +97,7 @@ export default function GuestsPage() {
                   <td className="px-4 py-3">
                     <div className="flex gap-1.5 flex-wrap">
                       {guest.tags.map(tag => (
-                        <Badge key={tag} variant="outline" className={\	ext-[10px] uppercase \\}>{tag}</Badge>
+                        <Badge key={tag} variant="outline" className={`	ext-[10px] uppercase \`}>{tag}</Badge>
                       ))}
                     </div>
                   </td>
@@ -150,7 +150,7 @@ export default function GuestsPage() {
                 <p className="text-muted-foreground">{selectedGuest.email} • {selectedGuest.phone}</p>
                 <div className="flex gap-2 mt-2">
                   {selectedGuest.tags.map((tag: string) => (
-                    <Badge key={tag} variant="outline" className={\	ext-xs \\}>{tag}</Badge>
+                    <Badge key={tag} variant="outline" className={`	ext-xs \`}>{tag}</Badge>
                   ))}
                 </div>
               </div>

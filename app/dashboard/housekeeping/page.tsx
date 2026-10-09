@@ -91,7 +91,7 @@ export default function HousekeepingPage() {
                     <div 
                       key={room.id}
                       onClick={() => setSelectedRoom(room)}
-                      className={\cursor-pointer rounded-xl border p-3 flex flex-col transition-all hover:scale-105 \ \\}
+                      className={`cursor-pointer rounded-xl border p-3 flex flex-col transition-all hover:scale-105 \ \`}
                     >
                       <span className="font-bold text-lg leading-none">{room.number}</span>
                       <span className="text-[10px] mt-1 font-medium flex items-center">{getStatusIcon(room.status)} {room.status}</span>
