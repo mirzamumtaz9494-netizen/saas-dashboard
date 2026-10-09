@@ -180,6 +180,7 @@ export default function ReservationsPage() {
               <div className="bg-muted/30 p-3 rounded-lg border border-border">
                 <div className="text-xs text-muted-foreground mb-1">Balance</div>
                 <div className="font-semibold text-destructive">{formatCurrency(selectedBooking.balance)}</div>
+                <Button variant="link" className="p-0 h-auto text-xs mt-1" onClick={() => window.location.href = `/dashboard/billing?tab=invoices`}>View Invoice &rarr;</Button>
               </div>
             </div>
 

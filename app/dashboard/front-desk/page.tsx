@@ -301,7 +301,7 @@ export default function FrontDeskPage() {
                 <Button className="col-span-2 bg-success text-success-foreground hover:bg-success/90 h-12 text-base">Complete Check-In & Issue Key</Button>
               )}
               {selectedBooking.status === "Expected Departure" && (
-                <Button className="col-span-2 bg-primary text-primary-foreground h-12 text-base">Complete Check-Out</Button>
+                <Button className="col-span-2 bg-primary text-primary-foreground h-12 text-base" onClick={() => window.location.href = `/dashboard/billing?tab=folios`}>Open Folio & Check-Out</Button>
               )}
               {selectedBooking.status === "Checked In" && (
                 <>
