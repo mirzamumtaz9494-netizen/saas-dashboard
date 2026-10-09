@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Plus, List, LayoutGrid, Filter, Download, Wrench, AlertTriangle, Clock, CheckCircle2, MoreVertical, Image as ImageIcon, Wind, Zap, Lock, Lightbulb, Box, Key } from "lucide-react"
+import { Plus, List, LayoutGrid, Filter, Download, Wrench, AlertTriangle, Clock, CheckCircle2, MoreVertical, Image as ImageIcon, Wind, Zap, Lock, Lightbulb, Box, Key, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card"
 import { Badge } from "@/components/ui/Badge"
