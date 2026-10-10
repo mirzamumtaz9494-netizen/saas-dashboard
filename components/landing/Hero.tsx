@@ -24,10 +24,10 @@ export function Hero() {
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-          <Link href="/signup" className="w-full sm:w-auto bg-brand-gold text-brand-darker font-medium px-8 py-3.5 rounded-full hover:bg-brand-gold-light transition">
-            Start Your Free Trial
+          <Link href="/dashboard" className="w-full sm:w-auto bg-brand-gold text-brand-darker font-medium px-8 py-3.5 rounded-full hover:bg-brand-gold-light transition">
+            View Live Dashboard
           </Link>
-          <Link href="/demo" className="w-full sm:w-auto bg-transparent text-white font-medium px-8 py-3.5 rounded-full border border-white/20 hover:border-brand-gold hover:text-brand-gold transition">
+          <Link href="/dashboard" className="w-full sm:w-auto bg-transparent text-white font-medium px-8 py-3.5 rounded-full border border-white/20 hover:border-brand-gold hover:text-brand-gold transition">
             Schedule a Demo
           </Link>
         </div>

@@ -139,10 +139,10 @@ export function Navbar() {
           </div>
 
           <div className="hidden lg:flex items-center gap-4">
-            <Link href="/login" className="text-sm font-medium text-white hover:text-brand-gold px-4 py-2 rounded-full border border-white/20 hover:border-brand-gold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold">
+            <Link href="/dashboard" className="text-sm font-medium text-white hover:text-brand-gold px-4 py-2 rounded-full border border-white/20 hover:border-brand-gold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold">
               Sign In
             </Link>
-            <Link href="/signup" className="text-sm font-medium bg-brand-gold text-brand-darker px-5 py-2 rounded-full hover:bg-brand-gold-light transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2 focus-visible:ring-offset-brand-dark">
+            <Link href="/dashboard" className="text-sm font-medium bg-brand-gold text-brand-darker px-5 py-2 rounded-full hover:bg-brand-gold-light transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2 focus-visible:ring-offset-brand-dark">
               Get Started
             </Link>
           </div>
@@ -202,10 +202,10 @@ export function Navbar() {
           </div>
 
           <div className="flex flex-col gap-3 mt-8">
-            <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="w-full text-center text-sm font-medium text-white px-4 py-3 rounded-xl border border-white/20 hover:border-brand-gold transition">
+            <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)} className="w-full text-center text-sm font-medium text-white px-4 py-3 rounded-xl border border-white/20 hover:border-brand-gold transition">
               Sign In
             </Link>
-            <Link href="/signup" onClick={() => setMobileMenuOpen(false)} className="w-full text-center text-sm font-medium bg-brand-gold text-brand-darker px-5 py-3 rounded-xl hover:bg-brand-gold-light transition font-bold">
+            <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)} className="w-full text-center text-sm font-medium bg-brand-gold text-brand-darker px-5 py-3 rounded-xl hover:bg-brand-gold-light transition font-bold">
               Get Started
             </Link>
           </div>
