@@ -11,7 +11,7 @@ export function DashboardPreview() {
             <div className="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/50"></div>
           </div>
           <Image 
-            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80" 
+            src="/images/dashboard-mockup.jpg" 
             alt="GrandHotel property management dashboard showing occupancy and revenue metrics" 
             width={1200} 
             height={800} 
