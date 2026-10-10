@@ -295,7 +295,7 @@ export default function MaintenancePage() {
                       
                       <div className="flex flex-col items-center">
                         <div className="text-xs font-bold uppercase text-muted-foreground mb-2 self-start">HVAC Efficiency</div>
-                        <div className="relative w-32 h-32 rounded-full border-8 border-muted flex items-center justify-center">
+                        <div className="relative w-32 h-32 rounded-full border-0 border-muted flex items-center justify-center">
                           <svg className="absolute inset-0 w-full h-full -rotate-90">
                             <circle cx="56" cy="56" r="56" className="stroke-success fill-none" strokeWidth="8" strokeDasharray="351" strokeDashoffset="50" strokeLinecap="round" transform="translate(8,8)" />
                           </svg>
